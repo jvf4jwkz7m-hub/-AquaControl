@@ -5,273 +5,50 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b6e99">
 <title>AquaControl</title>
-
 <style>
-:root{
---blue:#0b6e99;
---blue2:#0d91b8;
---light:#eef8fc;
---dark:#12313f;
---green:#238b57;
---red:#c74b4b;
---orange:#e58a24;
---border:#d7e2e7
-}
-
+:root{--blue:#0b6e99;--blue2:#0d91b8;--light:#eef8fc;--dark:#12313f;--green:#238b57;--red:#c74b4b;--orange:#e58a24;--border:#d7e2e7}
 *{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#f5f8fa;
-color:var(--dark)
-}
-
-header{
-background:linear-gradient(135deg,var(--blue),var(--blue2));
-color:white;
-padding:28px 18px 22px;
-border-radius:0 0 24px 24px
-}
-
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f8fa;color:var(--dark)}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:28px 18px 22px;border-radius:0 0 24px 24px}
 h1{margin:0 0 6px;font-size:30px}
 h2{margin-top:6px}
 header p{margin:0;opacity:.9}
-
-nav{
-display:flex;
-gap:8px;
-padding:12px;
-overflow:auto;
-background:white;
-position:sticky;
-top:0;
-z-index:5;
-box-shadow:0 2px 8px #0001
-}
-
-nav button{
-border:0;
-background:#edf4f7;
-color:#31505d;
-padding:11px 15px;
-border-radius:20px;
-white-space:nowrap;
-font-weight:600
-}
-
-nav button.active{
-background:var(--blue);
-color:white
-}
-
-main{
-padding:16px;
-max-width:950px;
-margin:auto
-}
-
+nav{display:flex;gap:8px;padding:12px;overflow:auto;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
+nav button{border:0;background:#edf4f7;color:#31505d;padding:11px 15px;border-radius:20px;white-space:nowrap;font-weight:600}
+nav button.active{background:var(--blue);color:#fff}
+main{padding:16px;max-width:950px;margin:auto}
 .section{display:none}
 .section.active{display:block}
-
-.card{
-background:white;
-border-radius:18px;
-padding:16px;
-margin:12px 0;
-box-shadow:0 3px 14px #0000000d
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:12px
-}
-
-input,select{
-width:100%;
-padding:12px;
-border:1px solid var(--border);
-border-radius:12px;
-font-size:16px;
-background:white
-}
-
-input[readonly]{
-background:#eef7fa;
-font-weight:700;
-color:#174d60
-}
-
-label{
-display:block;
-font-weight:600;
-margin-bottom:5px
-}
-
-.btn{
-border:0;
-border-radius:12px;
-padding:11px 14px;
-background:var(--blue);
-color:white;
-font-weight:700;
-cursor:pointer
-}
-
+.card{background:#fff;border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 3px 14px #0000000d}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+input,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;font-size:16px;background:#fff}
+label{display:block;font-weight:600;margin-bottom:5px}
+.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}
 .btn.green{background:var(--green)}
 .btn.red{background:var(--red)}
-.btn.orange{background:var(--orange)}
-
-.row{
-display:flex;
-gap:8px;
-align-items:center;
-flex-wrap:wrap
-}
-
-.stat{
-font-size:24px;
-font-weight:800
-}
-
-.small{
-font-size:13px;
-color:#607782
-}
-
-.badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:10px;
-background:var(--light);
-color:var(--blue);
-font-size:12px;
-margin:3px
-}
-
-.item{
-border:1px solid #e2eaee;
-border-radius:15px;
-padding:14px;
-background:#fff
-}
-
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.stat{font-size:24px;font-weight:800}
+.small{font-size:13px;color:#607782}
+.badge{display:inline-block;padding:5px 9px;border-radius:10px;background:var(--light);color:var(--blue);font-size:12px;margin:3px}
+.item{border:1px solid #e2eaee;border-radius:15px;padding:14px;background:#fff}
 .item h3{margin:0 0 5px}
-
-.latin{
-font-style:italic;
-color:#607782;
-font-size:14px
-}
-
-.empty{
-text-align:center;
-color:#70838c;
-padding:30px
-}
-
-.good{
-background:#e8f7ee;
-color:#17663d;
-padding:12px;
-border-radius:12px;
-font-weight:600
-}
-
-.warning{
-background:#fff4df;
-color:#8a5a08;
-padding:12px;
-border-radius:12px;
-font-weight:600
-}
-
-.danger{
-background:#fdeaea;
-color:#8c2929;
-padding:12px;
-border-radius:12px;
-font-weight:600
-}
-
-.material{
-border:1px solid #dfe8ec;
-border-radius:14px;
-padding:14px;
-margin-top:10px;
-background:#fafcfd
-}
-
-.material-category{
-margin-top:18px;
-padding:10px 12px;
-border-radius:12px;
-background:#eef8fc;
-border:1px solid #cce5ee;
-font-weight:800;
-color:#0b6e99
-}
-
-.material-category:first-child{
-margin-top:0
-}
-
-.sump{
-background:#f1f9fc;
-border:1px solid #cce5ee;
-border-radius:14px;
-padding:14px;
-margin-top:12px
-}
-
-.measurement{
-border:1px solid #dfe8ec;
-border-radius:14px;
-padding:12px;
-margin-top:8px;
-background:#fafcfd
-}
-
-.home-tank{
-cursor:pointer;
-transition:.2s
-}
-
-.home-tank:active{
-transform:scale(.98)
-}
-
-.tank-open{
-outline:3px solid var(--blue);
-background:#f1fbff
-}
-
-.manufacturer{
-background:#f1f9fc;
-border:1px solid #cce5ee;
-border-radius:12px;
-padding:12px;
-margin-top:10px
-}
-
-.coverage{
-font-size:20px;
-font-weight:800;
-margin-top:8px
-}
-
-.product-note{
-font-size:12px;
-color:#607782;
-margin-top:6px
-}
-
-hr{
-border:0;
-border-top:1px solid #e5ecef;
-margin:18px 0
-}
+.latin{font-style:italic;color:#607782;font-size:14px}
+.empty{text-align:center;color:#70838c;padding:30px}
+.good{background:#e8f7ee;color:#17663d;padding:12px;border-radius:12px;font-weight:600}
+.warning{background:#fff4df;color:#8a5a08;padding:12px;border-radius:12px;font-weight:600}
+.danger{background:#fdeaea;color:#8c2929;padding:12px;border-radius:12px;font-weight:600}
+.material{border:1px solid #dfe8ec;border-radius:14px;padding:14px;margin-top:10px;background:#fafcfd}
+.sump{background:#f1f9fc;border:1px solid #cce5ee;border-radius:14px;padding:14px;margin-top:12px}
+.filter-section{border:1px solid #cce5ee;border-radius:14px;padding:14px;margin-top:12px;background:#f8fcfd}
+.category-title{margin:18px 0 8px;padding:10px 12px;border-radius:10px;background:#eaf6fa;color:var(--blue);font-size:17px;font-weight:700}
+.category-title:first-child{margin-top:12px}
+.category-total{font-size:12px;font-weight:600;color:#607782;margin-left:6px}
+hr{border:0;border-top:1px solid #e5ecef;margin:18px 0}
+.home-tank{cursor:pointer}
+.home-summary{margin-top:10px}
+.measurement{border:1px solid #dfe8ec;border-radius:14px;padding:12px;margin-top:8px;background:#fafcfd;min-height:58px}
+.measurement-values{margin-top:6px}
+.tank-card{scroll-margin-top:70px}
 </style>
 </head>
 
@@ -283,220 +60,100 @@ margin:18px 0
 </header>
 
 <nav>
-
-<button id="navInicio"
-class="active"
-onclick="showSection('inicio',this)">
-Inicio
-</button>
-
-<button id="navAcuarios"
-onclick="showSection('acuarios',this)">
-🏠 Mis acuarios
-</button>
-
-<button id="navPeces"
-onclick="showSection('peces',this)">
-🐟 Peces
-</button>
-
-<button id="navPlantas"
-onclick="showSection('plantas',this)">
-🌿 Plantas
-</button>
-
-<button id="navNuevo"
-onclick="showSection('nuevo',this)">
-➕ Nuevo acuario
-</button>
-
+<button id="navInicio" class="active" onclick="showSection('inicio',this)">Inicio</button>
+<button id="navPeces" onclick="showSection('peces',this)">🐟 Peces</button>
+<button id="navPlantas" onclick="showSection('plantas',this)">🌿 Plantas</button>
+<button id="navAcuarios" onclick="showSection('acuarios',this)">🏠 Mis acuarios</button>
 </nav>
 
 <main>
 
 <section id="inicio" class="section active">
-
 <div class="card">
-
 <h2>Mi AquaControl</h2>
-
 <div class="grid">
-
-<div>
-<div class="stat" id="tankCount">0</div>
-<div class="small">acuarios</div>
-</div>
-
-<div>
-<div class="stat" id="fishCount">200</div>
-<div class="small">peces disponibles</div>
-</div>
-
-<div>
-<div class="stat" id="plantCount">200</div>
-<div class="small">plantas disponibles</div>
-</div>
-
+<div><div class="stat" id="tankCount">0</div><div class="small">acuarios</div></div>
+<div><div class="stat" id="fishCount">200</div><div class="small">peces disponibles</div></div>
+<div><div class="stat" id="plantCount">200</div><div class="small">plantas disponibles</div></div>
 </div>
 </div>
 
 <div class="card">
-
 <h2>💾 Guardado automático</h2>
-
-<p>
-Los acuarios, peces, plantas, filtración, SUMP,
-materiales filtrantes y mediciones se guardan
-automáticamente en este dispositivo.
-</p>
-
+<p>Los acuarios y sus datos se guardan en este dispositivo.</p>
 </div>
-
-<h2>🏠 Mis acuarios</h2>
 
 <div id="homeTanks"></div>
-
 </section>
 
+<section id="peces" class="section">
+<h2>🐟 Base de datos de peces</h2>
+<div class="card">
+<input id="fishSearch" placeholder="🔍 Buscar pez..." oninput="renderFish()">
+</div>
+<div id="fishList" class="grid"></div>
+</section>
+
+<section id="plantas" class="section">
+<h2>🌿 Base de datos de plantas</h2>
+<div class="card">
+<input id="plantSearch" placeholder="🔍 Buscar planta..." oninput="renderPlants()">
+</div>
+<div id="plantList" class="grid"></div>
+</section>
 
 <section id="acuarios" class="section">
-
 <h2>🏠 Mis acuarios</h2>
 
-<p class="small">
-Aquí aparecen únicamente los acuarios que ya has creado.
-</p>
-
-<div id="tankList"></div>
-
-</section>
-
-
-<section id="nuevo" class="section">
-
-<h2>➕ Nuevo acuario</h2>
-
 <div class="card">
+<h3>➕ Crear acuario</h3>
 
 <div class="grid">
-
 <div>
 <label>Nombre</label>
-<input id="tankName" placeholder="Ej: Amazónico">
+<input id="tankName" placeholder="Ej: Acuario salón">
 </div>
 
 <div>
 <label>Litros</label>
-<input
-id="tankLiters"
-type="number"
-min="1"
-step="0.1"
-placeholder="Se calcula con las medidas">
+<input id="tankLiters" type="number" min="1" placeholder="Ej: 450">
 </div>
 
 <div>
 <label>Largo (cm)</label>
-<input
-id="tankLength"
-type="number"
-min="1"
-oninput="calculateNewTankLiters()">
+<input id="tankLength" type="number" min="1" oninput="calculateTankLiters()">
 </div>
 
 <div>
 <label>Ancho (cm)</label>
-<input
-id="tankWidth"
-type="number"
-min="1"
-oninput="calculateNewTankLiters()">
+<input id="tankWidth" type="number" min="1" oninput="calculateTankLiters()">
 </div>
 
 <div>
 <label>Alto (cm)</label>
-<input
-id="tankHeight"
-type="number"
-min="1"
-oninput="calculateNewTankLiters()">
+<input id="tankHeight" type="number" min="1" oninput="calculateTankLiters()">
+</div>
 </div>
 
-</div>
-
-<div
-id="newTankCalculation"
-class="manufacturer"
-style="margin-top:14px">
-
-📐 Introduce largo, ancho y alto para calcular
-automáticamente los litros.
-
-</div>
+<div id="tankCalc" class="small" style="margin-top:10px"></div>
 
 <br>
-
-<button
-class="btn green"
-onclick="addTank()">
-
-＋ Guardar acuario
-
-</button>
-
+<button class="btn green" onclick="addTank()">＋ Guardar acuario</button>
 </div>
 
-</section>
-
-
-<section id="peces" class="section">
-
-<h2>🐟 Base de datos de peces</h2>
-
-<div class="card">
-
-<input
-id="fishSearch"
-placeholder="🔍 Buscar pez..."
-oninput="renderFish()">
-
-</div>
-
-<div id="fishList" class="grid"></div>
-
-</section>
-
-
-<section id="plantas" class="section">
-
-<h2>🌿 Base de datos de plantas</h2>
-
-<div class="card">
-
-<input
-id="plantSearch"
-placeholder="🔍 Buscar planta..."
-oninput="renderPlants()">
-
-</div>
-
-<div id="plantList" class="grid"></div>
-
+<div id="tankList"></div>
 </section>
 
 </main>
 
-
 <script>
 "use strict";
 
-
 /* =========================================================
-PECES
+   BASE DE DATOS DE PECES
 ========================================================= */
 
 const fish=[
-
 {name:"Neón",latin:"Paracheirodon innesi",temp:"20–26 °C",ph:"5,0–7,5",size:"4 cm",min:"80 L",group:"8+",zone:"Media",difficulty:"Fácil"},
 {name:"Tetra cardenal",latin:"Paracheirodon axelrodi",temp:"23–28 °C",ph:"4,5–7,0",size:"4–5 cm",min:"100 L",group:"10+",zone:"Media",difficulty:"Media"},
 {name:"Borrachito",latin:"Hemigrammus rhodostomus",temp:"24–28 °C",ph:"5,0–7,0",size:"5 cm",min:"100 L",group:"8+",zone:"Media",difficulty:"Fácil"},
@@ -513,20 +170,17 @@ const fish=[
 {name:"Molly",latin:"Poecilia sphenops",temp:"24–28 °C",ph:"7,0–8,5",size:"8–12 cm",min:"100 L",group:"6+",zone:"Media",difficulty:"Fácil"},
 {name:"Betta",latin:"Betta splendens",temp:"24–30 °C",ph:"6,0–8,0",size:"6–7 cm",min:"20 L",group:"1",zone:"Superior",difficulty:"Fácil"},
 {name:"Rasbora arlequín",latin:"Trigonostigma heteromorpha",temp:"23–28 °C",ph:"5,0–7,0",size:"4–5 cm",min:"60 L",group:"8+",zone:"Media",difficulty:"Fácil"},
-{name:"Cebra danio",latin:"Danio rerio",temp:"18–26 °C",ph:"6,5–8,0",size:"4–5 cm",min:"60 L",group:"8+",zone:"Superior",difficulty:"Fácil"},
+{name:"Danio cebra",latin:"Danio rerio",temp:"18–26 °C",ph:"6,5–8,0",size:"4–5 cm",min:"60 L",group:"8+",zone:"Superior",difficulty:"Fácil"},
 {name:"Barbo cereza",latin:"Puntius titteya",temp:"23–27 °C",ph:"6,0–8,0",size:"5 cm",min:"60 L",group:"6+",zone:"Media",difficulty:"Fácil"},
 {name:"Colisa miel",latin:"Trichogaster chuna",temp:"24–30 °C",ph:"6,0–7,5",size:"5 cm",min:"60 L",group:"1–3",zone:"Superior",difficulty:"Media"},
 {name:"Arcoíris enano",latin:"Melanotaenia praecox",temp:"23–28 °C",ph:"6,5–8,0",size:"6 cm",min:"100 L",group:"6+",zone:"Media",difficulty:"Fácil"},
-{name:"Neritina",latin:"Neritina sp.",temp:"22–28 °C",ph:"7,0–8,5",size:"2–3 cm",min:"20 L",group:"1+",zone:"Superficial",difficulty:"Fácil"},
 {name:"Killifish",latin:"Aphyosemion spp.",temp:"20–25 °C",ph:"5,5–7,0",size:"4–6 cm",min:"40 L",group:"1+",zone:"Superior",difficulty:"Media"}
-
 ];
 
 for(let i=fish.length+1;i<=200;i++){
-
 fish.push({
-name:"Pez de acuario "+i,
-latin:"Aquarium species "+i,
+name:`Pez de acuario ${i}`,
+latin:`Aquarium species ${i}`,
 temp:"22–28 °C",
 ph:"6,0–8,0",
 size:"5–10 cm",
@@ -535,1627 +189,195 @@ group:"6+",
 zone:"Media",
 difficulty:"Fácil"
 });
-
 }
 
-
 /* =========================================================
-PLANTAS
+   BASE DE DATOS DE PLANTAS
 ========================================================= */
 
 const plants=[
-
 {name:"Anubias nana",latin:"Anubias barteri var. nana",light:"Baja–media",co2:"No necesario",size:"5–15 cm",zone:"Primer plano/medio",difficulty:"Fácil"},
-{name:"Anubias barteri",latin:"Anubias barteri",light:"Baja–media",co2:"No necesario",size:"20–40 cm",zone:"Medio/fondo",difficulty:"Fácil"},
+{name:"Anubias barteri",latin:"Anubias barteri",light:"Baja–media",co2:"No necesario",size:"15–30 cm",zone:"Medio",difficulty:"Fácil"},
+{name:"Bucephalandra",latin:"Bucephalandra spp.",light:"Baja–media",co2:"Opcional",size:"5–15 cm",zone:"Primer plano",difficulty:"Fácil"},
 {name:"Microsorum pteropus",latin:"Microsorum pteropus",light:"Baja–media",co2:"No necesario",size:"15–30 cm",zone:"Medio/fondo",difficulty:"Fácil"},
-{name:"Vallisneria",latin:"Vallisneria spiralis",light:"Media",co2:"Opcional",size:"30–60 cm",zone:"Fondo",difficulty:"Fácil"},
+{name:"Vallisneria spiralis",latin:"Vallisneria spiralis",light:"Media",co2:"Opcional",size:"30–60 cm",zone:"Fondo",difficulty:"Fácil"},
+{name:"Vallisneria gigantea",latin:"Vallisneria gigantea",light:"Media",co2:"Opcional",size:"50–100 cm",zone:"Fondo",difficulty:"Fácil"},
 {name:"Echinodorus amazonicus",latin:"Echinodorus grisebachii",light:"Media–alta",co2:"Recomendado",size:"30–50 cm",zone:"Fondo",difficulty:"Media"},
 {name:"Cryptocoryne wendtii",latin:"Cryptocoryne wendtii",light:"Baja–media",co2:"Opcional",size:"10–25 cm",zone:"Primer plano/medio",difficulty:"Fácil"},
+{name:"Cryptocoryne parva",latin:"Cryptocoryne parva",light:"Media",co2:"Recomendado",size:"5–10 cm",zone:"Primer plano",difficulty:"Media"},
 {name:"Hygrophila polysperma",latin:"Hygrophila polysperma",light:"Media",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Fácil"},
-{name:"Limnobium laevigatum",latin:"Limnobium laevigatum",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"},
-{name:"Bucephalandra",latin:"Bucephalandra sp.",light:"Baja–media",co2:"Opcional",size:"5–15 cm",zone:"Troncos/rocas",difficulty:"Fácil"},
-{name:"Java moss",latin:"Taxiphyllum barbieri",light:"Baja–media",co2:"Opcional",size:"Variable",zone:"Troncos/rocas",difficulty:"Fácil"},
-{name:"Christmas moss",latin:"Vesicularia montagnei",light:"Baja–media",co2:"Opcional",size:"Variable",zone:"Troncos/rocas",difficulty:"Fácil"},
-{name:"Monte Carlo",latin:"Micranthemum tweediei",light:"Media–alta",co2:"Recomendado",size:"3–5 cm",zone:"Primer plano",difficulty:"Media"},
-{name:"Eleocharis parvula",latin:"Eleocharis parvula",light:"Media–alta",co2:"Recomendado",size:"5–10 cm",zone:"Primer plano",difficulty:"Media"},
-{name:"Rotala rotundifolia",latin:"Rotala rotundifolia",light:"Media–alta",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Media"},
-{name:"Ludwigia repens",latin:"Ludwigia repens",light:"Media–alta",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Fácil"},
-{name:"Cabomba caroliniana",latin:"Cabomba caroliniana",light:"Media–alta",co2:"Opcional",size:"30–60 cm",zone:"Fondo",difficulty:"Media"},
 {name:"Limnophila sessiliflora",latin:"Limnophila sessiliflora",light:"Media",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Fácil"},
-{name:"Sagittaria subulata",latin:"Sagittaria subulata",light:"Media",co2:"Opcional",size:"10–30 cm",zone:"Primer plano/fondo",difficulty:"Fácil"},
-{name:"Amazon frogbit",latin:"Limnobium laevigatum",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"},
-{name:"Salvinia natans",latin:"Salvinia natans",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"}
-
+{name:"Rotala rotundifolia",latin:"Rotala rotundifolia",light:"Media–alta",co2:"Recomendado",size:"20–50 cm",zone:"Fondo",difficulty:"Media"},
+{name:"Ludwigia repens",latin:"Ludwigia repens",light:"Media–alta",co2:"Recomendado",size:"20–40 cm",zone:"Fondo",difficulty:"Media"},
+{name:"Monte Carlo",latin:"Micranthemum tweediei",light:"Media–alta",co2:"Recomendado",size:"3–8 cm",zone:"Primer plano",difficulty:"Media"},
+{name:"Eleocharis parvula",latin:"Eleocharis parvula",light:"Media–alta",co2:"Recomendado",size:"5–10 cm",zone:"Primer plano",difficulty:"Media"},
+{name:"Java moss",latin:"Taxiphyllum barbieri",light:"Baja–media",co2:"Opcional",size:"3–10 cm",zone:"Decoración",difficulty:"Fácil"},
+{name:"Christmas moss",latin:"Vesicularia montagnei",light:"Baja–media",co2:"Opcional",size:"3–10 cm",zone:"Decoración",difficulty:"Fácil"},
+{name:"Limnobium laevigatum",latin:"Limnobium laevigatum",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"},
+{name:"Pistia",latin:"Pistia stratiotes",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"},
+{name:"Salvinia",latin:"Salvinia natans",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"}
 ];
 
 for(let i=plants.length+1;i<=200;i++){
-
 plants.push({
-name:"Planta acuática "+i,
-latin:"Aquatic plant species "+i,
+name:`Planta de acuario ${i}`,
+latin:`Aquatic plant species ${i}`,
 light:"Media",
 co2:"Opcional",
-size:"10–40 cm",
+size:"10–30 cm",
 zone:"Medio/fondo",
 difficulty:"Fácil"
 });
-
 }
-
 
 /* =========================================================
-MATERIALES FILTRANTES
+   MATERIAL FILTRANTE
 ========================================================= */
 
-const manufacturerProducts=[
-
-{
-id:"seachem-matrix",
-brand:"Seachem",
-name:"Matrix",
-kind:"Biológico",
-unit:"L",
-coverage:800,
-packageText:"250 ml / 500 ml / 1 L / 2 L / 4 L",
-source:"Seachem: 250 ml por cada 200 L de agua."
-},
-
-{
-id:"seachem-zeolite",
-brand:"Seachem",
-name:"Zeolite",
-kind:"Químico",
-unit:"L",
-coverage:800,
-packageText:"100 ml / 250 ml / 500 ml / 1 L / 2 L / 4 L",
-source:"Seachem: 250 ml por cada 200 L de agua."
-},
-
-{
-id:"seachem-denitrate",
-brand:"Seachem",
-name:"de*nitrate",
-kind:"Biológico",
-unit:"L",
-coverage:0,
-packageText:"100 ml / 250 ml / 500 ml / 1 L / 2 L / 4 L",
-source:"Medio biológico poroso para filtración."
-},
-
-{
-id:"seachem-purigen",
-brand:"Seachem",
-name:"Purigen",
-kind:"Químico",
-unit:"L",
-coverage:4000,
-packageText:"100 ml / 250 ml / 500 ml",
-source:"Seachem: 250 ml para hasta 1.000 L."
-},
-
-{
-id:"seachem-matrixcarbon",
-brand:"Seachem",
-name:"MatrixCarbon",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"250 ml / 500 ml / 1 L / 2 L / 4 L",
-source:"Carbón activado."
-},
-
-{
-id:"seachem-phosguard",
-brand:"Seachem",
-name:"PhosGuard",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"100 ml / 250 ml / 500 ml / 1 L / 2 L",
-source:"Medio adsorbente para fosfato y silicato."
-},
-
-{
-id:"seachem-seagel",
-brand:"Seachem",
-name:"SeaGel",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"100 ml / 250 ml / 500 ml / 1 L",
-source:"Combinación de carbón y PhosGuard."
-},
-
-{
-id:"seachem-hypersorb",
-brand:"Seachem",
-name:"HyperSorb",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"100 ml / 250 ml / 500 ml / 1 L",
-source:"Resina adsorbente de materia orgánica."
-},
-
-{
-id:"seachem-pond-matrix",
-brand:"Seachem",
-name:"Pond Matrix",
-kind:"Biológico",
-unit:"L",
-coverage:378.5,
-packageText:"2 L / 4 L",
-source:"Seachem: 2 L para 200 US gallons. Convertido: aproximadamente 757 L de agua por 2 L."
-},
-
-{
-id:"seachem-reef-carbon",
-brand:"Seachem",
-name:"Reef Carbon",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"250 ml / 500 ml / 1 L",
-source:"Carbón activado."
-},
-
-{
-id:"seachem-reef-phosguard",
-brand:"Seachem",
-name:"Reef PhosGuard",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"100 ml / 250 ml / 500 ml / 1 L",
-source:"Medio adsorbente para fosfato y silicato."
-},
-
-{
-id:"sera-siporax",
-brand:"sera",
-name:"siporax Professional 15 mm",
-kind:"Biológico",
-unit:"L",
-coverage:200,
-packageText:"500 ml / 1 L / 10 L",
-source:"sera: 500 ml para 100 L; 1.000 ml para 200 L."
-},
-
-{
-id:"sera-siporax-mini-35",
-brand:"sera",
-name:"siporax mini Professional 35 g",
-kind:"Biológico",
-unit:"unidad",
-coverage:25,
-packageText:"35 g",
-source:"sera: 35 g para 25 L."
-},
-
-{
-id:"sera-siporax-mini-500",
-brand:"sera",
-name:"siporax mini Professional 500 ml",
-kind:"Biológico",
-unit:"L",
-coverage:200,
-packageText:"500 ml",
-source:"sera: 500 ml para 100 L."
-},
-
-{
-id:"sera-siporax-mini-1000",
-brand:"sera",
-name:"siporax mini Professional 1.000 ml",
-kind:"Biológico",
-unit:"L",
-coverage:200,
-packageText:"1.000 ml",
-source:"sera: 1.000 ml para 200 L."
-},
-
-{
-id:"sera-crystal-clear",
-brand:"sera",
-name:"crystal clear Professional",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Material de filtración mecánica."
-},
-
-{
-id:"sera-biofibras-finas",
-brand:"sera",
-name:"biofibras finas",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Fibra filtrante fina."
-},
-
-{
-id:"sera-biofibras-gruesas",
-brand:"sera",
-name:"biofibras gruesas",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Fibra filtrante gruesa."
-},
-
-{
-id:"sera-biopur",
-brand:"sera",
-name:"biopur",
-kind:"Mecánico/Biológico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio poroso para filtración mecánica y biológica."
-},
-
-{
-id:"sera-super-carbon",
-brand:"sera",
-name:"super carbon",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Carbón activado."
-},
-
-{
-id:"sera-phosvec-granulat",
-brand:"sera",
-name:"phosvec Granulat",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio adsorbente para reducción de fosfatos."
-},
-
-{
-id:"sera-super-peat",
-brand:"sera",
-name:"super peat",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Turba para filtración."
-},
-
-{
-id:"sera-silicate-clear",
-brand:"sera",
-name:"silicate clear",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio adsorbente para silicatos."
-},
-
-{
-id:"marinepure-block",
-brand:"MarinePure",
-name:"MarinePure Block",
-kind:"Biológico",
-unit:"unidad",
-coverage:1892.7,
-packageText:"1 Block",
-source:"CerMedia: 1 Block para 500 US gallons en flujo activo.",
-dimensions:"20,32 × 20,32 × 10,16 cm"
-},
-
-{
-id:"marinepure-spheres",
-brand:"MarinePure",
-name:"MarinePure Spheres",
-kind:"Biológico",
-unit:"L",
-coverage:500,
-packageText:"2 quarts / 1 gallon / 5 gallons / 15 gallons",
-source:"CerMedia: 1 gallon para 500 US gallons en flujo activo.",
-dimensions:"Diámetro aproximado: 3,81 cm"
-},
-
-{
-id:"marinepure-gems",
-brand:"MarinePure",
-name:"MarinePure GEMs",
-kind:"Biológico",
-unit:"paquete",
-coverage:283.9,
-packageText:"90 g",
-source:"CerMedia: 90 g para hasta 75 US gallons.",
-dimensions:"Formato: 90 g"
-},
-
-{
-id:"marinepure-pods-3",
-brand:"MarinePure",
-name:"MarinePure PODs",
-kind:"Biológico",
-unit:"paquete",
-coverage:378.5,
-packageText:"3 PODs",
-source:"CerMedia: 3 PODs para 100 US gallons.",
-dimensions:"Diámetro aproximado: 7,87 cm"
-},
-
-{
-id:"marinepure-pods-24",
-brand:"MarinePure",
-name:"MarinePure PODs",
-kind:"Biológico",
-unit:"paquete",
-coverage:2839.1,
-packageText:"24 PODs",
-source:"CerMedia: 24 PODs para 750 US gallons.",
-dimensions:"Diámetro aproximado: 7,87 cm"
-},
-
-{
-id:"marinepure-plate",
-brand:"MarinePure",
-name:"MarinePure Plate",
-kind:"Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"1 Plate",
-source:"CerMedia: Plate de 8 × 8 × 1 pulgadas.",
-dimensions:"20,32 × 20,32 × 2,54 cm"
-},
-
-{
-id:"eheim-substratpro",
-brand:"EHEIM",
-name:"SUBSTRATpro",
-kind:"Biológico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio biológico poroso de EHEIM."
-},
-
-{
-id:"eheim-substrat",
-brand:"EHEIM",
-name:"SUBSTRAT",
-kind:"Biológico",
-unit:"L",
-coverage:0,
-packageText:"1 L / 2 L / 5 L",
-source:"Medio biológico poroso de EHEIM."
-},
-
-{
-id:"eheim-biomech",
-brand:"EHEIM",
-name:"bioMECH",
-kind:"Mecánico/Biológico",
-unit:"L",
-coverage:0,
-packageText:"1 L / 2 L / 5 L",
-source:"Medio de estructura abierta para filtración mecánica y biológica."
-},
-
-{
-id:"eheim-mech",
-brand:"EHEIM",
-name:"MECH",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Material mecánico de EHEIM."
-},
-
-{
-id:"eheim-mechpro",
-brand:"EHEIM",
-name:"MECHpro",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Material mecánico de EHEIM."
-},
-
-{
-id:"eheim-fix",
-brand:"EHEIM",
-name:"FIX",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Material de filtración mecánica."
-},
-
-{
-id:"eheim-synth",
-brand:"EHEIM",
-name:"SYNTH",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Material sintético para filtración mecánica."
-},
-
-{
-id:"eheim-lav",
-brand:"EHEIM",
-name:"LAV",
-kind:"Biológico",
-unit:"L",
-coverage:0,
-packageText:"1 L / 5 L",
-source:"Medio biológico mineral de EHEIM."
-},
-
-{
-id:"eheim-aktiv",
-brand:"EHEIM",
-name:"AKTIV",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Carbón activado."
-},
-
-{
-id:"eheim-phosphateout",
-brand:"EHEIM",
-name:"phosphateout",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio adsorbente para reducción de fosfatos."
-},
-
-{
-id:"tetra-ff-filterfloss",
-brand:"Tetra",
-name:"FF FilterFloss",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Material de filtración mecánica de Tetra."
-},
-
-{
-id:"tetra-bf-biofoam",
-brand:"Tetra",
-name:"BF BioFoam",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Espuma filtrante para filtración mecánica y soporte biológico."
-},
-
-{
-id:"tetra-filterwool",
-brand:"Tetra",
-name:"FilterWool / lana filtrante",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Lana filtrante."
-},
-
-{
-id:"tetra-foam-fina",
-brand:"Tetra",
-name:"Espuma fina",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Espuma filtrante fina."
-},
-
-{
-id:"tetra-foam-gruesa",
-brand:"Tetra",
-name:"Espuma gruesa",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Espuma filtrante gruesa."
-},
-
-{
-id:"tetra-cf-carbon",
-brand:"Tetra",
-name:"CF Carbon",
-kind:"Químico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Carbón activado."
-},
-
-{
-id:"tetra-phosphateminus",
-brand:"Tetra",
-name:"PhosphateMinus",
-kind:"Químico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio para reducción de fosfatos."
-},
-
-{
-id:"jbl-symec",
-brand:"JBL",
-name:"Symec",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Fibra filtrante."
-},
-
-{
-id:"jbl-symecmicro",
-brand:"JBL",
-name:"SymecMicro",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Fibra filtrante fina."
-},
-
-{
-id:"jbl-symecxl",
-brand:"JBL",
-name:"Symec XL",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Material de filtración mecánica."
-},
-
-{
-id:"jbl-combibloc",
-brand:"JBL",
-name:"CombiBloc",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Bloque filtrante con función mecánica y biológica."
-},
-
-{
-id:"jbl-carbomec",
-brand:"JBL",
-name:"Carbomec activ",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Carbón activado."
-},
-
-{
-id:"jbl-carbomec-ultra",
-brand:"JBL",
-name:"Carbomec ultra",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Carbón activado de alta capacidad."
-},
-
-{
-id:"jbl-phosex-ultra",
-brand:"JBL",
-name:"PhosEx ultra",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio adsorbente para fosfatos."
-},
-
-{
-id:"jbl-nitratex",
-brand:"JBL",
-name:"NitratEx",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio para reducción de nitratos."
-},
-
-{
-id:"jbl-bionitratex",
-brand:"JBL",
-name:"BioNitratEx",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio específico para control de nitratos."
-},
-
-{
-id:"jbl-clearmec",
-brand:"JBL",
-name:"ClearMec plus",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio combinado para diferentes contaminantes."
-},
-
-{
-id:"jbl-silicatex",
-brand:"JBL",
-name:"SilicatEx rapid",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio adsorbente para silicatos."
-},
-
-{
-id:"jbl-tormec",
-brand:"JBL",
-name:"Tormec activ",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Turba activada para filtración."
-},
-
-{
-id:"jbl-superclear",
-brand:"JBL",
-name:"ProCristal SuperClear",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Material de filtración mecánica."
-},
-
-{
-id:"fluval-106-107-biofoam",
-brand:"Fluval",
-name:"106 / 107 Bio-Foam",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo de filtro",
-source:"Espuma filtrante para filtros Fluval."
-},
-
-{
-id:"fluval-fx-biofoam",
-brand:"Fluval",
-name:"FX4 / FX5 / FX6 Bio-Foam",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo de filtro",
-source:"Espuma filtrante para filtros Fluval FX."
-},
-
-{
-id:"fluval-ac50-biofoam",
-brand:"Fluval",
-name:"AC50 Bio-Foam",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo de filtro",
-source:"Espuma filtrante para AquaClear."
-},
-
-{
-id:"fluval-spec-evo-flex",
-brand:"Fluval",
-name:"Spec / Evo / Flex Foam",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo",
-source:"Espuma filtrante para filtros Fluval Spec, Evo y Flex."
-},
-
-{
-id:"fluval-clearmax",
-brand:"Fluval",
-name:"ClearMax",
-kind:"Químico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo",
-source:"Medio químico."
-},
-
-{
-id:"fluval-activated-carbon",
-brand:"Fluval",
-name:"Activated Carbon",
-kind:"Químico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según filtro",
-source:"Carbón activado."
-},
-
-{
-id:"fluval-phosphate-remover",
-brand:"Fluval",
-name:"Phosphate Remover",
-kind:"Químico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio adsorbente para fosfatos."
-},
-
-{
-id:"oase-biomaster-20",
-brand:"OASE",
-name:"BioMaster Filter Foam 20 PPI",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo BioMaster",
-source:"Espuma filtrante OASE de 20 PPI."
-},
-
-{
-id:"oase-biomaster-30",
-brand:"OASE",
-name:"BioMaster Filter Foam 30 PPI",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo BioMaster",
-source:"Espuma filtrante OASE de 30 PPI."
-},
-
-{
-id:"oase-prefilter-10",
-brand:"OASE",
-name:"BioMaster Prefilter Foam 10 PPI",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo BioMaster",
-source:"Espuma de prefiltro OASE de 10 PPI."
-},
-
-{
-id:"oase-prefilter-30",
-brand:"OASE",
-name:"BioMaster Prefilter Foam 30 PPI",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo BioMaster",
-source:"Espuma de prefiltro OASE de 30 PPI."
-},
-
-{
-id:"oase-prefilter-45",
-brand:"OASE",
-name:"BioMaster Prefilter Foam 45 PPI",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo BioMaster",
-source:"Espuma de prefiltro OASE de 45 PPI."
-},
-
-{
-id:"oase-prefilter-60",
-brand:"OASE",
-name:"BioMaster Prefilter Foam 60 PPI",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo BioMaster",
-source:"Espuma de prefiltro OASE de 60 PPI."
-},
-
-{
-id:"oase-filtosmart",
-brand:"OASE",
-name:"FiltoSmart Filter Foam",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo FiltoSmart",
-source:"Espuma filtrante OASE."
-},
-
-{
-id:"oase-bioplus",
-brand:"OASE",
-name:"BioPlus Filter Foam",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según modelo",
-source:"Espuma filtrante OASE."
-},
-
-{
-id:"oase-phosless",
-brand:"OASE",
-name:"Phosless",
-kind:"Químico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio para reducción de fosfatos."
-},
-
-{
-id:"aquael-woolmax",
-brand:"AQUAEL",
-name:"WoolMax Pro",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Fibra filtrante."
-},
-
-{
-id:"aquael-sponge-asap",
-brand:"AQUAEL",
-name:"SPONGE ASAP",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Según filtro",
-source:"Esponja para filtración mecánica y soporte biológico."
-},
-
-{
-id:"aquael-sponge-fan",
-brand:"AQUAEL",
-name:"SPONGE FAN",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Según filtro",
-source:"Esponja para filtración mecánica y soporte biológico."
-},
-
-{
-id:"aquael-sponge-fzn",
-brand:"AQUAEL",
-name:"SPONGE FZN",
-kind:"Mecánico/Biológico",
-unit:"unidad",
-coverage:0,
-packageText:"Según filtro",
-source:"Esponja para filtración mecánica y soporte biológico."
-},
-
-{
-id:"aquael-multikani-high",
-brand:"AQUAEL",
-name:"SPONGE HIGH DENSITY MULTIKANI 800",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según filtro",
-source:"Esponja de alta densidad."
-},
-
-{
-id:"aquael-multikani-low",
-brand:"AQUAEL",
-name:"SPONGE LOW DENSITY MULTIKANI 800",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Según filtro",
-source:"Esponja de baja densidad."
-},
-
-{
-id:"aquael-carbo-max",
-brand:"AQUAEL",
-name:"CARBO MAX PLUS",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Carbón activado."
-},
-
-{
-id:"aquael-phosminus",
-brand:"AQUAEL",
-name:"PHOSMINUS",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Presentaciones según catálogo",
-source:"Medio para reducción de fosfatos."
-},
-
-{
-id:"generic-perlon",
-brand:"Genérico",
-name:"Perlón / fibra filtrante blanca",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel / diferentes espesores",
-source:"Material mecánico genérico."
-},
-
-{
-id:"generic-perlon-fino",
-brand:"Genérico",
-name:"Perlón fino",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel",
-source:"Filtración mecánica fina."
-},
-
-{
-id:"generic-perlon-extra",
-brand:"Genérico",
-name:"Perlón extrafino",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel",
-source:"Filtración mecánica extrafina."
-},
-
-{
-id:"generic-filter-floss",
-brand:"Genérico",
-name:"Fibra filtrante / Filter Floss",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel",
-source:"Fibra filtrante mecánica."
-},
-
-{
-id:"generic-sponge-10-20",
-brand:"Genérico",
-name:"Esponja filtrante gruesa 10–20 PPI",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja de poro grueso."
-},
-
-{
-id:"generic-sponge-20-30",
-brand:"Genérico",
-name:"Esponja filtrante media 20–30 PPI",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja de poro medio."
-},
-
-{
-id:"generic-sponge-30-45",
-brand:"Genérico",
-name:"Esponja filtrante fina 30–45 PPI",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja de poro fino."
-},
-
-{
-id:"generic-sponge-45-60",
-brand:"Genérico",
-name:"Esponja filtrante extrafina 45–60 PPI",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja de poro extrafino."
-},
-
-{
-id:"generic-manta-blue",
-brand:"Genérico",
-name:"Manta filtrante azul",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel / planchas",
-source:"Material filtrante mecánico."
-},
-
-{
-id:"generic-manta-white",
-brand:"Genérico",
-name:"Manta filtrante blanca",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel / planchas",
-source:"Material filtrante mecánico."
-},
-
-{
-id:"generic-manta-green",
-brand:"Genérico",
-name:"Manta filtrante verde",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"A granel / planchas",
-source:"Material filtrante mecánico."
-},
-
-{
-id:"generic-sponge-blue-thick",
-brand:"Genérico",
-name:"Esponja azul gruesa",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja mecánica de poro grueso."
-},
-
-{
-id:"generic-sponge-blue-medium",
-brand:"Genérico",
-name:"Esponja azul media",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja mecánica de poro medio."
-},
-
-{
-id:"generic-sponge-blue-fine",
-brand:"Genérico",
-name:"Esponja azul fina",
-kind:"Mecánico",
-unit:"L",
-coverage:0,
-packageText:"Planchas / bloques",
-source:"Esponja mecánica de poro fino."
-},
-
-{
-id:"generic-pad",
-brand:"Genérico",
-name:"Almohadilla filtrante mecánica",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Diferentes tamaños",
-source:"Material mecánico genérico."
-},
-
-{
-id:"generic-sock-100",
-brand:"Genérico",
-name:"Calcetín filtrante 100 micras",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Diferentes tamaños",
-source:"Calcetín filtrante de 100 micras."
-},
-
-{
-id:"generic-sock-200",
-brand:"Genérico",
-name:"Calcetín filtrante 200 micras",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Diferentes tamaños",
-source:"Calcetín filtrante de 200 micras."
-},
-
-{
-id:"generic-sock-300",
-brand:"Genérico",
-name:"Calcetín filtrante 300 micras",
-kind:"Mecánico",
-unit:"unidad",
-coverage:0,
-packageText:"Diferentes tamaños",
-source:"Calcetín filtrante de 300 micras."
-},
-
-{
-id:"generic-carbon",
-brand:"Genérico",
-name:"Carbón activado",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"A granel / diferentes granulometrías",
-source:"Material químico genérico."
-},
-
-{
-id:"generic-zeolite",
-brand:"Genérico",
-name:"Zeolita",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"A granel",
-source:"Medio adsorbente."
-},
-
-{
-id:"generic-phosphate",
-brand:"Genérico",
-name:"Removedor de fosfatos",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Granulado / bolsas",
-source:"Medio adsorbente para reducción de fosfatos."
-},
-
-{
-id:"generic-nitrate",
-brand:"Genérico",
-name:"Resina eliminadora de nitratos",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Bolsas / cartuchos",
-source:"Resina para reducción de nitratos."
-},
-
-{
-id:"generic-silicate",
-brand:"Genérico",
-name:"Removedor de silicatos",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Granulado / bolsas",
-source:"Medio adsorbente para reducción de silicatos."
-},
-
-{
-id:"generic-purifying-resin",
-brand:"Genérico",
-name:"Resina purificadora",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Bolsas / cartuchos",
-source:"Resina adsorbente."
-},
-
-{
-id:"generic-peat",
-brand:"Genérico",
-name:"Turba para filtración",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Bolsas / granulado",
-source:"Turba para filtración."
-},
-
-{
-id:"generic-alumina",
-brand:"Genérico",
-name:"Alúmina adsorbente",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Granulado",
-source:"Medio adsorbente."
-},
-
-{
-id:"generic-alumina-phosphate",
-brand:"Genérico",
-name:"Alúmina para fosfatos",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Granulado",
-source:"Medio adsorbente para fosfatos."
-},
-
-{
-id:"generic-heavy-metals",
-brand:"Genérico",
-name:"Medio eliminador de metales pesados",
-kind:"Químico",
-unit:"L",
-coverage:0,
-packageText:"Granulado / resina",
-source:"Medio adsorbente."
-}
-
+const filterProducts=[
+{name:"Matrix",brand:"Seachem",kind:"Biológico",liters:1},
+{name:"Pond Matrix",brand:"Seachem",kind:"Biológico",liters:1},
+{name:"De*Nitrate",brand:"Seachem",kind:"Biológico",liters:1},
+{name:"Siporax",brand:"sera",kind:"Biológico",liters:1},
+{name:"Siporax Professional",brand:"sera",kind:"Biológico",liters:1},
+{name:"Substrat Pro",brand:"EHEIM",kind:"Biológico",liters:1},
+{name:"Substrat",brand:"EHEIM",kind:"Biológico",liters:1},
+{name:"BioHome Ultimate",brand:"Biohome",kind:"Biológico",liters:1},
+{name:"MarinePure Gems",brand:"MarinePure",kind:"Biológico",liters:1},
+{name:"MarinePure Block",brand:"MarinePure",kind:"Biológico",liters:8.5},
+{name:"MarinePure Plate",brand:"MarinePure",kind:"Biológico",liters:1},
+{name:"Hel-X",brand:"OASE",kind:"Biológico",liters:1},
+{name:"Bio Rio",brand:"ADA",kind:"Biológico",liters:1},
+{name:"Biohome Plus",brand:"Biohome",kind:"Biológico",liters:1},
+
+{name:"Filter Floss",brand:"EHEIM",kind:"Mecánico",liters:1},
+{name:"Filter Pad",brand:"Fluval",kind:"Mecánico",liters:1},
+{name:"Perlon",brand:"JBL",kind:"Mecánico",liters:1},
+{name:"Foam Pad",brand:"OASE",kind:"Mecánico",liters:1},
+{name:"Blue Sponge",brand:"sera",kind:"Mecánico",liters:1},
+
+{name:"MatrixCarbon",brand:"Seachem",kind:"Mecánico/Biológico",liters:1},
+{name:"BioMech",brand:"EHEIM",kind:"Mecánico/Biológico",liters:1},
+{name:"BioCeraMAX",brand:"AQUAEL",kind:"Mecánico/Biológico",liters:1},
+
+{name:"Purigen",brand:"Seachem",kind:"Químico",liters:0.1},
+{name:"MatrixCarbon",brand:"Seachem",kind:"Químico",liters:1},
+{name:"PhosGuard",brand:"Seachem",kind:"Químico",liters:1},
+{name:"ClearMec",brand:"JBL",kind:"Químico",liters:1},
+{name:"Carbon",brand:"EHEIM",kind:"Químico",liters:1},
+{name:"Activated Carbon",brand:"Fluval",kind:"Químico",liters:1}
 ];
 
-
 /* =========================================================
-BOMBAS DE SUBIDA
+   DATOS
 ========================================================= */
 
-const returnPumps=[
-
-{brand:"Blau Aquaristic",model:"Reef Motion 1.5KDC",flow:1800},
-{brand:"Blau Aquaristic",model:"Reef Motion 2.3 KDC",flow:2300},
-{brand:"Blau Aquaristic",model:"Reef Motion 4KDC",flow:4000},
-{brand:"Blau Aquaristic",model:"Reef Motion 8KDC",flow:8000},
-{brand:"Blau Aquaristic",model:"Reef Motion 12 KDC",flow:12000},
-
-{brand:"EHEIM",model:"Universal 1005",flow:270},
-{brand:"EHEIM",model:"Universal 300",flow:300},
-{brand:"EHEIM",model:"Universal 600",flow:600},
-{brand:"EHEIM",model:"Universal 1200",flow:1200},
-{brand:"EHEIM",model:"Universal 2400",flow:2400},
-{brand:"EHEIM",model:"Universal 3400",flow:3400},
-
-{brand:"Jebao / Jecod",model:"DCP-2500",flow:2500},
-{brand:"Jebao / Jecod",model:"DCP-3500",flow:3500},
-{brand:"Jebao / Jecod",model:"DCP-5000",flow:5000},
-{brand:"Jebao / Jecod",model:"DCP-6500",flow:6500},
-{brand:"Jebao / Jecod",model:"DCP-8000",flow:8000},
-{brand:"Jebao / Jecod",model:"DCP-10000",flow:10000},
-{brand:"Jebao / Jecod",model:"DCP-13000",flow:13000},
-{brand:"Jebao / Jecod",model:"DCP-15000",flow:15000},
-{brand:"Jebao / Jecod",model:"DCP-18000",flow:18000},
-{brand:"Jebao / Jecod",model:"DCP-20000",flow:20000},
-
-{brand:"SICCE",model:"Syncra Silent 0.5",flow:700},
-{brand:"SICCE",model:"Syncra Silent 1.0",flow:950},
-{brand:"SICCE",model:"Syncra Silent 1.5",flow:1350},
-{brand:"SICCE",model:"Syncra Silent 2.0",flow:2150},
-{brand:"SICCE",model:"Syncra Silent 2.5",flow:2400},
-{brand:"SICCE",model:"Syncra Silent 3.0",flow:2700},
-{brand:"SICCE",model:"Syncra Silent 3.5",flow:2500},
-{brand:"SICCE",model:"Syncra Silent 4.0",flow:3500},
-{brand:"SICCE",model:"Syncra Silent 5.0",flow:5000},
-
-{brand:"Tunze",model:"Silence 1073.008",flow:800},
-{brand:"Tunze",model:"Silence 1073.020",flow:2400},
-{brand:"Tunze",model:"Silence 1073.040",flow:3000},
-{brand:"Tunze",model:"Silence 1073.050",flow:3000},
-{brand:"Tunze",model:"Silence 1073.060",flow:3000},
-
-{brand:"Maxspect",model:"MJ-DC6K",flow:6000},
-{brand:"Maxspect",model:"MJ-DC8K",flow:8000},
-{brand:"Maxspect",model:"MJ-DC10K",flow:10000},
-{brand:"Maxspect",model:"MJ-DC12K",flow:12000},
-
-{brand:"D-D",model:"Funktion FP2000",flow:2000},
-{brand:"D-D",model:"Funktion FP3500",flow:3500},
-{brand:"D-D",model:"Funktion FP5000",flow:5000},
-{brand:"D-D",model:"Funktion FP6500",flow:6500},
-{brand:"D-D",model:"Funktion FP10000",flow:10000},
-{brand:"D-D",model:"Funktion FP15000",flow:15000},
-{brand:"D-D",model:"Funktion FP20000",flow:20000},
-
-{brand:"Aqua Illumination",model:"AI Axis 20",flow:700},
-{brand:"Aqua Illumination",model:"AI Axis 40",flow:1500},
-{brand:"Aqua Illumination",model:"AI Axis 90",flow:3500},
-
-{brand:"EcoTech Marine",model:"Vectra S2",flow:5300},
-{brand:"EcoTech Marine",model:"Vectra M2",flow:7600},
-{brand:"EcoTech Marine",model:"Vectra L2",flow:11700},
-
-{brand:"Red Sea",model:"ReefRun G2 4000",flow:4000},
-{brand:"Red Sea",model:"ReefRun G2 6000",flow:6500},
-{brand:"Red Sea",model:"ReefRun G2 8000",flow:8300},
-{brand:"Red Sea",model:"ReefRun G2 12000",flow:12000},
-
-{brand:"Hydor",model:"Seltz D DC 2000",flow:2000},
-{brand:"Hydor",model:"Seltz D DC 3000",flow:3000},
-{brand:"Hydor",model:"Seltz D DC 4000",flow:4000},
-
-{brand:"Aqua Medic",model:"DC Runner 1.3",flow:1200},
-{brand:"Aqua Medic",model:"DC Runner 2.3",flow:2000},
-{brand:"Aqua Medic",model:"DC Runner 3.3",flow:3000},
-{brand:"Aqua Medic",model:"DC Runner 5.3",flow:5000},
-{brand:"Aqua Medic",model:"DC Runner 9.3",flow:9000},
-
-{brand:"Neptune Systems",model:"COR-15",flow:5700},
-{brand:"Neptune Systems",model:"COR-20",flow:7600},
-
-{brand:"Oase",model:"OptiMax 800",flow:800},
-{brand:"Oase",model:"OptiMax 1000",flow:1000},
-{brand:"Oase",model:"OptiMax 2000",flow:2000},
-{brand:"Oase",model:"OptiMax 3000",flow:2800},
-{brand:"Oase",model:"OptiMax 4000",flow:4400},
-{brand:"Oase",model:"OptiMax 5000",flow:5000}
-
-];
-
-
-/* =========================================================
-DATOS ACUARIOS
-========================================================= */
-
-let tanks=loadTanks();
-
-function loadTanks(){
-
-try{
-return JSON.parse(
-localStorage.getItem("aquacontrol_tanks")||"[]"
-);
-}catch(e){
-return[];
-}
-
-}
+let tanks=JSON.parse(localStorage.getItem("aquacontrol_tanks")||"[]");
 
 function saveTanks(){
-
-localStorage.setItem(
-"aquacontrol_tanks",
-JSON.stringify(tanks)
-);
-
+localStorage.setItem("aquacontrol_tanks",JSON.stringify(tanks));
 }
-
-
-/* =========================================================
-NAVEGACIÓN
-========================================================= */
-
-function showSection(id,btn){
-
-document.querySelectorAll(".section")
-.forEach(x=>x.classList.remove("active"));
-
-const section=document.getElementById(id);
-
-if(section){
-section.classList.add("active");
-}
-
-document.querySelectorAll("nav button")
-.forEach(x=>x.classList.remove("active"));
-
-if(btn){
-btn.classList.add("active");
-}
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-if(id==="peces")renderFish();
-if(id==="plantas")renderPlants();
-if(id==="acuarios")renderTanks();
-if(id==="inicio")renderHome();
-
-}
-
-
-/* =========================================================
-LITROS AUTOMÁTICOS
-========================================================= */
-
-function calculateNewTankLiters(){
-
-const l=
-Number(document.getElementById("tankLength").value)||0;
-
-const w=
-Number(document.getElementById("tankWidth").value)||0;
-
-const h=
-Number(document.getElementById("tankHeight").value)||0;
-
-const box=
-document.getElementById("newTankCalculation");
-
-if(l&&w&&h){
-
-const liters=(l*w*h)/1000;
-
-document.getElementById("tankLiters").value=
-liters.toFixed(1);
-
-box.innerHTML=
-`
-📐 Volumen calculado:
-<strong>${liters.toFixed(1)} litros</strong>
-<br>
-<span class="small">
-Largo × ancho × alto ÷ 1000
-</span>
-`;
-
-}else{
-
-box.innerHTML=
-"📐 Introduce largo, ancho y alto para calcular automáticamente los litros.";
-
-}
-
-}
-
-
-/* =========================================================
-DATOS INTERNOS ACUARIO
-========================================================= */
 
 function ensureTankData(t){
+if(!Array.isArray(t.fish))t.fish=[];
+if(!Array.isArray(t.plants))t.plants=[];
+if(!Array.isArray(t.measurements))t.measurements=[];
 
-if(!Array.isArray(t.fish))
-t.fish=[];
-
-if(!Array.isArray(t.plants))
-t.plants=[];
-
-if(!Array.isArray(t.measurements))
-t.measurements=[];
-
-if(!t.filter){
-
-t.filter={
-type:"",
-brand:"",
-model:"",
-pumpBrand:"",
-pumpModel:"",
-pumpMaxFlow:0,
-flow:0,
-materials:[],
-sump:{
-length:0,
-width:0,
-height:0,
-liters:0
-}
-};
-
-}
+if(!t.filter)t.filter={};
 
 if(!Array.isArray(t.filter.materials))
 t.filter.materials=[];
 
-if(!t.filter.sump){
+if(!t.filter.sump)
+t.filter.sump={length:0,width:0,height:0,liters:0};
 
-t.filter.sump={
-length:0,
-width:0,
-height:0,
-liters:0
-};
-
-}
-
-if(typeof t.filter.pumpBrand==="undefined")
-t.filter.pumpBrand=
-t.filter.type==="Sump" ? (t.filter.brand||"") : "";
-
-if(typeof t.filter.pumpModel==="undefined")
-t.filter.pumpModel=
-t.filter.type==="Sump" ? (t.filter.model||"") : "";
-
-if(typeof t.filter.pumpMaxFlow==="undefined")
-t.filter.pumpMaxFlow=0;
+if(typeof t.filter.maxFlow!=="number")
+t.filter.maxFlow=Number(t.filter.maxFlow)||0;
 
 return t;
-
 }
 
 function ensureFilter(t){
-
 ensureTankData(t);
-
 return t.filter;
-
 }
 
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+function showSection(id,button){
+document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+
+document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+if(button)button.classList.add("active");
+}
+
+function openTank(id){
+showSection("acuarios",document.getElementById("navAcuarios"));
+setTimeout(()=>{
+const el=document.getElementById("tankCard_"+id);
+if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+},100);
+}
 
 /* =========================================================
-CREAR ACUARIO
+   CÁLCULO ACUARIO
+========================================================= */
+
+function calculateTankLiters(){
+const l=Number(document.getElementById("tankLength").value)||0;
+const w=Number(document.getElementById("tankWidth").value)||0;
+const h=Number(document.getElementById("tankHeight").value)||0;
+
+if(l&&w&&h){
+const liters=l*w*h/1000;
+document.getElementById("tankLiters").value=liters.toFixed(1);
+document.getElementById("tankCalc").innerHTML=
+`Volumen calculado: <strong>${liters.toFixed(1)} litros</strong>`;
+}else{
+document.getElementById("tankCalc").textContent="";
+}
+}
+
+/* =========================================================
+   ACUARIOS
 ========================================================= */
 
 function addTank(){
+const name=document.getElementById("tankName").value.trim();
+const liters=Number(document.getElementById("tankLiters").value)||0;
+const length=Number(document.getElementById("tankLength").value)||0;
+const width=Number(document.getElementById("tankWidth").value)||0;
+const height=Number(document.getElementById("tankHeight").value)||0;
 
-const name=
-document.getElementById("tankName")
-.value.trim();
-
-const length=
-Number(document.getElementById("tankLength").value)||0;
-
-const width=
-Number(document.getElementById("tankWidth").value)||0;
-
-const height=
-Number(document.getElementById("tankHeight").value)||0;
-
-let liters=
-Number(document.getElementById("tankLiters").value)||0;
-
-if(length&&width&&height){
-
-liters=(length*width*height)/1000;
-
+if(!name){
+alert("Introduce un nombre para el acuario.");
+return;
 }
 
-if(!name||!liters){
-
-alert(
-"Introduce el nombre y las medidas del acuario."
-);
-
+if(!liters){
+alert("Introduce las medidas o los litros del acuario.");
 return;
-
 }
 
 const tank={
-
 id:Date.now(),
-
-name:name,
-
-liters:Number(liters.toFixed(1)),
-
-length:length,
-
-width:width,
-
-height:height,
-
+name,
+liters,
+length,
+width,
+height,
+fish:[],
+plants:[],
+measurements:[],
 filter:{
 type:"",
 brand:"",
 model:"",
-pumpBrand:"",
-pumpModel:"",
-pumpMaxFlow:0,
 flow:0,
+maxFlow:0,
 materials:[],
 sump:{
 length:0,
@@ -2163,504 +385,300 @@ width:0,
 height:0,
 liters:0
 }
-},
-
-fish:[],
-plants:[],
-measurements:[]
-
+}
 };
 
 tanks.push(tank);
-
 saveTanks();
 
-[
-"tankName",
-"tankLiters",
-"tankLength",
-"tankWidth",
-"tankHeight"
-].forEach(id=>{
-document.getElementById(id).value="";
-});
-
-document.getElementById("newTankCalculation").innerHTML=
-"📐 Introduce largo, ancho y alto para calcular automáticamente los litros.";
+document.getElementById("tankName").value="";
+document.getElementById("tankLiters").value="";
+document.getElementById("tankLength").value="";
+document.getElementById("tankWidth").value="";
+document.getElementById("tankHeight").value="";
+document.getElementById("tankCalc").textContent="";
 
 renderAll();
-
-showSection(
-"acuarios",
-document.getElementById("navAcuarios")
-);
-
 }
 
+function deleteTank(id){
+if(!confirm("¿Eliminar este acuario y todos sus datos?"))return;
+
+tanks=tanks.filter(x=>x.id!==id);
+saveTanks();
+renderAll();
+}
 
 /* =========================================================
-PECES
+   PECES Y PLANTAS
 ========================================================= */
 
 function renderFish(){
-
-const box=document.getElementById("fishList");
-
-const q=
-(document.getElementById("fishSearch").value||"")
-.toLowerCase()
-.trim();
-
-const results=fish.filter(x=>
-(x.name+" "+x.latin)
-.toLowerCase()
-.includes(q)
+const q=(document.getElementById("fishSearch")?.value||"").toLowerCase().trim();
+const list=fish.filter(x=>
+(x.name+" "+x.latin+" "+x.temp+" "+x.ph).toLowerCase().includes(q)
 );
 
-box.innerHTML=
-
-results.map(x=>`
-
+document.getElementById("fishList").innerHTML=list.map(x=>`
 <div class="item">
-
 <h3>🐟 ${escapeHtml(x.name)}</h3>
-
-<div class="latin">
-${escapeHtml(x.latin)}
+<div class="latin">${escapeHtml(x.latin)}</div>
+<div class="badge">🌡 ${escapeHtml(x.temp)}</div>
+<div class="badge">pH ${escapeHtml(x.ph)}</div>
+<div class="badge">📏 ${escapeHtml(x.size)}</div>
+<div class="badge">🏠 ${escapeHtml(x.min)}</div>
+<div class="badge">👥 ${escapeHtml(x.group)}</div>
+<div class="badge">📍 ${escapeHtml(x.zone)}</div>
+<div class="badge">⭐ ${escapeHtml(x.difficulty)}</div>
 </div>
-
-<p>
-
-<span class="badge">
-🌡 ${escapeHtml(x.temp)}
-</span>
-
-<span class="badge">
-pH ${escapeHtml(x.ph)}
-</span>
-
-<span class="badge">
-📏 ${escapeHtml(x.size)}
-</span>
-
-</p>
-
-<div class="small">
-
-Mínimo: ${escapeHtml(x.min)}
-<br>
-Grupo: ${escapeHtml(x.group)}
-<br>
-Zona: ${escapeHtml(x.zone)}
-<br>
-Dificultad: ${escapeHtml(x.difficulty)}
-
-</div>
-
-</div>
-
-`).join("")
-
-||
-
-'<div class="empty">No se encontraron peces.</div>';
-
+`).join("")||'<div class="empty">No se encontraron peces.</div>';
 }
-
-
-/* =========================================================
-PLANTAS
-========================================================= */
 
 function renderPlants(){
-
-const box=document.getElementById("plantList");
-
-const q=
-(document.getElementById("plantSearch").value||"")
-.toLowerCase()
-.trim();
-
-const results=plants.filter(x=>
-(x.name+" "+x.latin)
-.toLowerCase()
-.includes(q)
+const q=(document.getElementById("plantSearch")?.value||"").toLowerCase().trim();
+const list=plants.filter(x=>
+(x.name+" "+x.latin+" "+x.light+" "+x.zone).toLowerCase().includes(q)
 );
 
-box.innerHTML=
-
-results.map(x=>`
-
+document.getElementById("plantList").innerHTML=list.map(x=>`
 <div class="item">
-
 <h3>🌿 ${escapeHtml(x.name)}</h3>
-
-<div class="latin">
-${escapeHtml(x.latin)}
+<div class="latin">${escapeHtml(x.latin)}</div>
+<div class="badge">💡 ${escapeHtml(x.light)}</div>
+<div class="badge">CO₂: ${escapeHtml(x.co2)}</div>
+<div class="badge">📏 ${escapeHtml(x.size)}</div>
+<div class="badge">📍 ${escapeHtml(x.zone)}</div>
+<div class="badge">⭐ ${escapeHtml(x.difficulty)}</div>
 </div>
-
-<p>
-
-<span class="badge">
-💡 ${escapeHtml(x.light)}
-</span>
-
-<span class="badge">
-CO₂: ${escapeHtml(x.co2)}
-</span>
-
-</p>
-
-<div class="small">
-
-Altura: ${escapeHtml(x.size)}
-<br>
-Posición: ${escapeHtml(x.zone)}
-<br>
-Dificultad: ${escapeHtml(x.difficulty)}
-
-</div>
-
-</div>
-
-`).join("")
-
-||
-
-'<div class="empty">No se encontraron plantas.</div>';
-
+`).join("")||'<div class="empty">No se encontraron plantas.</div>';
 }
-
 
 /* =========================================================
-PECES / PLANTAS DEL ACUARIO
+   PECES DEL ACUARIO
 ========================================================= */
 
-function fishOptions(){
+function fishOptions(tank){
+const selected=new Set(tank.fish.map(x=>x.name));
 
 return fish.map(x=>`
-
 <option value="${escapeHtml(x.name)}">
-${escapeHtml(x.name)} — ${escapeHtml(x.latin)}
-</option>
-
-`).join("");
-
+${escapeHtml(x.name)}${selected.has(x.name)?" ✓":""}
+</option>`).join("");
 }
 
-function plantOptions(){
+function plantOptions(tank){
+const selected=new Set(tank.plants.map(x=>x.name));
 
 return plants.map(x=>`
-
 <option value="${escapeHtml(x.name)}">
-${escapeHtml(x.name)} — ${escapeHtml(x.latin)}
-</option>
-
-`).join("");
-
+${escapeHtml(x.name)}${selected.has(x.name)?" ✓":""}
+</option>`).join("");
 }
 
 function filterTankSelect(id,type){
-
-const input=
-document.getElementById(type+"Search_"+id);
-
-const select=
-document.getElementById(type+"Select_"+id);
+const input=document.getElementById(type+"Search_"+id);
+const select=document.getElementById(type+"Select_"+id);
 
 if(!input||!select)return;
 
-const q=
-(input.value||"").toLowerCase().trim();
-
-const source=
-type==="fish"?fish:plants;
+const q=input.value.toLowerCase().trim();
+const source=type==="fish"?fish:plants;
+const current=select.value;
 
 const results=source.filter(x=>
-(x.name+" "+x.latin)
-.toLowerCase()
-.includes(q)
+(x.name+" "+x.latin).toLowerCase().includes(q)
 );
 
 select.innerHTML=
 '<option value="">Selecciona una especie...</option>'+
 results.map(x=>`
-
 <option value="${escapeHtml(x.name)}">
 ${escapeHtml(x.name)} — ${escapeHtml(x.latin)}
-</option>
+</option>`).join("");
 
-`).join("");
-
+if(results.some(x=>x.name===current))
+select.value=current;
 }
 
 function addTankFish(id){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
 ensureTankData(tank);
 
-const name=
-document.getElementById("fishSelect_"+id).value;
-
-const qty=
-Math.max(
-1,
-Number(document.getElementById("fishQty_"+id).value)||1
-);
-
+const name=document.getElementById("fishSelect_"+id).value;
+const qty=Math.max(1,Number(document.getElementById("fishQty_"+id).value)||1);
 const item=fish.find(x=>x.name===name);
 
 if(!item){
-
 alert("Selecciona un pez.");
-
 return;
-
 }
 
-const existing=
-tank.fish.find(x=>x.name===item.name);
+const existing=tank.fish.find(x=>x.name===item.name);
 
-if(existing){
-
+if(existing)
 existing.quantity+=qty;
-
-}else{
-
+else
 tank.fish.push({
 name:item.name,
 latin:item.latin,
 quantity:qty
 });
 
-}
-
 saveTanks();
-
 renderAll();
-
 }
 
 function removeTankFish(id,name){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
-tank.fish=
-tank.fish.filter(x=>x.name!==name);
-
+tank.fish=tank.fish.filter(x=>x.name!==name);
 saveTanks();
-
 renderAll();
-
 }
 
+/* =========================================================
+   PLANTAS DEL ACUARIO
+========================================================= */
 
 function addTankPlant(id){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
 ensureTankData(tank);
 
-const name=
-document.getElementById("plantSelect_"+id).value;
-
-const qty=
-Math.max(
-1,
-Number(document.getElementById("plantQty_"+id).value)||1
-);
-
+const name=document.getElementById("plantSelect_"+id).value;
+const qty=Math.max(1,Number(document.getElementById("plantQty_"+id).value)||1);
 const item=plants.find(x=>x.name===name);
 
 if(!item){
-
 alert("Selecciona una planta.");
-
 return;
-
 }
 
-const existing=
-tank.plants.find(x=>x.name===item.name);
+const existing=tank.plants.find(x=>x.name===item.name);
 
-if(existing){
-
+if(existing)
 existing.quantity+=qty;
-
-}else{
-
+else
 tank.plants.push({
 name:item.name,
 latin:item.latin,
 quantity:qty
 });
 
-}
-
 saveTanks();
-
 renderAll();
-
 }
 
 function removeTankPlant(id,name){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
-tank.plants=
-tank.plants.filter(x=>x.name!==name);
-
+tank.plants=tank.plants.filter(x=>x.name!==name);
 saveTanks();
-
 renderAll();
-
 }
 
-
 /* =========================================================
-MEDICIONES
+   MEDICIONES
 ========================================================= */
 
 function saveMeasurement(id){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
 ensureTankData(tank);
 
-const ph=
-document.getElementById("ph_"+id).value.trim();
-
-const gh=
-document.getElementById("gh_"+id).value.trim();
-
-const kh=
-document.getElementById("kh_"+id).value.trim();
-
-const temp=
-document.getElementById("temp_"+id).value.trim();
+const ph=document.getElementById("ph_"+id).value.trim();
+const gh=document.getElementById("gh_"+id).value.trim();
+const kh=document.getElementById("kh_"+id).value.trim();
+const temp=document.getElementById("temp_"+id).value.trim();
 
 if(ph===""&&gh===""&&kh===""&&temp===""){
-
 alert("Introduce al menos una medición.");
-
 return;
-
 }
 
 tank.measurements.unshift({
-
 id:Date.now(),
-
-date:new Date().toLocaleString(
-"es-ES",
-{
-dateStyle:"short",
-timeStyle:"short"
-}
-),
-
-ph:ph,
-gh:gh,
-kh:kh,
-temp:temp
-
+date:new Date().toLocaleString("es-ES",{dateStyle:"short",timeStyle:"short"}),
+ph,gh,kh,temp
 });
 
-tank.measurements=
-tank.measurements.slice(0,30);
+tank.measurements=tank.measurements.slice(0,30);
 
 saveTanks();
-
 renderAll();
-
 }
 
 function deleteMeasurement(tankId,measurementId){
-
 const tank=tanks.find(x=>x.id===tankId);
-
 if(!tank)return;
 
-tank.measurements=
-tank.measurements.filter(x=>x.id!==measurementId);
+tank.measurements=tank.measurements.filter(x=>x.id!==measurementId);
 
 saveTanks();
-
 renderAll();
-
 }
 
 function measurementHistory(tank){
-
 if(!tank.measurements.length)
-
-return `
-<div class="small">
-Todavía no hay mediciones guardadas.
-</div>
-`;
+return '<div class="small">Todavía no hay mediciones guardadas.</div>';
 
 return tank.measurements.slice(0,10).map(m=>`
-
 <div class="measurement">
 
-<button
-class="btn red"
+<button class="btn red"
 style="float:right;padding:7px 10px"
 onclick="deleteMeasurement(${tank.id},${m.id})">
-
 Eliminar
-
 </button>
 
-<strong>
-📅 ${escapeHtml(m.date)}
-</strong>
+<strong>📅 ${escapeHtml(m.date)}</strong>
 
-<div>
-
-<span class="badge">
-pH: ${escapeHtml(m.ph||"—")}
-</span>
-
-<span class="badge">
-GH: ${escapeHtml(m.gh||"—")} °dGH
-</span>
-
-<span class="badge">
-KH: ${escapeHtml(m.kh||"—")} °dKH
-</span>
-
-<span class="badge">
-🌡 ${escapeHtml(m.temp||"—")} °C
-</span>
-
+<div class="measurement-values">
+<span class="badge">pH: ${escapeHtml(m.ph||"—")}</span>
+<span class="badge">GH: ${escapeHtml(m.gh||"—")} °dGH</span>
+<span class="badge">KH: ${escapeHtml(m.kh||"—")} °dKH</span>
+<span class="badge">🌡 ${escapeHtml(m.temp||"—")} °C</span>
 </div>
 
 </div>
-
 `).join("");
-
 }
 
+/* =========================================================
+   SUMP
+========================================================= */
+
+function calculateSumpPreview(id){
+const l=Number(document.getElementById("sumpLength_"+id)?.value)||0;
+const w=Number(document.getElementById("sumpWidth_"+id)?.value)||0;
+const h=Number(document.getElementById("sumpHeight_"+id)?.value)||0;
+
+const liters=l*w*h/1000;
+
+const input=document.getElementById("sumpLiters_"+id);
+const preview=document.getElementById("sumpPreview_"+id);
+
+if(input)
+input.value=liters>0?liters.toFixed(1):"";
+
+if(preview){
+preview.innerHTML=liters>0
+?`Volumen geométrico calculado: <strong>${liters.toFixed(1)} L</strong>`
+:"Introduce largo, ancho y alto para calcular los litros automáticamente.";
+}
+}
 
 /* =========================================================
-FILTRACIÓN
+   FILTRACIÓN
 ========================================================= */
 
 function recommendedFlow(liters,type){
-
 const multipliers={
 Sump:5,
 Externo:6,
@@ -2671,1735 +689,294 @@ Esponja:4,
 Otro:5
 };
 
-return Math.round(
-(liters||0)*(multipliers[type]||5)
-);
-
+return Math.round((liters||0)*(multipliers[type]||5));
 }
 
 function flowMessage(tank){
-
 const f=ensureFilter(tank);
-
 const installed=Number(f.flow)||0;
-
-const recommended=
-recommendedFlow(tank.liters,f.type);
+const recommended=recommendedFlow(tank.liters,f.type);
 
 if(!installed){
-
-return `
-<div class="warning">
-
-⚠️ Introduce el caudal real del filtro.
-
-<br>
-
-Referencia:
-<strong>${recommended} L/h</strong>
-
-</div>
-`;
+return `<div class="warning">
+⚠️ Introduce el caudal real del filtro.<br>
+Referencia: <strong>${recommended} L/h</strong>.
+</div>`;
 }
 
-const turnover=
-installed/tank.liters;
+const turnover=installed/tank.liters;
 
 if(turnover<4){
-
-return `
-<div class="danger">
-
-❌ Caudal bajo.
-
-<br>
-
-Instalado:
-<strong>${installed} L/h</strong>
-
-· Circulación:
-<strong>${turnover.toFixed(1)}×/h</strong>
-
-</div>
-`;
+return `<div class="danger">
+❌ Caudal bajo.<br>
+Instalado: <strong>${installed} L/h</strong> ·
+Circulación: <strong>${turnover.toFixed(1)}×/h</strong>.
+</div>`;
 }
 
 if(installed<recommended){
-
-return `
-<div class="warning">
-
-⚠️ Caudal por debajo de la referencia.
-
-<br>
-
-Instalado:
-<strong>${installed} L/h</strong>
-
-· Referencia:
-<strong>${recommended} L/h</strong>
-
-</div>
-`;
+return `<div class="warning">
+⚠️ Caudal aceptable, pero por debajo de la referencia.<br>
+Instalado: <strong>${installed} L/h</strong> ·
+Referencia: <strong>${recommended} L/h</strong>.
+</div>`;
 }
 
-return `
-<div class="good">
-
-✅ Caudal dentro de la referencia.
-
-<br>
-
-Instalado:
-<strong>${installed} L/h</strong>
-
-· Circulación:
-<strong>${turnover.toFixed(1)}×/h</strong>
-
-</div>
-`;
-
+return `<div class="good">
+✅ Caudal dentro de la referencia.<br>
+Instalado: <strong>${installed} L/h</strong> ·
+Circulación: <strong>${turnover.toFixed(1)}×/h</strong>.
+</div>`;
 }
-
-
-function updateSumpLiters(id){
-
-const l=
-Number(document.getElementById("sumpLength_"+id).value)||0;
-
-const w=
-Number(document.getElementById("sumpWidth_"+id).value)||0;
-
-const h=
-Number(document.getElementById("sumpHeight_"+id).value)||0;
-
-const input=
-document.getElementById("sumpLiters_"+id);
-
-if(l&&w&&h){
-
-input.value=((l*w*h)/1000).toFixed(1);
-
-}
-
-}
-
-
-/* =========================================================
-BOMBAS SUMP
-========================================================= */
-
-function pumpBrandOptions(selected){
-
-const brands=[...new Set(
-returnPumps.map(x=>x.brand)
-)];
-
-return brands.map(brand=>`
-
-<option
-value="${escapeHtml(brand)}"
-${selected===brand?"selected":""}>
-
-${escapeHtml(brand)}
-
-</option>
-
-`).join("");
-
-}
-
-
-function pumpModelOptions(brand,selected){
-
-const models=
-returnPumps.filter(x=>x.brand===brand);
-
-return models.map(x=>`
-
-<option
-value="${escapeHtml(x.model)}"
-${selected===x.model?"selected":""}>
-
-${escapeHtml(x.model)}
-
-</option>
-
-`).join("");
-
-}
-
-
-function getPump(brand,model){
-
-return returnPumps.find(x=>
-x.brand===brand &&
-x.model===model
-);
-
-}
-
-
-function updatePumpModels(id){
-
-const brand=
-document.getElementById("pumpBrand_"+id)?.value||"";
-
-const select=
-document.getElementById("pumpModel_"+id);
-
-const maxFlow=
-document.getElementById("pumpMaxFlow_"+id);
-
-const realFlow=
-document.getElementById("filterFlow_"+id);
-
-const info=
-document.getElementById("pumpInfo_"+id);
-
-if(!select)return;
-
-const models=
-returnPumps.filter(x=>x.brand===brand);
-
-select.innerHTML=
-'<option value="">Selecciona una bomba...</option>'+
-models.map(x=>`
-
-<option value="${escapeHtml(x.model)}">
-${escapeHtml(x.model)}
-</option>
-
-`).join("");
-
-if(maxFlow)maxFlow.value="";
-if(realFlow)realFlow.value="";
-
-if(info){
-
-info.innerHTML=
-"Selecciona el modelo de la bomba de subida.";
-
-}
-
-}
-
-
-function pumpBrandChanged(id){
-
-const brand=
-document.getElementById("pumpBrand_"+id)?.value||"";
-
-const select=
-document.getElementById("pumpModel_"+id);
-
-const maxFlow=
-document.getElementById("pumpMaxFlow_"+id);
-
-const realFlow=
-document.getElementById("filterFlow_"+id);
-
-const info=
-document.getElementById("pumpInfo_"+id);
-
-if(!select)return;
-
-const models=
-returnPumps.filter(x=>x.brand===brand);
-
-select.innerHTML=
-'<option value="">Selecciona una bomba...</option>'+
-models.map(x=>`
-
-<option value="${escapeHtml(x.model)}">
-${escapeHtml(x.model)}
-</option>
-
-`).join("");
-
-if(maxFlow)
-maxFlow.value="";
-
-if(realFlow)
-realFlow.value="";
-
-if(info){
-
-info.innerHTML=
-"Selecciona el modelo de la bomba de subida.";
-
-}
-
-}
-
-
-function updatePumpInfo(id){
-
-const brand=
-document.getElementById("pumpBrand_"+id)?.value||"";
-
-const model=
-document.getElementById("pumpModel_"+id)?.value||"";
-
-const pump=
-getPump(brand,model);
-
-const info=
-document.getElementById("pumpInfo_"+id);
-
-const maxFlow=
-document.getElementById("pumpMaxFlow_"+id);
-
-const realFlow=
-document.getElementById("filterFlow_"+id);
-
-if(!pump){
-
-if(maxFlow)maxFlow.value="";
-
-if(realFlow)realFlow.value="";
-
-if(info){
-
-info.innerHTML=
-"Selecciona el modelo de la bomba de subida.";
-
-}
-
-return;
-
-}
-
-if(maxFlow){
-
-maxFlow.value=pump.flow;
-
-}
-
-if(realFlow){
-
-realFlow.value=pump.flow;
-
-}
-
-if(info){
-
-info.innerHTML=`
-
-<strong>💧 ${escapeHtml(pump.brand)}</strong>
-<br>
-${escapeHtml(pump.model)}
-
-<br><br>
-
-Caudal máximo:
-<strong>
-${pump.flow.toLocaleString("es-ES")} L/h
-</strong>
-
-<br><br>
-
-<span class="small">
-
-ℹ️ El caudal real puede ser inferior al máximo
-debido a la altura de subida, tuberías, codos,
-válvulas y demás elementos de la instalación.
-
-</span>
-
-`;
-
-}
-
-}
-
-
-function filterTypeChanged(id){
-
-const type=
-document.getElementById("filterType_"+id).value;
-
-const sump=
-document.getElementById("sumpPumpFields_"+id);
-
-const generic=
-document.getElementById("genericFilterFields_"+id);
-
-if(type==="Sump"){
-
-sump.style.display="block";
-generic.style.display="none";
-
-}else{
-
-sump.style.display="none";
-generic.style.display="block";
-
-}
-
-}
-
-
-/* =========================================================
-GUARDAR FILTRACIÓN
-========================================================= */
 
 function saveFilter(id){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
 const f=ensureFilter(tank);
 
-f.type=
-document.getElementById("filterType_"+id).value;
+const type=document.getElementById("filterType_"+id)?.value||f.type||"";
 
+f.type=type;
 
-/* SUMP */
+const brand=document.getElementById("filterBrand_"+id);
+const model=document.getElementById("filterModel_"+id);
+const flow=document.getElementById("filterFlow_"+id);
+const maxFlow=document.getElementById("filterMaxFlow_"+id);
 
-if(f.type==="Sump"){
+if(brand)f.brand=brand.value.trim();
+if(model)f.model=model.value.trim();
+if(flow)f.flow=Number(flow.value)||0;
+if(maxFlow)f.maxFlow=Number(maxFlow.value)||0;
 
-f.pumpBrand=
-document.getElementById("pumpBrand_"+id)?.value||"";
+if(type==="Sump"){
+const sl=Number(document.getElementById("sumpLength_"+id)?.value)||0;
+const sw=Number(document.getElementById("sumpWidth_"+id)?.value)||0;
+const sh=Number(document.getElementById("sumpHeight_"+id)?.value)||0;
 
-f.pumpModel=
-document.getElementById("pumpModel_"+id)?.value||"";
+const liters=sl*sw*sh/1000;
 
-const pump=
-getPump(
-f.pumpBrand,
-f.pumpModel
-);
-
-if(pump){
-
-f.pumpMaxFlow=pump.flow;
-
-}else{
-
-f.pumpMaxFlow=0;
-
-}
-
-f.flow=
-Number(
-document.getElementById("filterFlow_"+id)?.value
-)||0;
-
-f.brand=f.pumpBrand;
-f.model=f.pumpModel;
-
-}else{
-
-f.brand=
-document.getElementById("filterBrand_"+id)?.value.trim()||"";
-
-f.model=
-document.getElementById("filterModel_"+id)?.value.trim()||"";
-
-f.flow=
-Number(
-document.getElementById("genericFilterFlow_"+id)?.value
-)||0;
-
-}
-
-
-/* MEDIDAS SUMP */
-
-f.sump.length=
-Number(
-document.getElementById("sumpLength_"+id)?.value
-)||0;
-
-f.sump.width=
-Number(
-document.getElementById("sumpWidth_"+id)?.value
-)||0;
-
-f.sump.height=
-Number(
-document.getElementById("sumpHeight_"+id)?.value
-)||0;
-
-if(
-f.sump.length &&
-f.sump.width &&
-f.sump.height
-){
-
-f.sump.liters=
-Number(
-(
-f.sump.length*
-f.sump.width*
-f.sump.height/1000
-).toFixed(1)
-);
-
-}else{
-
-f.sump.liters=
-Number(
-document.getElementById("sumpLiters_"+id)?.value
-)||0;
-
+f.sump.length=sl;
+f.sump.width=sw;
+f.sump.height=sh;
+f.sump.liters=liters;
 }
 
 saveTanks();
-
 renderAll();
-
 }
-
 
 /* =========================================================
-PRODUCTOS FILTRANTES
+   MATERIALES
 ========================================================= */
 
-function manufacturerProductOptions(kind,selectedId=""){
-
-let products=manufacturerProducts;
-
-if(kind==="Biológico"){
-
-products=manufacturerProducts.filter(p=>
-p.kind==="Biológico" ||
-p.kind==="Mecánico/Biológico"
-);
-
-}
-
-else if(kind==="Mecánico"){
-
-products=manufacturerProducts.filter(p=>
-p.kind==="Mecánico" ||
-p.kind==="Mecánico/Biológico"
-);
-
-}
-
-else if(kind==="Mecánico/Biológico"){
-
-products=manufacturerProducts.filter(p=>
-p.kind==="Mecánico/Biológico"
-);
-
-}
-
-else if(kind==="Químico"){
-
-products=manufacturerProducts.filter(p=>
-p.kind==="Químico"
-);
-
-}
-
-else if(kind==="Otro"){
-
-products=manufacturerProducts.filter(p=>
-p.kind==="Otro"
-);
-
-}
-
-return products.map(p=>`
-
-<option
-value="${escapeHtml(p.id)}"
-${selectedId===p.id?"selected":""}>
-
-${escapeHtml(p.brand)} — ${escapeHtml(p.name)}
-
-</option>
-
-`).join("");
-
-}
-
-
-function updateMaterialProducts(id,clearProduct=true){
-
-const kindSelect=
-document.getElementById("matKind_"+id);
-
-const productSelect=
-document.getElementById("matProduct_"+id);
-
-const info=
-document.getElementById("matManufacturerInfo_"+id);
-
-const brand=
-document.getElementById("matBrand_"+id);
-
-const productName=
-document.getElementById("matType_"+id);
-
-if(!kindSelect||!productSelect)return;
-
-const kind=kindSelect.value;
-
-productSelect.innerHTML=
-`
-<option value="">
-Seleccionar producto...
-</option>
-`+
-manufacturerProductOptions(kind);
-
-if(clearProduct){
-
-if(brand)
-brand.value="";
-
-if(productName)
-productName.value="";
-
-if(info){
-
-info.innerHTML=
-"Selecciona un producto para cargar automáticamente sus datos.";
-
-}
-
-}
-
-}
-
-
-function updateMaterialManufacturer(id){
-
-const value=
-document.getElementById("matProduct_"+id)?.value||"";
-
-const product=
-manufacturerProducts.find(x=>x.id===value);
-
-const info=
-document.getElementById("matManufacturerInfo_"+id);
-
-if(!product){
-
-if(info){
-
-info.innerHTML=
-"Selecciona un producto para cargar automáticamente sus datos.";
-
-}
-
-return;
-
-}
-
-const brand=
-document.getElementById("matBrand_"+id);
-
-const productName=
-document.getElementById("matType_"+id);
-
-const kind=
-document.getElementById("matKind_"+id);
-
-if(brand)
-brand.value=product.brand;
-
-if(productName)
-productName.value=product.name;
-
-if(
-kind &&
-product.kind!=="Mecánico/Biológico"
-){
-
-kind.value=product.kind;
-
-}
-
-info.innerHTML=`
-
-<strong>📋 Datos del producto</strong>
-
-<br><br>
-
-${escapeHtml(product.source)}
-
-${product.dimensions?
-
-`
-<br><br>
-📐 ${escapeHtml(product.dimensions)}
-`
-
-:""}
-
-<br><br>
-
-<span class="small">
-
-Presentaciones:
-${escapeHtml(product.packageText)}
-
-</span>
-
-`;
-
-}
-
-
 function addMaterial(id){
-
 const tank=tanks.find(x=>x.id===id);
-
 if(!tank)return;
 
 const f=ensureFilter(tank);
 
-const productId=
-document.getElementById("matProduct_"+id).value;
+const type=document.getElementById("matType_"+id).value.trim();
+const brand=document.getElementById("matBrand_"+id).value.trim();
+const liters=Number(document.getElementById("matLiters_"+id).value);
+const kind=document.getElementById("matKind_"+id).value;
 
-const product=
-manufacturerProducts.find(x=>x.id===productId);
-
-const quantity=
-Number(document.getElementById("matQuantity_"+id).value);
-
-if(!product){
-
-alert("Selecciona un producto.");
-
+if(!type){
+alert("Introduce el tipo de material.");
 return;
-
 }
 
-if(!quantity||quantity<=0){
-
-alert("Introduce la cantidad que tienes.");
-
+if(!liters||liters<=0){
+alert("Introduce la cantidad de litros.");
 return;
-
 }
 
 f.materials.push({
-
 id:Date.now(),
-
-productId:product.id,
-
-brand:product.brand,
-
-type:product.name,
-
-kind:product.kind,
-
-quantity:quantity,
-
-unit:product.unit,
-
-coverage:product.coverage,
-
-source:product.source,
-
-packageText:product.packageText,
-
-dimensions:product.dimensions||""
-
+kind,
+type,
+brand,
+liters
 });
 
 saveTanks();
-
 renderAll();
-
 }
 
-
 function deleteMaterial(tankId,materialId){
-
 const tank=tanks.find(x=>x.id===tankId);
-
 if(!tank)return;
 
 const f=ensureFilter(tank);
 
-f.materials=
-f.materials.filter(x=>x.id!==materialId);
+f.materials=f.materials.filter(x=>x.id!==materialId);
 
 saveTanks();
-
 renderAll();
-
 }
-
 
 /* =========================================================
-ORDEN DE CATEGORÍAS DE MATERIAL
+   RENDER ACUARIOS
 ========================================================= */
 
-const materialCategoryOrder={
+function renderTanks(){
 
-"Biológico":1,
+const container=document.getElementById("tankList");
+const home=document.getElementById("homeTanks");
 
-"Mecánico":2,
+tanks.forEach(ensureTankData);
 
-"Mecánico/Biológico":3,
-
-"Químico":4,
-
-"Otro":5
-
-};
-
-function materialCategoryLabel(kind){
-
-if(kind==="Biológico")
-return "🧬 Biológico";
-
-if(kind==="Mecánico")
-return "🧽 Mecánico";
-
-if(kind==="Mecánico/Biológico")
-return "🧬🧽 Mecánico / Biológico";
-
-if(kind==="Químico")
-return "⚗️ Químico";
-
-return "📦 Otros";
-
+if(!tanks.length){
+container.innerHTML='<div class="empty">Todavía no tienes acuarios guardados.</div>';
+home.innerHTML="";
+return;
 }
 
-
-/*
-Esta función ordena los materiales cada vez que
-se muestran. No modifica ni borra los datos guardados.
-*/
-
-function getSortedMaterials(materials){
-
-return [...materials].sort((a,b)=>{
-
-const orderA=
-materialCategoryOrder[a.kind]||99;
-
-const orderB=
-materialCategoryOrder[b.kind]||99;
-
-if(orderA!==orderB)
-return orderA-orderB;
-
-return String(a.brand||"").localeCompare(
-String(b.brand||""),
-"es"
-);
-
-});
-
-}
-
-
-/*
-Genera los materiales separados por categorías.
-*/
-
-function renderMaterialsByCategory(tank){
+container.innerHTML=tanks.map(tank=>{
 
 const f=ensureFilter(tank);
 
-if(!f.materials.length){
+const total=f.materials.reduce(
+(s,m)=>s+(Number(m.liters)||0),0
+);
 
-return `
-<div class="small">
-No hay materiales filtrantes añadidos.
+const last=tank.measurements[0];
+
+/* PECES */
+
+const fishList=tank.fish.length
+?tank.fish.map(x=>`
+<div class="item">
+
+<button class="btn red"
+style="float:right;padding:7px 10px"
+onclick="removeTankFish(${tank.id},'${escapeHtml(x.name)}')">
+Eliminar
+</button>
+
+<h3>🐟 ${escapeHtml(x.name)}</h3>
+<div class="latin">${escapeHtml(x.latin)}</div>
+<div class="badge">Cantidad: ${x.quantity}</div>
+
 </div>
-`;
+`).join("")
+:'<div class="small">No has añadido peces a este acuario.</div>';
 
-}
+/* PLANTAS */
 
-const sorted=
-getSortedMaterials(f.materials);
+const plantList=tank.plants.length
+?tank.plants.map(x=>`
+<div class="item">
 
-const categories={};
+<button class="btn red"
+style="float:right;padding:7px 10px"
+onclick="removeTankPlant(${tank.id},'${escapeHtml(x.name)}')">
+Eliminar
+</button>
 
-sorted.forEach(m=>{
+<h3>🌿 ${escapeHtml(x.name)}</h3>
+<div class="latin">${escapeHtml(x.latin)}</div>
+<div class="badge">Cantidad: ${x.quantity}</div>
 
-const key=
-m.kind||"Otro";
+</div>
+`).join("")
+:'<div class="small">No has añadido plantas a este acuario.</div>';
 
-if(!categories[key])
-categories[key]=[];
+/* MATERIALES AGRUPADOS */
 
-categories[key].push(m);
+const categoryOrder=[
+"Biológico",
+"Mecánico",
+"Mecánico/Biológico",
+"Químico",
+"Otro"
+];
 
-});
+const categoryIcon={
+"Biológico":"🧬",
+"Mecánico":"🧽",
+"Mecánico/Biológico":"🔄",
+"Químico":"🧪",
+"Otro":"📦"
+};
 
+const materialGroups=categoryOrder.map(category=>{
 
-return Object.keys(categories)
+const items=f.materials
+.filter(m=>(m.kind||"Otro")===category)
 .sort((a,b)=>
-(materialCategoryOrder[a]||99)-
-(materialCategoryOrder[b]||99)
+(a.type||"").localeCompare(
+b.type||"",
+"es",
+{sensitivity:"base"}
 )
-.map(kind=>{
+);
 
-const items=categories[kind];
+if(!items.length)return "";
+
+const liters=items.reduce(
+(s,m)=>s+(Number(m.liters)||0),
+0
+);
 
 return `
 
-<div class="material-category">
+<div class="category-title">
+${categoryIcon[category]} ${category}
 
-${materialCategoryLabel(kind)}
-
+<span class="category-total">
+${items.length} material${items.length===1?"":"es"} ·
+${liters.toFixed(1)} L
+</span>
 </div>
 
 ${items.map(m=>`
 
 <div class="material">
 
-<button
-class="btn red"
+<button class="btn red"
 style="float:right"
-onclick="deleteMaterial(
-${tank.id},
-${m.id}
-)">
-
+onclick="deleteMaterial(${tank.id},${m.id})">
 Eliminar
-
 </button>
 
-<strong>
-${escapeHtml(m.brand)}
-</strong>
-
-<br>
-
-${escapeHtml(m.type)}
+<strong>${escapeHtml(m.type)}</strong>
+${m.brand?" · "+escapeHtml(m.brand):""}
 
 <br>
 
 <span class="small">
-
-Uso:
-<strong>
-${escapeHtml(m.kind||"—")}
-</strong>
-
-<br>
-
-Cantidad:
-<strong>
-${Number(m.quantity).toFixed(2)}
-${escapeHtml(m.unit)}
-</strong>
-
-</span>
-
-${m.dimensions?
-
-`
-<div class="product-note">
-📐 ${escapeHtml(m.dimensions)}
-</div>
-`
-
-:""}
-
-<div class="manufacturer">
-
-📋 ${escapeHtml(m.source)}
-
-<br>
-
-<span class="small">
-
-Presentación:
-${escapeHtml(m.packageText)}
-
+${Number(m.liters).toFixed(1)} L
 </span>
 
 </div>
 
-${materialStatus(tank,m)}
-
-</div>
-
-`).join("");
-
+`).join("")}
+`;
 }).join("");
 
-}
-
-
-function materialStatus(tank,m){
-
-const quantity=
-Number(m.quantity)||0;
-
-const coverage=
-Number(m.coverage)||0;
-
-if(!coverage){
-
-return `
-<div class="manufacturer">
-
-ℹ️ <strong>
-Sin cálculo automático de cobertura
-</strong>
-
-<br>
-
-<span class="small">
-
-Para este material AquaControl no utiliza
-una equivalencia universal inventada.
-Consulta la dosis específica del fabricante.
-
-</span>
-
-</div>
-`;
-
-}
-
-const aquariumCoverage=
-quantity*coverage;
-
-const required=
-tank.liters/coverage;
-
-const enough=
-quantity>=required;
-
-const percentage=
-(quantity/required)*100;
-
-if(enough){
-
-return `
-<div class="good">
-
-🟢 <strong>SUFICIENTE</strong>
-
-<div class="coverage">
-Cubre aproximadamente
-${aquariumCoverage.toFixed(0)} L
-</div>
-
-<span class="small">
-
-Tu acuario:
-<strong>${tank.liters} L</strong>
-
-<br>
-
-Tienes:
-<strong>
-${quantity} ${escapeHtml(m.unit)}
-</strong>
-
-<br>
-
-Mínimo calculado:
-<strong>
-${required.toFixed(2)} ${escapeHtml(m.unit)}
-</strong>
-
-<br>
-
-Según la equivalencia disponible del producto.
-
-</span>
-
-</div>
-`;
-
-}
-
-return `
-<div class="danger">
-
-🔴 <strong>INSUFICIENTE</strong>
-
-<div class="coverage">
-Cubre aproximadamente
-${aquariumCoverage.toFixed(0)} L
-</div>
-
-<span class="small">
-
-Tu acuario:
-<strong>${tank.liters} L</strong>
-
-<br>
-
-Tienes:
-<strong>
-${quantity} ${escapeHtml(m.unit)}
-</strong>
-
-<br>
-
-Necesitas aproximadamente:
-<strong>
-${required.toFixed(2)} ${escapeHtml(m.unit)}
-</strong>
-
-<br>
-
-Cobertura actual:
-<strong>
-${percentage.toFixed(0)}%
-</strong>
-
-</span>
-
-</div>
-`;
-
-}
-
+const materialsHtml=
+materialGroups||
+'<div class="small">No hay materiales añadidos.</div>';
 
 /* =========================================================
-ELIMINAR ACUARIO
+   FILTRACIÓN
+   EL SUMP APARECE JUSTO DESPUÉS DEL TIPO
 ========================================================= */
 
-function deleteTank(id){
+const filtrationHtml=`
 
-if(!confirm("¿Eliminar este acuario?"))
-return;
-
-tanks=
-tanks.filter(x=>x.id!==id);
-
-saveTanks();
-
-renderAll();
-
-}
-
-
-/* =========================================================
-ABRIR ACUARIO
-========================================================= */
-
-function openTank(id){
-
-showSection(
-"acuarios",
-document.getElementById("navAcuarios")
-);
-
-setTimeout(()=>{
-
-const el=
-document.getElementById("tankCard_"+id);
-
-if(el){
-
-el.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-el.classList.add("tank-open");
-
-setTimeout(()=>{
-el.classList.remove("tank-open");
-},1200);
-
-}
-
-},50);
-
-}
-
-
-/* =========================================================
-RENDER ACUARIOS
-========================================================= */
-
-function renderTanks(){
-
-const container=
-document.getElementById("tankList");
-
-tanks.forEach(ensureTankData);
-
-if(!tanks.length){
-
-container.innerHTML=`
-
-<div class="card">
-
-<div class="empty">
-
-🏠 Todavía no tienes acuarios guardados.
-
-<br><br>
-
-<button
-class="btn green"
-onclick="showSection(
-'nuevo',
-document.getElementById('navNuevo')
-)">
-
-➕ Crear mi primer acuario
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-container.innerHTML=
-
-tanks.map(tank=>{
-
-const f=ensureFilter(tank);
-
-const last=tank.measurements[0];
-
-
-/* PECES */
-
-const fishList=
-
-tank.fish.length
-
-?
-
-tank.fish.map(x=>`
-
-<div class="item">
-
-<button
-class="btn red"
-style="float:right;padding:7px 10px"
-onclick="removeTankFish(
-${tank.id},
-'${escapeHtml(x.name)}'
-)">
-
-Eliminar
-
-</button>
-
-<h3>
-🐟 ${escapeHtml(x.name)}
-</h3>
-
-<div class="latin">
-${escapeHtml(x.latin)}
-</div>
-
-<div class="badge">
-Cantidad: ${x.quantity}
-</div>
-
-</div>
-
-`).join("")
-
-:
-
-'<div class="small">No has añadido peces a este acuario.</div>';
-
-
-/* PLANTAS */
-
-const plantList=
-
-tank.plants.length
-
-?
-
-tank.plants.map(x=>`
-
-<div class="item">
-
-<button
-class="btn red"
-style="float:right;padding:7px 10px"
-onclick="removeTankPlant(
-${tank.id},
-'${escapeHtml(x.name)}'
-)">
-
-Eliminar
-
-</button>
-
-<h3>
-🌿 ${escapeHtml(x.name)}
-</h3>
-
-<div class="latin">
-${escapeHtml(x.latin)}
-</div>
-
-<div class="badge">
-Cantidad: ${x.quantity}
-</div>
-
-</div>
-
-`).join("")
-
-:
-
-'<div class="small">No has añadido plantas a este acuario.</div>';
-
-
-/* MATERIALES */
-
-const materials=
-renderMaterialsByCategory(tank);
-
-
-/* SUMP */
-
-const sump=
-
-f.type==="Sump"
-
-?
-
-`
-
-<div class="sump">
-
-<h3>📐 Medidas del SUMP</h3>
+<div class="filter-section">
 
 <div class="grid">
 
 <div>
+<label>Tipo de filtración</label>
 
-<label>Largo (cm)</label>
+<select id="filterType_${tank.id}"
+onchange="saveFilter(${tank.id})">
 
-<input
-id="sumpLength_${tank.id}"
-type="number"
-value="${f.sump.length||""}"
-oninput="updateSumpLiters(${tank.id})">
-
-</div>
-
-<div>
-
-<label>Ancho (cm)</label>
-
-<input
-id="sumpWidth_${tank.id}"
-type="number"
-value="${f.sump.width||""}"
-oninput="updateSumpLiters(${tank.id})">
-
-</div>
-
-<div>
-
-<label>Alto (cm)</label>
-
-<input
-id="sumpHeight_${tank.id}"
-type="number"
-value="${f.sump.height||""}"
-oninput="updateSumpLiters(${tank.id})">
-
-</div>
-
-<div>
-
-<label>Litros SUMP</label>
-
-<input
-id="sumpLiters_${tank.id}"
-type="number"
-step="0.1"
-value="${f.sump.liters||""}"
-readonly>
-
-</div>
-
-</div>
-
-<p class="small">
-Las medidas calculan automáticamente el volumen del SUMP.
-</p>
-
-</div>
-
-`
-
-:"";
-
-
-/* INFORMACIÓN BOMBA */
-
-const pumpSummary=
-
-f.type==="Sump" && f.pumpBrand && f.pumpModel
-
-?
-
-`
-
-<div class="manufacturer">
-
-💧 <strong>Bomba de subida</strong>
-
-<br>
-
-${escapeHtml(f.pumpBrand)}
-<br>
-${escapeHtml(f.pumpModel)}
-
-<br><br>
-
-Caudal máximo:
-<strong>
-${Number(f.pumpMaxFlow||0).toLocaleString("es-ES")} L/h
-</strong>
-
-<br>
-
-Caudal real:
-<strong>
-${Number(f.flow||0).toLocaleString("es-ES")} L/h
-</strong>
-
-</div>
-
-`
-
-:"";
-
-
-return `
-
-<div
-class="card tank-card"
-id="tankCard_${tank.id}"
->
-
-<div class="row">
-
-<div style="flex:1">
-
-<h3>
-🏠 ${escapeHtml(tank.name)}
-</h3>
-
-<div class="small">
-
-${tank.liters} litros
-
-${
-tank.length&&tank.width&&tank.height
-
-?
-
-`
- ·
-${tank.length}×${tank.width}×${tank.height} cm
-`
-
-:""
-
-}
-
-</div>
-
-</div>
-
-<button
-class="btn red"
-onclick="deleteTank(${tank.id})">
-
-Eliminar
-
-</button>
-
-</div>
-
-
-<hr>
-
-
-<!-- PECES -->
-
-<h3>🐟 Peces que tienes</h3>
-
-<div class="grid">
-
-<div>
-
-<label>Buscar pez</label>
-
-<input
-id="fishSearch_${tank.id}"
-placeholder="Escribe para buscar..."
-oninput="filterTankSelect(
-${tank.id},
-'fish'
-)">
-
-</div>
-
-<div>
-
-<label>Especie</label>
-
-<select id="fishSelect_${tank.id}">
-
-<option value="">
-Selecciona una especie...
-</option>
-
-${fishOptions()}
-
-</select>
-
-</div>
-
-<div>
-
-<label>Cantidad</label>
-
-<input
-id="fishQty_${tank.id}"
-type="number"
-min="1"
-value="1">
-
-</div>
-
-</div>
-
-<br>
-
-<button
-class="btn green"
-onclick="addTankFish(${tank.id})">
-
-＋ Añadir pez
-
-</button>
-
-<div
-class="grid"
-style="margin-top:12px">
-
-${fishList}
-
-</div>
-
-
-<hr>
-
-
-<!-- PLANTAS -->
-
-<h3>🌿 Plantas que tienes</h3>
-
-<div class="grid">
-
-<div>
-
-<label>Buscar planta</label>
-
-<input
-id="plantSearch_${tank.id}"
-placeholder="Escribe para buscar..."
-oninput="filterTankSelect(
-${tank.id},
-'plant'
-)">
-
-</div>
-
-<div>
-
-<label>Especie</label>
-
-<select id="plantSelect_${tank.id}">
-
-<option value="">
-Selecciona una especie...
-</option>
-
-${plantOptions()}
-
-</select>
-
-</div>
-
-<div>
-
-<label>Cantidad</label>
-
-<input
-id="plantQty_${tank.id}"
-type="number"
-min="1"
-value="1">
-
-</div>
-
-</div>
-
-<br>
-
-<button
-class="btn green"
-onclick="addTankPlant(${tank.id})">
-
-＋ Añadir planta
-
-</button>
-
-<div
-class="grid"
-style="margin-top:12px">
-
-${plantList}
-
-</div>
-
-
-<hr>
-
-
-<!-- MEDICIONES -->
-
-<h3>🧪 Mediciones del agua</h3>
-
-<div class="grid">
-
-<div>
-
-<label>pH</label>
-
-<input
-id="ph_${tank.id}"
-type="number"
-step="0.01"
-placeholder="Ej: 7,0">
-
-</div>
-
-<div>
-
-<label>GH (°dGH)</label>
-
-<input
-id="gh_${tank.id}"
-type="number"
-step="0.1"
-placeholder="Ej: 8">
-
-</div>
-
-<div>
-
-<label>KH (°dKH)</label>
-
-<input
-id="kh_${tank.id}"
-type="number"
-step="0.1"
-placeholder="Ej: 4">
-
-</div>
-
-<div>
-
-<label>Temperatura (°C)</label>
-
-<input
-id="temp_${tank.id}"
-type="number"
-step="0.1"
-placeholder="Ej: 25">
-
-</div>
-
-</div>
-
-<br>
-
-<button
-class="btn green"
-onclick="saveMeasurement(${tank.id})">
-
-💾 Guardar medición
-
-</button>
-
-${
-last?
-
-`
-
-<div
-class="good"
-style="margin-top:12px">
-
-📊 Última medición:
-
-pH
-<strong>${escapeHtml(last.ph||"—")}</strong>
-
-· GH
-<strong>${escapeHtml(last.gh||"—")}</strong>
-
-· KH
-<strong>${escapeHtml(last.kh||"—")}</strong>
-
-· 🌡
-<strong>${escapeHtml(last.temp||"—")} °C</strong>
-
-</div>
-
-`
-
-:""
-}
-
-<div style="margin-top:12px">
-
-${measurementHistory(tank)}
-
-</div>
-
-
-<hr>
-
-
-<!-- FILTRACIÓN -->
-
-<h3>🔧 Filtración</h3>
-
-<div class="grid">
-
-<div>
-
-<label>Tipo</label>
-
-<select
-id="filterType_${tank.id}"
-onchange="filterTypeChanged(${tank.id})">
-
-<option value="">
-Seleccionar
-</option>
+<option value="">Seleccionar</option>
 
 ${[
 "Sump",
@@ -4410,391 +987,484 @@ ${[
 "Esponja",
 "Otro"
 ].map(v=>`
-
-<option
-value="${v}"
+<option value="${v}"
 ${f.type===v?"selected":""}>
-
 ${v}
-
 </option>
-
 `).join("")}
 
 </select>
-
 </div>
 
 </div>
 
+${f.type==="Sump"?`
 
-<!-- =====================================================
-ORDEN SUMP:
-1. MEDIDAS
-2. BOMBA
-3. MATERIAL FILTRANTE
-===================================================== -->
+<!-- =========================
+     SUMP
+========================= -->
 
+<div class="filter-section sump">
 
-<!-- MEDIDAS SUMP -->
+<h3>📐 Medidas del SUMP</h3>
 
-${sump}
+<div class="grid">
 
+<div>
+<label>Largo (cm)</label>
+<input
+id="sumpLength_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${f.sump.length||""}"
+oninput="calculateSumpPreview(${tank.id})">
+</div>
 
-<!-- BOMBA SUMP -->
+<div>
+<label>Ancho (cm)</label>
+<input
+id="sumpWidth_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${f.sump.width||""}"
+oninput="calculateSumpPreview(${tank.id})">
+</div>
+
+<div>
+<label>Alto (cm)</label>
+<input
+id="sumpHeight_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${f.sump.height||""}"
+oninput="calculateSumpPreview(${tank.id})">
+</div>
+
+<div>
+<label>Litros calculados</label>
+<input
+id="sumpLiters_${tank.id}"
+type="number"
+readonly
+value="${f.sump.liters?Number(f.sump.liters).toFixed(1):""}">
+</div>
+
+</div>
 
 <div
-id="sumpPumpFields_${tank.id}"
-style="
-margin-top:14px;
-${f.type==="Sump"?"":"display:none"}
-">
+id="sumpPreview_${tank.id}"
+class="small"
+style="margin-top:10px">
 
-<div class="sump">
+${f.sump.liters
+?`Volumen geométrico calculado:
+<strong>${Number(f.sump.liters).toFixed(1)} L</strong>`
+:"Introduce largo, ancho y alto para calcular los litros automáticamente."}
+
+</div>
+
+<br>
+
+<button class="btn green"
+onclick="saveFilter(${tank.id})">
+💾 Guardar SUMP
+</button>
+
+</div>
+
+<!-- =========================
+     BOMBA DE SUBIDA
+========================= -->
+
+<div class="filter-section">
 
 <h3>💧 Bomba de subida</h3>
 
 <div class="grid">
 
 <div>
-
-<label>Marca de la bomba de subida</label>
-
-<select
-id="pumpBrand_${tank.id}"
-onchange="pumpBrandChanged(${tank.id})">
-
-<option value="">
-Selecciona una marca...
-</option>
-
-${pumpBrandOptions(f.pumpBrand)}
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>Bomba / modelo</label>
-
-<select
-id="pumpModel_${tank.id}"
-onchange="updatePumpInfo(${tank.id})">
-
-<option value="">
-Selecciona una bomba...
-</option>
-
-${
-f.pumpBrand
-?
-pumpModelOptions(
-f.pumpBrand,
-f.pumpModel
-)
-:""
-}
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>Caudal máximo de la bomba (L/h)</label>
-
+<label>Marca</label>
 <input
-id="pumpMaxFlow_${tank.id}"
-type="number"
-readonly
-value="${f.pumpMaxFlow||""}"
->
-
+id="filterBrand_${tank.id}"
+value="${escapeHtml(f.brand)}"
+placeholder="Ej: Eheim, Sicce, Jebao...">
 </div>
 
+<div>
+<label>Modelo</label>
+<input
+id="filterModel_${tank.id}"
+value="${escapeHtml(f.model)}"
+placeholder="Modelo de la bomba">
+</div>
 
 <div>
+<label>Caudal máximo (L/h)</label>
+<input
+id="filterMaxFlow_${tank.id}"
+type="number"
+min="0"
+value="${f.maxFlow||""}"
+placeholder="Ej: 12000">
+</div>
 
-<label>Caudal real L/h</label>
-
+<div>
+<label>Caudal real (L/h)</label>
 <input
 id="filterFlow_${tank.id}"
 type="number"
 min="0"
 value="${f.flow||""}"
-placeholder="Caudal real">
-
+placeholder="Ej: 9000">
 </div>
 
 </div>
-
-
-<div
-id="pumpInfo_${tank.id}"
-class="manufacturer"
-style="margin-top:12px">
-
-${
-f.pumpBrand&&f.pumpModel
-
-?
-
-`
-
-<strong>💧
-${escapeHtml(f.pumpBrand)}
-</strong>
 
 <br>
 
-${escapeHtml(f.pumpModel)}
+<button class="btn"
+onclick="saveFilter(${tank.id})">
+💾 Guardar bomba
+</button>
 
-<br><br>
+<div style="margin-top:14px">
+${flowMessage(tank)}
+</div>
 
-Caudal máximo:
-<strong>
-${Number(f.pumpMaxFlow||0).toLocaleString("es-ES")} L/h
-</strong>
+</div>
+
+`:`
+
+<!-- =========================
+     FILTROS NORMALES
+========================= -->
+
+<div class="grid" style="margin-top:12px">
+
+<div>
+<label>Marca</label>
+<input
+id="filterBrand_${tank.id}"
+value="${escapeHtml(f.brand)}"
+placeholder="Ej: Eheim">
+</div>
+
+<div>
+<label>Modelo</label>
+<input
+id="filterModel_${tank.id}"
+value="${escapeHtml(f.model)}"
+placeholder="Modelo">
+</div>
+
+<div>
+<label>Caudal real (L/h)</label>
+<input
+id="filterFlow_${tank.id}"
+type="number"
+min="0"
+value="${f.flow||""}">
+</div>
+
+</div>
 
 <br>
 
-<span class="small">
+<button class="btn"
+onclick="saveFilter(${tank.id})">
+💾 Guardar filtración
+</button>
 
-El caudal máximo corresponde al valor de referencia
-de la bomba. El caudal real puede ser menor por
-altura, tuberías, codos y válvulas.
+<div style="margin-top:14px">
+${flowMessage(tank)}
+</div>
 
-</span>
+`}
 
-`
+</div>
+`;
 
-:
+/* =========================================================
+   HTML DEL ACUARIO
+========================================================= */
 
-"Selecciona la marca y el modelo de la bomba de subida."
+return `
 
-}
+<div class="card tank-card"
+id="tankCard_${tank.id}">
+
+<div class="row">
+
+<div style="flex:1">
+
+<h3>🏠 ${escapeHtml(tank.name)}</h3>
+
+<div class="small">
+
+${Number(tank.liters).toFixed(1)} litros
+
+${tank.length&&tank.width&&tank.height
+?` · ${tank.length}×${tank.width}×${tank.height} cm`
+:""}
 
 </div>
 
 </div>
 
+<button class="btn red"
+onclick="deleteTank(${tank.id})">
+Eliminar
+</button>
+
 </div>
 
+<hr>
 
-<!-- FILTROS QUE NO SON SUMP -->
+<!-- PECES -->
 
-<div
-id="genericFilterFields_${tank.id}"
-style="
-margin-top:14px;
-${f.type==="Sump"?"display:none":""}
-">
+<h3>🐟 Peces que tienes</h3>
 
 <div class="grid">
 
 <div>
-
-<label>Marca</label>
-
+<label>Buscar pez</label>
 <input
-id="filterBrand_${tank.id}"
-value="${escapeHtml(f.brand)}"
-placeholder="Ej: EHEIM">
-
+id="fishSearch_${tank.id}"
+placeholder="Escribe para buscar..."
+oninput="filterTankSelect(${tank.id},'fish')">
 </div>
 
 <div>
-
-<label>Modelo</label>
-
-<input
-id="filterModel_${tank.id}"
-value="${escapeHtml(f.model)}"
-placeholder="Ej: Professionel 4+">
-
+<label>Especie</label>
+<select id="fishSelect_${tank.id}">
+<option value="">Selecciona una especie...</option>
+${fishOptions(tank)}
+</select>
 </div>
 
 <div>
-
-<label>Caudal real L/h</label>
-
+<label>Cantidad</label>
 <input
-id="genericFilterFlow_${tank.id}"
+id="fishQty_${tank.id}"
 type="number"
-value="${f.type==="Sump"?"":(f.flow||"")}"
-placeholder="Caudal real">
-
+min="1"
+value="1">
 </div>
 
 </div>
-
-</div>
-
 
 <br>
 
-<button
-class="btn"
-onclick="saveFilter(${tank.id})">
-
-💾 Guardar filtración
-
+<button class="btn green"
+onclick="addTankFish(${tank.id})">
+＋ Añadir pez
 </button>
 
-${pumpSummary}
-
-<div style="margin-top:14px">
-
-${flowMessage(tank)}
-
+<div class="grid" style="margin-top:12px">
+${fishList}
 </div>
-
 
 <hr>
 
+<!-- PLANTAS -->
 
-<!-- MATERIAL FILTRANTE -->
+<h3>🌿 Plantas que tienes</h3>
+
+<div class="grid">
+
+<div>
+<label>Buscar planta</label>
+<input
+id="plantSearch_${tank.id}"
+placeholder="Escribe para buscar..."
+oninput="filterTankSelect(${tank.id},'plant')">
+</div>
+
+<div>
+<label>Especie</label>
+<select id="plantSelect_${tank.id}">
+<option value="">Selecciona una especie...</option>
+${plantOptions(tank)}
+</select>
+</div>
+
+<div>
+<label>Cantidad</label>
+<input
+id="plantQty_${tank.id}"
+type="number"
+min="1"
+value="1">
+</div>
+
+</div>
+
+<br>
+
+<button class="btn green"
+onclick="addTankPlant(${tank.id})">
+＋ Añadir planta
+</button>
+
+<div class="grid" style="margin-top:12px">
+${plantList}
+</div>
+
+<hr>
+
+<!-- MEDICIONES -->
+
+<h3>🧪 Mediciones del agua</h3>
+
+<div class="grid">
+
+<div>
+<label>pH</label>
+<input
+id="ph_${tank.id}"
+type="number"
+step="0.01"
+placeholder="Ej: 7,0">
+</div>
+
+<div>
+<label>GH (°dGH)</label>
+<input
+id="gh_${tank.id}"
+type="number"
+step="0.1"
+placeholder="Ej: 8">
+</div>
+
+<div>
+<label>KH (°dKH)</label>
+<input
+id="kh_${tank.id}"
+type="number"
+step="0.1"
+placeholder="Ej: 4">
+</div>
+
+<div>
+<label>Temperatura (°C)</label>
+<input
+id="temp_${tank.id}"
+type="number"
+step="0.1"
+placeholder="Ej: 25">
+</div>
+
+</div>
+
+<br>
+
+<button class="btn green"
+onclick="saveMeasurement(${tank.id})">
+💾 Guardar medición
+</button>
+
+${last?`
+
+<div class="good" style="margin-top:12px">
+
+📊 Última medición:
+
+pH <strong>${escapeHtml(last.ph||"—")}</strong> ·
+GH <strong>${escapeHtml(last.gh||"—")}</strong> ·
+KH <strong>${escapeHtml(last.kh||"—")}</strong> ·
+🌡 <strong>${escapeHtml(last.temp||"—")} °C</strong>
+
+</div>
+
+`:""}
+
+<div style="margin-top:12px">
+${measurementHistory(tank)}
+</div>
+
+<hr>
+
+<!-- FILTRACIÓN -->
+
+<h3>🔧 Filtración</h3>
+
+${filtrationHtml}
+
+<hr>
+
+<!-- MATERIALES -->
 
 <h3>🧱 Material filtrante</h3>
 
 <p class="small">
-
-<strong>Los materiales se organizan automáticamente por categoría.</strong>
-
-Primero selecciona el uso y después el fabricante/producto.
-
+Los materiales se muestran automáticamente agrupados por:
+<strong>biológico, mecánico, mecánico + biológico, químico y otros.</strong>
 </p>
 
 <div class="grid">
 
-
 <div>
-
-<label>Uso</label>
-
-<select
-id="matKind_${tank.id}"
-onchange="updateMaterialProducts(${tank.id},true)">
-
-<option value="Biológico">
-Biológico
-</option>
-
-<option value="Mecánico">
-Mecánico
-</option>
-
-<option value="Mecánico/Biológico">
-Mecánico/Biológico
-</option>
-
-<option value="Químico">
-Químico
-</option>
-
-<option value="Otro">
-Otro
-</option>
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>Fabricante / Producto</label>
-
-<select
-id="matProduct_${tank.id}"
-onchange="updateMaterialManufacturer(${tank.id})">
-
-<option value="">
-Seleccionar producto...
-</option>
-
-${manufacturerProductOptions("Biológico")}
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>Producto</label>
-
+<label>Tipo</label>
 <input
 id="matType_${tank.id}"
-readonly
-placeholder="Se rellenará automáticamente">
-
+placeholder="Canutillos, Matrix, Siporax...">
 </div>
 
-
 <div>
-
 <label>Marca</label>
-
 <input
 id="matBrand_${tank.id}"
-readonly
-placeholder="Se rellenará automáticamente">
-
+placeholder="Ej: Seachem">
 </div>
-
 
 <div>
-
-<label>Cantidad que tienes</label>
-
+<label>Cantidad (L)</label>
 <input
-id="matQuantity_${tank.id}"
+id="matLiters_${tank.id}"
 type="number"
-step="0.01"
 min="0"
-placeholder="Ej: 2">
-
+step="0.1"
+placeholder="Ej: 5">
 </div>
 
+<div>
+<label>Uso</label>
+
+<select id="matKind_${tank.id}">
+
+<option>Biológico</option>
+<option>Mecánico</option>
+<option>Mecánico/Biológico</option>
+<option>Químico</option>
+<option>Otro</option>
+
+</select>
+
 </div>
-
-
-<div
-id="matManufacturerInfo_${tank.id}"
-class="manufacturer">
-
-Selecciona un producto para cargar
-automáticamente sus datos.
 
 </div>
 
 <br>
 
-<button
-class="btn green"
+<button class="btn green"
 onclick="addMaterial(${tank.id})">
-
 ＋ Añadir material
-
 </button>
 
-<div style="margin-top:14px">
+<div style="margin-top:12px">
 
 <strong>
-Materiales registrados:
-${f.materials.length}
+Total materiales:
+${total.toFixed(1)} L
 </strong>
 
 </div>
 
-<div style="margin-top:14px">
-
-${materials}
-
+<div>
+${materialsHtml}
 </div>
 
 </div>
@@ -4803,116 +1473,49 @@ ${materials}
 
 }).join("");
 
-}
+/* INICIO */
 
-
-/* =========================================================
-INICIO
-========================================================= */
-
-function renderHome(){
-
-const home=
-document.getElementById("homeTanks");
-
-if(!tanks.length){
-
-home.innerHTML=`
-
-<div class="card">
-
-<div class="empty">
-
-Todavía no tienes acuarios creados.
-
-<br><br>
-
-<button
-class="btn green"
-onclick="showSection(
-'nuevo',
-document.getElementById('navNuevo')
-)">
-
-➕ Crear acuario
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-home.innerHTML=
-
-tanks.map(t=>{
+home.innerHTML=tanks.map(t=>{
 
 ensureTankData(t);
 
 const last=t.measurements[0];
 
-const fishQty=
-t.fish.reduce(
-(s,x)=>s+(Number(x.quantity)||0),
-0
+const fishQty=t.fish.reduce(
+(s,x)=>s+(Number(x.quantity)||0),0
 );
 
 return `
 
-<div
-class="card home-tank"
+<div class="card home-tank"
 onclick="openTank(${t.id})">
 
 <div class="row">
 
 <div style="flex:1">
 
-<h2>
-🏠 ${escapeHtml(t.name)}
-</h2>
+<h2>🏠 ${escapeHtml(t.name)}</h2>
 
 <div class="small">
 
-${t.liters} litros
+${Number(t.liters).toFixed(1)} litros
 
-${
-t.length&&t.width&&t.height
-
-?
-
-`
- ·
-${t.length}×${t.width}×${t.height} cm
-`
-
-:""
-
-}
+${t.length&&t.width&&t.height
+?` · ${t.length}×${t.width}×${t.height} cm`
+:""}
 
 </div>
 
 </div>
 
-<button
-class="btn"
-onclick="
-event.stopPropagation();
-openTank(${t.id})
-">
-
+<button class="btn"
+onclick="event.stopPropagation();openTank(${t.id})">
 Abrir acuario
-
 </button>
 
 </div>
 
-<div style="margin-top:10px">
+<div class="home-summary">
 
 <span class="badge">
 🐟 ${fishQty} peces
@@ -4923,11 +1526,16 @@ Abrir acuario
 </span>
 
 <span class="badge">
-
-🧪
-${last?"Última medición":"Sin mediciones"}
-
+🧪 ${last?"Última medición guardada":"Sin mediciones"}
 </span>
+
+${t.filter.type
+?`<span class="badge">🔧 ${escapeHtml(t.filter.type)}</span>`
+:""}
+
+${t.filter.type==="Sump"&&t.filter.sump.liters
+?`<span class="badge">🛢️ SUMP ${Number(t.filter.sump.liters).toFixed(1)} L</span>`
+:""}
 
 </div>
 
@@ -4936,67 +1544,36 @@ ${last?"Última medición":"Sin mediciones"}
 `;
 
 }).join("");
-
 }
 
-
 /* =========================================================
-SEGURIDAD
+   UTILIDADES
 ========================================================= */
 
 function escapeHtml(value){
-
 return String(value??"")
-
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
 .replace(/"/g,"&quot;")
 .replace(/'/g,"&#039;");
-
 }
-
-
-/* =========================================================
-CONTADORES
-========================================================= */
 
 function updateCounters(){
-
-document.getElementById("tankCount").textContent=
-tanks.length;
-
-document.getElementById("fishCount").textContent=
-fish.length;
-
-document.getElementById("plantCount").textContent=
-plants.length;
-
+document.getElementById("tankCount").textContent=tanks.length;
+document.getElementById("fishCount").textContent=fish.length;
+document.getElementById("plantCount").textContent=plants.length;
 }
-
-
-/* =========================================================
-TODO
-========================================================= */
 
 function renderAll(){
+tanks.forEach(ensureTankData);
+saveTanks();
 
 updateCounters();
-
 renderFish();
-
 renderPlants();
-
 renderTanks();
-
-renderHome();
-
 }
-
-
-/* =========================================================
-INICIO
-========================================================= */
 
 renderAll();
 
