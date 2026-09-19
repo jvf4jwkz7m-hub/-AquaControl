@@ -57,7 +57,16 @@ hr{border:0;border-top:1px solid #e5ecef;margin:18px 0}
 .metric.gh{background:#eaf8ef}.metric.gh strong{color:#238b57}.metric.kh{background:#fff5e6}.metric.kh strong{color:#c7770e}.metric.temp{background:#fdeeee}.metric.temp strong{color:#c74b4b}
 .visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.visual-list{display:flex;flex-wrap:wrap;gap:7px}.visual-chip{padding:8px 10px;border-radius:11px;background:#f1f8fb;border:1px solid #d8e9ef;font-size:13px;font-weight:700}
 .chart-wrap{overflow-x:auto}.chart-svg{width:100%;min-width:330px;height:auto;display:block}.chart-empty{text-align:center;padding:25px;color:#70838c;background:#f7fafb;border-radius:14px}
+.photo-card{background:#fff;border:1px solid #dfe8ec;border-radius:18px;padding:14px;margin:12px 0;box-shadow:0 3px 12px #0000000a}.photo-box{width:100%;min-height:220px;border:2px dashed #cce5ee;border-radius:14px;background:#f7fbfc;display:flex;align-items:center;justify-content:center;overflow:hidden}.photo-box img{display:block;width:100%;max-height:420px;object-fit:cover}.photo-placeholder{text-align:center;color:#70838c;padding:35px 15px}.photo-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .readonly-note{background:#e8f7ee;color:#17663d;border-radius:12px;padding:10px 12px;font-weight:700;margin-bottom:12px}
+.pump-card{margin-top:12px;background:#eef8fc;border:1px solid #cce5ee;border-radius:16px;padding:16px}
+.pump-label{font-size:12px;font-weight:800;color:#607782;text-transform:uppercase;letter-spacing:.4px}
+.pump-model{font-size:25px;line-height:1.15;font-weight:900;color:var(--dark);margin-top:4px}
+.pump-brand{font-size:18px;font-weight:800;color:var(--blue);margin-top:3px}
+.pump-flow-row{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid #cce5ee}
+.pump-flow-icon{font-size:30px;line-height:1}
+.pump-flow-value{font-size:28px;font-weight:900;color:var(--blue)}
+.pump-flow-label{font-size:12px;font-weight:800;color:#607782}
 @media(max-width:520px){.metric-grid{grid-template-columns:repeat(2,1fr)}.visual-grid{grid-template-columns:1fr}.visual-stats{grid-template-columns:repeat(3,1fr)}.visual-stat strong{font-size:16px}}
 </style>
 </head>
@@ -203,11 +212,34 @@ function ensureTankData(t){
   if(!Array.isArray(t.fish)) t.fish=[];
   if(!Array.isArray(t.plants)) t.plants=[];
   if(!Array.isArray(t.measurements)) t.measurements=[];
+  if(typeof t.photo!=="string") t.photo="";
   if(!t.filter) t.filter={type:"",brand:"",model:"",flow:0,maxFlow:0,materials:[],sump:{length:0,width:0,height:0,liters:0}};
   if(typeof t.filter.maxFlow!=="number") t.filter.maxFlow=Number(t.filter.maxFlow)||0;
   if(!Array.isArray(t.filter.materials)) t.filter.materials=[];
   if(!t.filter.sump) t.filter.sump={length:0,width:0,height:0,liters:0};
   return t;
+}
+
+function saveTankPhoto(id,input){
+  const tank=tanks.find(x=>x.id===id);
+  if(!tank||!input||!input.files||!input.files[0])return;
+  const file=input.files[0];
+  if(!file.type.startsWith("image/")){alert("Selecciona una imagen válida.");input.value="";return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    tank.photo=e.target.result;
+    saveTanks();
+    renderTanks();
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeTankPhoto(id){
+  const tank=tanks.find(x=>x.id===id);
+  if(!tank)return;
+  tank.photo="";
+  saveTanks();
+  renderTanks();
 }
 
 function addTank(){
@@ -220,7 +252,7 @@ function addTank(){
     width:Number(document.getElementById("tankWidth").value)||0,
     height:Number(document.getElementById("tankHeight").value)||0,
     filter:{type:"",brand:"",model:"",flow:0,maxFlow:0,materials:[],sump:{length:0,width:0,height:0,liters:0}},
-    fish:[],plants:[],measurements:[]
+    fish:[],plants:[],measurements:[],photo:""
   };
   tanks.push(tank); saveTanks();
   ["tankName","tankLiters","tankLength","tankWidth","tankHeight"].forEach(id=>document.getElementById(id).value="");
@@ -271,7 +303,6 @@ function saveFilter(id){
   if(sw) f.sump.width=Number(sw.value)||0;
   if(sh) f.sump.height=Number(sh.value)||0;
 
-  /* Si hay medidas del SUMP, los litros se calculan automáticamente. */
   const calculatedSumpLiters=(Number(f.sump.length)||0)*(Number(f.sump.width)||0)*(Number(f.sump.height)||0)/1000;
   if(calculatedSumpLiters>0) f.sump.liters=Number(calculatedSumpLiters.toFixed(1));
   else if(su) f.sump.liters=Number(su.value)||0;
@@ -481,12 +512,12 @@ function buildMeasurementChart(tank){
       let path="";
       rows.forEach((r,i)=>{if(r[s.key]!==null){const yy=yBase-((r[s.key]-s.min)/(s.max-s.min))*60;path+=(path?" L ":"M ")+x(i).toFixed(1)+" "+Math.max(yTop+3,Math.min(yBase-3,yy)).toFixed(1);}});
       svg+='<path d="'+path+'" fill="none" stroke="#0b6e99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
-      rows.forEach((r,i)=>{if(r[s.key]!==null){const yy=yBase-((r[s.key]-s.min)/(s.max-s.min))*60;svg+='<circle cx="'+x(i).toFixed(1)+'" cy="'+Math.max(yTop+3,Math.min(yBase-3,yy)).toFixed(1)+'" r="4" fill="#0d91b8"><title>'+esc(r.date)+': '+formatValue(r[s.key])+esc(s.unit)+'</title></circle>'; }});
+      rows.forEach((r,i)=>{if(r[s.key]!==null){const yy=yBase-((r[s.key]-s.min)/(s.max-s.min))*60;svg+='<circle cx="'+x(i).toFixed(1)+'" cy="'+Math.max(yTop+3,Math.min(yBase-3,yy)).toFixed(1)+'" r="4" fill="#0d91b8"><title>'+esc(r.date)+': '+formatValue(r[s.key])+esc(s.unit)+'</title></circle>';}});
     }
     svg+='<text x="'+(left-8)+'" y="'+(yTop+6)+'" text-anchor="end" font-size="10" fill="#607782">'+s.max+'</text><text x="'+(left-8)+'" y="'+(yBase+4)+'" text-anchor="end" font-size="10" fill="#607782">'+s.min+'</text>';
   });
   const tickStep=Math.max(1,Math.ceil(n/6));
-  rows.forEach((r,i)=>{if(i%tickStep===0||i===n-1){svg+='<text x="'+x(i).toFixed(1)+'" y="420" text-anchor="middle" font-size="10" fill="#607782">'+esc((r.date||"").split(",")[0])+'</text>'; }});
+  rows.forEach((r,i)=>{if(i%tickStep===0||i===n-1){svg+='<text x="'+x(i).toFixed(1)+'" y="420" text-anchor="middle" font-size="10" fill="#607782">'+esc((r.date||"").split(",")[0])+'</text>';}});
   svg+='</svg>'; return svg;
 }
 
@@ -496,13 +527,18 @@ function visualTank(tank){
   const materials=f.materials||[]; const materialTotal=materials.reduce((s,m)=>s+(Number(m.liters)||0),0);
   const fishHtml=tank.fish.length?tank.fish.map(x=>'<span class="visual-chip">🐟 '+escapeHtml(x.name)+' × '+escapeHtml(x.quantity)+'</span>').join(""):'<span class="small">No hay peces añadidos.</span>';
   const plantHtml=tank.plants.length?tank.plants.map(x=>'<span class="visual-chip">🌿 '+escapeHtml(x.name)+' × '+escapeHtml(x.quantity)+'</span>').join(""):'<span class="small">No hay plantas añadidas.</span>';
-  const materialHtml=materials.length?materials.map(x=>'<span class="visual-chip">🧱 '+escapeHtml(x.brand?x.brand+" ":"")+escapeHtml(x.type)+' · '+escapeHtml(x.liters)+' L</span>').join(""):'<span class="small">No hay materiales filtrantes añadidos.</span>';
+  const materialHtml=materials.length?materials.map(x=>'<span class="visual-chip">🧱 '+escapeHtml(x.brand?x.brand+" ":"")+escapeHtml(x.type||"Material")+' · '+escapeHtml(x.liters||0)+' L</span>').join(""):'<span class="small">No hay materiales filtrantes añadidos.</span>';
+  const photoHtml=tank.photo
+    ? '<div class="photo-box"><img src="'+tank.photo+'" alt="Foto del acuario"></div><div class="photo-actions"><span class="small">Foto guardada en este dispositivo.</span></div>'
+    : '<div class="photo-box"><div class="photo-placeholder">📷<br><strong>Aún no hay una foto del acuario</strong><br><span class="small">Puedes añadirla desde «✏️ Editar».</span></div></div>';
+
   return '<div class="visual-hero"><h2>📊 '+escapeHtml(tank.name)+'</h2><p>Resumen visual · Solo lectura</p><div class="visual-stats"><div class="visual-stat"><strong>'+escapeHtml(tank.liters)+' L</strong><span>Volumen</span></div><div class="visual-stat"><strong>'+fishQty+'</strong><span>Peces</span></div><div class="visual-stat"><strong>'+tank.plants.length+'</strong><span>Plantas</span></div></div></div>'+
   '<div class="readonly-note">👁️ Esta pestaña es solo de consulta. Para modificar datos usa «✏️ Editar».</div>'+
-  '<div class="visual-card"><h3>📐 Datos del acuario</h3><div class="grid"><div class="item"><strong>'+escapeHtml(tank.liters)+' L</strong><div class="small">Volumen</div></div><div class="item"><strong>'+(tank.length&&tank.width&&tank.height?escapeHtml(tank.length+' × '+tank.width+' × '+tank.height+' cm'):'—')+'</strong><div class="small">Medidas</div></div><div class="item"><strong>'+(f.type?escapeHtml(f.type):'—')+'</strong><div class="small">Filtración</div></div></div></div>'+
+  '<div class="photo-card"><h3>📷 Foto del acuario</h3>'+photoHtml+'</div>'+
+  '<div class="visual-card"><h3>📐 Datos del acuario</h3><div class="grid"><div class="item"><strong>'+escapeHtml(tank.liters)+' L</strong><div class="small">Volumen</div></div><div class="item"><strong>'+(tank.length&&tank.width&&tank.height?escapeHtml(tank.length+' × '+tank.width+' × '+tank.height+' cm'):'—')+'</strong><div class="small">Medidas</div></div></div></div>'+
+  '<div class="visual-card"><h3>🔧 Filtración</h3><div class="grid"><div class="item"><strong>'+escapeHtml(f.type||'—')+'</strong><div class="small">Tipo</div></div><div class="item"><strong>'+escapeHtml(f.sump?.liters?Number(f.sump.liters).toFixed(1)+' L':f.flow?f.flow+' L/h':'—')+'</strong><div class="small">'+(f.type==='Sump'?'Volumen SUMP':'Caudal')+'</div></div></div><div class="pump-card"><div class="pump-label">💧 Bomba de subida</div><div class="pump-brand">'+escapeHtml(f.brand||'—')+'</div><div class="pump-model">'+escapeHtml(f.model||'—')+'</div><div class="pump-flow-row"><div class="pump-flow-icon">💧</div><div><div class="pump-flow-value">'+escapeHtml(f.flow?Number(f.flow).toLocaleString('es-ES')+' L/h':'—')+'</div><div class="pump-flow-label">CAUDAL</div></div></div></div><div class="small" style="margin-top:14px">Material filtrante: '+materialTotal.toFixed(1)+' L</div><div class="visual-list" style="margin-top:10px">'+materialHtml+'</div></div>'+
   '<div class="visual-card"><h3>🧪 Mediciones</h3><div class="metric-grid"><div class="metric"><strong>'+escapeHtml(last?.ph||'—')+'</strong><span>pH</span></div><div class="metric gh"><strong>'+escapeHtml(last?.gh||'—')+'</strong><span>GH °dGH</span></div><div class="metric kh"><strong>'+escapeHtml(last?.kh||'—')+'</strong><span>KH °dKH</span></div><div class="metric temp"><strong>'+escapeHtml(last?.temp||'—')+'°</strong><span>Temperatura</span></div></div><div style="margin-top:14px"><strong>📈 Evolución de parámetros</strong><div class="chart-wrap" style="margin-top:10px">'+buildMeasurementChart(tank)+'</div></div></div>'+
-  '<div class="visual-grid"><div class="visual-card"><h3>🐟 Peces ('+fishQty+')</h3><div class="visual-list">'+fishHtml+'</div></div><div class="visual-card"><h3>🌿 Plantas ('+tank.plants.length+')</h3><div class="visual-list">'+plantHtml+'</div></div></div>'+
-  '<div class="visual-card"><h3>🔧 Filtración</h3><div class="grid"><div class="item"><strong>'+escapeHtml(f.type||'—')+'</strong><div class="small">Tipo</div></div><div class="item"><strong>'+escapeHtml(f.sump?.liters?Number(f.sump.liters).toFixed(1)+' L':f.flow?f.flow+' L/h':'—')+'</strong><div class="small">'+(f.type==='Sump'?'Volumen SUMP':'Caudal')+'</div></div><div class="item"><strong>'+escapeHtml(f.brand||'—')+'</strong><div class="small">Marca</div></div></div><div class="small" style="margin-top:12px">Bomba/modelo: '+escapeHtml(f.model||'—')+' · Material filtrante: '+materialTotal.toFixed(1)+' L</div><div class="visual-list" style="margin-top:10px">'+materialHtml+'</div></div>';
+  '<div class="visual-grid"><div class="visual-card"><h3>🐟 Peces ('+fishQty+')</h3><div class="visual-list">'+fishHtml+'</div></div><div class="visual-card"><h3>🌿 Plantas ('+tank.plants.length+')</h3><div class="visual-list">'+plantHtml+'</div></div></div>';
 }
 
 function renderTanks(){
@@ -533,7 +569,6 @@ function renderTanks(){
       <div class="badge">Cantidad: ${x.quantity}</div></div>`).join("")
       :'<div class="small">No has añadido plantas a este acuario.</div>';
 
-    /* MATERIAL FILTRANTE: se agrupa siempre por categoría */
     const categoryOrder=["Biológico","Mecánico","Mecánico/Biológico","Químico","Otro"];
     const materialGroups=categoryOrder.map(category=>{
       const items=f.materials
@@ -558,8 +593,6 @@ function renderTanks(){
     const materialsHtml=materialGroups ||
       '<div class="small">No hay materiales añadidos.</div>';
 
-    /* Filtración: el selector SIEMPRE va primero. Si es SUMP:
-       tipo -> medidas SUMP -> bomba de subida -> caudal. */
     const filtrationHtml=`
       <div class="filter-section">
         <div class="grid">
@@ -614,6 +647,7 @@ function renderTanks(){
       <div class="tank-tabs"><button class="tank-tab active" data-tab="visual" onclick="switchTankTab(${tank.id},'visual')">📊 Vista</button><button class="tank-tab" data-tab="edit" onclick="switchTankTab(${tank.id},'edit')">✏️ Editar</button></div>
       <div id="visualPane_${tank.id}" class="tank-pane active">${visualTank(tank)}</div>
       <div id="editPane_${tank.id}" class="tank-pane">
+      <div class="photo-card"><h3>📷 Foto del acuario</h3><div class="photo-box">${tank.photo?'<img src="'+tank.photo+'" alt="Foto del acuario">':'<div class="photo-placeholder">📷<br><strong>Selecciona una foto del acuario</strong><br><span class="small">La foto se guardará en este dispositivo.</span></div>'}</div><div class="photo-actions"><label class="btn" style="display:inline-block;cursor:pointer">📷 '+(tank.photo?'Cambiar foto':'Añadir foto')+'<input type="file" accept="image/*" style="display:none" onchange="saveTankPhoto(${tank.id},this)"></label>${tank.photo?'<button class="btn red" onclick="removeTankPhoto('+tank.id+')">🗑️ Quitar foto</button>':''}</div></div>
       <hr>
       <h3>🐟 Peces que tienes</h3>
       <div class="grid">
