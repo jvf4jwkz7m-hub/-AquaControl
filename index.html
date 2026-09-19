@@ -666,7 +666,9 @@ const PLANTS=[
 {"name":"Nymphoides indica","scientific":"Nymphoides indica","difficulty":"Fácil","light":"Media","type":"Roseta"},
 {"name":"Hydrocotyle sibthorpioides","scientific":"Hydrocotyle sibthorpioides","difficulty":"Media","light":"Media","type":"Tallo"},
 {"name":"Marsilea crenata mini","scientific":"Marsilea crenata","difficulty":"Fácil","light":"Media","type":"Tapizante"}
-];
+];const KEY="aquacontrol_v3";
+let state=JSON.parse(localStorage.getItem(KEY)||'{"aquariums":[]}');
+  
   function save(){
 localStorage.setItem(KEY,JSON.stringify(state));
 updateStats();
