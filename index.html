@@ -17,32 +17,23 @@
 --orange:#e58a24;
 --border:#d7e2e7;
 }
-
 *{box-sizing:border-box}
-
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 background:#f5f8fa;
 color:var(--dark);
 }
-
 header{
 background:linear-gradient(135deg,var(--blue),var(--blue2));
 color:white;
 padding:28px 18px 22px;
 border-radius:0 0 24px 24px;
 }
-
 h1{margin:0 0 6px;font-size:30px}
 h2{margin-top:6px}
 h3{margin-top:0}
-
-header p{
-margin:0;
-opacity:.9;
-}
-
+header p{margin:0;opacity:.9}
 nav{
 display:flex;
 gap:8px;
@@ -54,7 +45,6 @@ top:0;
 z-index:5;
 box-shadow:0 2px 8px #0001;
 }
-
 nav button{
 border:0;
 background:#edf4f7;
@@ -64,21 +54,17 @@ border-radius:20px;
 white-space:nowrap;
 font-weight:600;
 }
-
 nav button.active{
 background:var(--blue);
 color:white;
 }
-
 main{
 padding:16px;
 max-width:950px;
 margin:auto;
 }
-
 .section{display:none}
 .section.active{display:block}
-
 .card{
 background:white;
 border-radius:18px;
@@ -86,13 +72,11 @@ padding:16px;
 margin:12px 0;
 box-shadow:0 3px 14px #0000000d;
 }
-
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:12px;
 }
-
 input,select{
 width:100%;
 padding:12px;
@@ -101,13 +85,11 @@ border-radius:12px;
 font-size:16px;
 background:white;
 }
-
 label{
 display:block;
 font-weight:600;
 margin-bottom:5px;
 }
-
 .btn{
 border:0;
 border-radius:12px;
@@ -117,28 +99,23 @@ color:white;
 font-weight:700;
 cursor:pointer;
 }
-
 .btn.green{background:var(--green)}
 .btn.red{background:var(--red)}
 .btn.orange{background:var(--orange)}
-
 .row{
 display:flex;
 gap:8px;
 align-items:center;
 flex-wrap:wrap;
 }
-
 .stat{
 font-size:24px;
 font-weight:800;
 }
-
 .small{
 font-size:13px;
 color:#607782;
 }
-
 .badge{
 display:inline-block;
 padding:5px 9px;
@@ -148,30 +125,25 @@ color:var(--blue);
 font-size:12px;
 margin:3px;
 }
-
 .item{
 border:1px solid #e2eaee;
 border-radius:15px;
 padding:14px;
 background:#fff;
 }
-
 .item h3{
 margin:0 0 5px;
 }
-
 .latin{
 font-style:italic;
 color:#607782;
 font-size:14px;
 }
-
 .empty{
 text-align:center;
 color:#70838c;
 padding:30px;
 }
-
 .good{
 background:#e8f7ee;
 color:#17663d;
@@ -179,7 +151,6 @@ padding:12px;
 border-radius:12px;
 font-weight:600;
 }
-
 .warning{
 background:#fff4df;
 color:#8a5a08;
@@ -187,7 +158,6 @@ padding:12px;
 border-radius:12px;
 font-weight:600;
 }
-
 .danger{
 background:#fdeaea;
 color:#8c2929;
@@ -195,7 +165,6 @@ padding:12px;
 border-radius:12px;
 font-weight:600;
 }
-
 .material{
 border:1px solid #dfe8ec;
 border-radius:14px;
@@ -203,18 +172,21 @@ padding:14px;
 margin-top:10px;
 background:#fafcfd;
 }
-
+.sump{
+border:1px solid #b9dce8;
+border-radius:14px;
+padding:14px;
+margin-top:12px;
+background:#f1fbfe;
+}
 hr{
 border:0;
 border-top:1px solid #e5ecef;
 margin:18px 0;
 }
-
 .delete{
 float:right;
 }
-
-.hidden{display:none}
 </style>
 </head>
 
@@ -234,7 +206,6 @@ float:right;
 
 <main>
 
-<!-- INICIO -->
 <section id="inicio" class="section active">
 
 <div class="card">
@@ -263,8 +234,8 @@ float:right;
 <div class="card">
 <h2>💾 Guardado automático</h2>
 <p>
-Los datos de tus acuarios, filtros y materiales filtrantes se guardan
-automáticamente en este dispositivo.
+Los datos de tus acuarios, filtros, sump y materiales filtrantes
+se guardan automáticamente en este dispositivo.
 </p>
 </div>
 
@@ -273,7 +244,6 @@ automáticamente en este dispositivo.
 </section>
 
 
-<!-- PECES -->
 <section id="peces" class="section">
 
 <h2>🐟 Base de datos de peces</h2>
@@ -290,7 +260,6 @@ oninput="renderFish()">
 </section>
 
 
-<!-- PLANTAS -->
 <section id="plantas" class="section">
 
 <h2>🌿 Base de datos de plantas</h2>
@@ -307,7 +276,6 @@ oninput="renderPlants()">
 </section>
 
 
-<!-- ACUARIOS -->
 <section id="acuarios" class="section">
 
 <h2>🏠 Mis acuarios</h2>
@@ -361,10 +329,6 @@ oninput="renderPlants()">
 
 
 <script>
-
-/* =========================
-   BASE DE DATOS PECES
-========================= */
 
 const fish=[
 
@@ -474,14 +438,34 @@ min:"20 L",
 group:"1+",
 zone:"Superficial",
 difficulty:"Fácil"
+},
+
+{
+name:"Guppy",
+latin:"Poecilia reticulata",
+temp:"22–28 °C",
+ph:"6,8–8,0",
+size:"3–6 cm",
+min:"60 L",
+group:"6+",
+zone:"Media/Superior",
+difficulty:"Fácil"
+},
+
+{
+name:"Molly",
+latin:"Poecilia sphenops",
+temp:"24–28 °C",
+ph:"7,0–8,2",
+size:"6–10 cm",
+min:"100 L",
+group:"4+",
+zone:"Media/Superior",
+difficulty:"Fácil"
 }
 
 ];
 
-
-/* =========================
-   BASE DE DATOS PLANTAS
-========================= */
 
 const plants=[
 
@@ -553,14 +537,20 @@ co2:"No necesario",
 size:"Flotante",
 zone:"Superficie",
 difficulty:"Fácil"
+},
+
+{
+name:"Bucephalandra",
+latin:"Bucephalandra sp.",
+light:"Baja–media",
+co2:"Opcional",
+size:"5–15 cm",
+zone:"Primer plano/medio",
+difficulty:"Fácil"
 }
 
 ];
 
-
-/* =========================
-   DATOS GUARDADOS
-========================= */
 
 let tanks=loadTanks();
 
@@ -592,10 +582,6 @@ JSON.stringify(tanks)
 }
 
 
-/* =========================
-   NAVEGACIÓN
-========================= */
-
 function showSection(id,btn){
 
 document
@@ -615,15 +601,11 @@ btn.classList.add("active");
 }
 
 
-/* =========================
-   PECES
-========================= */
-
 function renderFish(){
 
 const input=document.getElementById("fishSearch");
 
-const q=(input.value || "").toLowerCase();
+const q=(input.value || "").toLowerCase().trim();
 
 const results=fish.filter(x=>
 (x.name+" "+x.latin)
@@ -637,26 +619,40 @@ results.map(x=>`
 
 <div class="item">
 
-<h3>🐟 ${x.name}</h3>
+<h3>🐟 ${escapeHtml(x.name)}</h3>
 
-<div class="latin">${x.latin}</div>
+<div class="latin">
+${escapeHtml(x.latin)}
+</div>
 
 <p>
 
-<span class="badge">🌡 ${x.temp}</span>
+<span class="badge">
+🌡 ${escapeHtml(x.temp)}
+</span>
 
-<span class="badge">pH ${x.ph}</span>
+<span class="badge">
+pH ${escapeHtml(x.ph)}
+</span>
 
-<span class="badge">📏 ${x.size}</span>
+<span class="badge">
+📏 ${escapeHtml(x.size)}
+</span>
 
 </p>
 
 <div class="small">
 
-Mínimo: ${x.min}<br>
-Grupo: ${x.group}<br>
-Zona: ${x.zone}<br>
-Dificultad: ${x.difficulty}
+Mínimo: ${escapeHtml(x.min)}
+<br>
+
+Grupo: ${escapeHtml(x.group)}
+<br>
+
+Zona: ${escapeHtml(x.zone)}
+<br>
+
+Dificultad: ${escapeHtml(x.difficulty)}
 
 </div>
 
@@ -664,22 +660,16 @@ Dificultad: ${x.difficulty}
 
 `).join("")
 
-||
-
-'<div class="empty">No se encontraron peces.</div>';
+|| '<div class="empty">No se encontraron peces.</div>';
 
 }
 
-
-/* =========================
-   PLANTAS
-========================= */
 
 function renderPlants(){
 
 const input=document.getElementById("plantSearch");
 
-const q=(input.value || "").toLowerCase();
+const q=(input.value || "").toLowerCase().trim();
 
 const results=plants.filter(x=>
 (x.name+" "+x.latin)
@@ -693,27 +683,33 @@ results.map(x=>`
 
 <div class="item">
 
-<h3>🌿 ${x.name}</h3>
+<h3>🌿 ${escapeHtml(x.name)}</h3>
 
-<div class="latin">${x.latin}</div>
+<div class="latin">
+${escapeHtml(x.latin)}
+</div>
 
 <p>
 
 <span class="badge">
-💡 ${x.light}
+💡 ${escapeHtml(x.light)}
 </span>
 
 <span class="badge">
-CO₂: ${x.co2}
+CO₂: ${escapeHtml(x.co2)}
 </span>
 
 </p>
 
 <div class="small">
 
-Altura: ${x.size}<br>
-Posición: ${x.zone}<br>
-Dificultad: ${x.difficulty}
+Altura: ${escapeHtml(x.size)}
+<br>
+
+Posición: ${escapeHtml(x.zone)}
+<br>
+
+Dificultad: ${escapeHtml(x.difficulty)}
 
 </div>
 
@@ -721,39 +717,27 @@ Dificultad: ${x.difficulty}
 
 `).join("")
 
-||
-
-'<div class="empty">No se encontraron plantas.</div>';
+|| '<div class="empty">No se encontraron plantas.</div>';
 
 }
 
 
-/* =========================
-   CREAR ACUARIO
-========================= */
-
 function addTank(){
 
-const name=document
-.getElementById("tankName")
-.value
-.trim();
+const name=
+document.getElementById("tankName").value.trim();
 
-const liters=Number(
-document.getElementById("tankLiters").value
-);
+const liters=
+Number(document.getElementById("tankLiters").value);
 
-const length=Number(
-document.getElementById("tankLength").value
-);
+const length=
+Number(document.getElementById("tankLength").value);
 
-const width=Number(
-document.getElementById("tankWidth").value
-);
+const width=
+Number(document.getElementById("tankWidth").value);
 
-const height=Number(
-document.getElementById("tankHeight").value
-);
+const height=
+Number(document.getElementById("tankHeight").value);
 
 
 if(!name || !liters){
@@ -789,7 +773,19 @@ model:"",
 
 flow:0,
 
-materials:[]
+materials:[],
+
+sump:{
+
+length:0,
+
+width:0,
+
+height:0,
+
+usefulLiters:0
+
+}
 
 },
 
@@ -802,20 +798,22 @@ tanks.push(tank);
 
 saveTanks();
 
+
 document.getElementById("tankName").value="";
+
 document.getElementById("tankLiters").value="";
+
 document.getElementById("tankLength").value="";
+
 document.getElementById("tankWidth").value="";
+
 document.getElementById("tankHeight").value="";
+
 
 renderAll();
 
 }
 
-
-/* =========================
-   ELIMINAR ACUARIO
-========================= */
 
 function deleteTank(id){
 
@@ -830,28 +828,79 @@ renderAll();
 }
 
 
-/* =========================
-   FILTRACIÓN
-========================= */
+function ensureFilter(tank){
+
+if(!tank.filter){
+
+tank.filter={};
+
+}
+
+if(!Array.isArray(tank.filter.materials)){
+
+tank.filter.materials=[];
+
+}
+
+if(!tank.filter.sump){
+
+tank.filter.sump={
+
+length:0,
+
+width:0,
+
+height:0,
+
+usefulLiters:0
+
+};
+
+}
+
+return tank.filter;
+
+}
+
 
 function saveFilter(id){
 
 const tank=tanks.find(x=>x.id===id);
 
-if(!tank) return;
+if(!tank)return;
 
 
-tank.filter.type=
+const filter=ensureFilter(tank);
+
+
+filter.type=
 document.getElementById("filterType_"+id).value;
 
-tank.filter.brand=
-document.getElementById("filterBrand_"+id).value;
+filter.brand=
+document.getElementById("filterBrand_"+id).value.trim();
 
-tank.filter.model=
-document.getElementById("filterModel_"+id).value;
+filter.model=
+document.getElementById("filterModel_"+id).value.trim();
 
-tank.filter.flow=
-Number(document.getElementById("filterFlow_"+id).value) || 0;
+filter.flow=
+Number(document.getElementById("filterFlow_"+id).value)||0;
+
+
+if(filter.type==="Sump"){
+
+filter.sump.length=
+Number(document.getElementById("sumpLength_"+id).value)||0;
+
+filter.sump.width=
+Number(document.getElementById("sumpWidth_"+id).value)||0;
+
+filter.sump.height=
+Number(document.getElementById("sumpHeight_"+id).value)||0;
+
+filter.sump.usefulLiters=
+Number(document.getElementById("sumpUseful_"+id).value)||0;
+
+}
 
 
 saveTanks();
@@ -861,35 +910,63 @@ renderAll();
 }
 
 
-/* =========================
-   RECOMENDACIÓN CAUDAL
-========================= */
+function recommendedFlow(liters,type){
 
-function recommendedFlow(liters){
+if(!liters)return 0;
 
-if(!liters) return 0;
 
-return Math.round(liters*5);
+let multiplier=5;
+
+
+if(type==="Sump") multiplier=5;
+
+if(type==="Externo") multiplier=5;
+
+if(type==="Mochila") multiplier=6;
+
+if(type==="Cascada") multiplier=6;
+
+if(type==="Interno") multiplier=5;
+
+if(type==="Esponja") multiplier=4;
+
+if(type==="Otro") multiplier=5;
+
+
+return Math.round(liters*multiplier);
 
 }
 
 
 function flowMessage(tank){
 
-const recommended=recommendedFlow(tank.liters);
+const type=tank.filter?.type || "";
 
-const installed=Number(tank.filter.flow)||0;
+const recommended=
+recommendedFlow(tank.liters,type);
+
+const installed=
+Number(tank.filter?.flow)||0;
 
 
 if(!installed){
 
 return `
+
 <div class="warning">
+
 ⚠️ Introduce el caudal de tu filtro para comprobarlo.
+
 <br>
-Caudal recomendado aproximado:
-<strong>${recommended} L/h</strong>
+
+Para un acuario de
+<strong>${tank.liters} L</strong>
+se recomienda aproximadamente:
+
+<strong>${recommended} L/h</strong>.
+
 </div>
+
 `;
 
 }
@@ -898,69 +975,125 @@ Caudal recomendado aproximado:
 if(installed<recommended){
 
 return `
+
 <div class="danger">
-❌ El caudal indicado es inferior al recomendado.
+
+❌ El caudal indicado está por debajo de la referencia.
+
 <br>
-Instalado: <strong>${installed} L/h</strong>
+
+Instalado:
+<strong>${installed} L/h</strong>
+
 <br>
-Recomendado: <strong>${recommended} L/h</strong>
+
+Referencia:
+<strong>${recommended} L/h</strong>
+
 </div>
+
 `;
 
 }
 
 
 return `
+
 <div class="good">
-✅ El caudal indicado alcanza el mínimo recomendado.
+
+✅ El caudal indicado alcanza la referencia calculada.
+
 <br>
-Instalado: <strong>${installed} L/h</strong>
+
+Instalado:
+<strong>${installed} L/h</strong>
+
 <br>
-Recomendado: <strong>${recommended} L/h</strong>
+
+Referencia:
+<strong>${recommended} L/h</strong>
+
 </div>
+
 `;
 
 }
 
 
-/* =========================
-   AÑADIR MATERIAL
-========================= */
+function calculateSumpVolume(length,width,height){
+
+if(!length || !width || !height)return 0;
+
+return Math.round(
+(length*width*height)/1000*10
+)/10;
+
+}
+
+
+function saveSump(id){
+
+const tank=tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+const filter=ensureFilter(tank);
+
+filter.sump.length=
+Number(document.getElementById("sumpLength_"+id).value)||0;
+
+filter.sump.width=
+Number(document.getElementById("sumpWidth_"+id).value)||0;
+
+filter.sump.height=
+Number(document.getElementById("sumpHeight_"+id).value)||0;
+
+filter.sump.usefulLiters=
+Number(document.getElementById("sumpUseful_"+id).value)||0;
+
+saveTanks();
+
+renderAll();
+
+}
+
 
 function addMaterial(id){
 
 const tank=tanks.find(x=>x.id===id);
 
-if(!tank) return;
+if(!tank)return;
+
+const filter=ensureFilter(tank);
 
 
-const type=document
-.getElementById("matType_"+id)
-.value
-.trim();
+const use=
+document.getElementById("matUse_"+id).value;
 
-const brand=document
-.getElementById("matBrand_"+id)
-.value
-.trim();
+const type=
+document.getElementById("matType_"+id).value.trim();
 
-const liters=Number(
-document.getElementById("matLiters_"+id).value
-);
+const brand=
+document.getElementById("matBrand_"+id).value.trim();
+
+const liters=
+Number(document.getElementById("matLiters_"+id).value);
 
 
-if(!type || !liters){
+if(!use || !type || !liters){
 
-alert("Introduce el tipo de material y los litros.");
+alert("Introduce el uso, tipo de material y cantidad.");
 
 return;
 
 }
 
 
-tank.filter.materials.push({
+filter.materials.push({
 
 id:Date.now(),
+
+use:use,
 
 type:type,
 
@@ -978,21 +1111,16 @@ renderAll();
 }
 
 
-/* =========================
-   ELIMINAR MATERIAL
-========================= */
-
 function deleteMaterial(tankId,materialId){
 
 const tank=tanks.find(x=>x.id===tankId);
 
-if(!tank) return;
+if(!tank)return;
 
+const filter=ensureFilter(tank);
 
-tank.filter.materials=
-tank.filter.materials.filter(
-x=>x.id!==materialId
-);
+filter.materials=
+filter.materials.filter(x=>x.id!==materialId);
 
 saveTanks();
 
@@ -1001,22 +1129,17 @@ renderAll();
 }
 
 
-/* =========================
-   MATERIAL RECOMENDADO
-========================= */
-
 function recommendedBio(liters){
 
-if(!liters) return 0;
+if(!liters)return 0;
 
-return Math.max(1,Math.round(liters*0.02*10)/10);
+return Math.max(
+1,
+Math.round(liters*0.02*10)/10
+);
 
 }
 
-
-/* =========================
-   RENDER ACUARIOS
-========================= */
 
 function renderTanks(){
 
@@ -1041,25 +1164,21 @@ return;
 
 container.innerHTML=tanks.map(tank=>{
 
-const filter=tank.filter || {
+const filter=ensureFilter(tank);
 
-type:"",
-brand:"",
-model:"",
-flow:0,
-materials:[]
-};
-
-
-if(!Array.isArray(filter.materials)){
-
-filter.materials=[];
-
-}
-
+const materials=filter.materials || [];
 
 const materialTotal=
-filter.materials.reduce(
+materials.reduce(
+(sum,m)=>sum+(Number(m.liters)||0),
+0
+);
+
+
+const biologicalTotal=
+materials
+.filter(m=>m.use==="Biológico")
+.reduce(
 (sum,m)=>sum+(Number(m.liters)||0),
 0
 );
@@ -1069,28 +1188,51 @@ const recommended=
 recommendedBio(tank.liters);
 
 
+const sump=filter.sump || {
+
+length:0,
+width:0,
+height:0,
+usefulLiters:0
+
+};
+
+
+const sumpCalculated=
+calculateSumpVolume(
+Number(sump.length),
+Number(sump.width),
+Number(sump.height)
+);
+
+
 const materialsHtml=
-filter.materials.length
+
+materials.length
 
 ?
 
-filter.materials.map(m=>`
+materials.map(m=>`
 
 <div class="material">
 
 <button
 class="btn red delete"
 onclick="deleteMaterial(${tank.id},${m.id})">
-
 Eliminar
-
 </button>
 
-<strong>${m.type}</strong>
+<strong>
+${escapeHtml(m.type)}
+</strong>
 
-${m.brand ? " · "+m.brand : ""}
+${m.brand ? " · "+escapeHtml(m.brand) : ""}
 
 <br>
+
+<span class="badge">
+${escapeHtml(m.use || "Otro")}
+</span>
 
 <span class="small">
 ${m.liters} litros
@@ -1113,17 +1255,21 @@ return `
 
 <div style="flex:1">
 
-<h3>🏠 ${tank.name}</h3>
+<h3>
+🏠 ${escapeHtml(tank.name)}
+</h3>
 
 <div class="small">
 
 ${tank.liters} litros
 
-${tank.length && tank.width && tank.height
+${tank.length&&tank.width&&tank.height
 
-? ` · ${tank.length} × ${tank.width} × ${tank.height} cm`
+?
 
-: ""}
+` · ${tank.length} × ${tank.width} × ${tank.height} cm`
+
+:""}
 
 </div>
 
@@ -1132,9 +1278,7 @@ ${tank.length && tank.width && tank.height
 <button
 class="btn red"
 onclick="deleteTank(${tank.id})">
-
 Eliminar
-
 </button>
 
 </div>
@@ -1152,7 +1296,9 @@ Eliminar
 
 <label>Tipo de filtro</label>
 
-<select id="filterType_${tank.id}">
+<select
+id="filterType_${tank.id}"
+onchange="toggleSump(${tank.id})">
 
 <option value="">Seleccionar</option>
 
@@ -1221,7 +1367,7 @@ placeholder="Ej: 1200XL">
 id="filterFlow_${tank.id}"
 type="number"
 min="0"
-value="${filter.flow || ""}"
+value="${filter.flow||""}"
 placeholder="Ej: 2000">
 
 </div>
@@ -1231,12 +1377,11 @@ placeholder="Ej: 2000">
 
 <br>
 
+
 <button
 class="btn"
 onclick="saveFilter(${tank.id})">
-
 💾 Guardar filtración
-
 </button>
 
 
@@ -1247,18 +1392,15 @@ ${flowMessage(tank)}
 </div>
 
 
-<hr>
+<div
+id="sumpBox_${tank.id}"
+class="${filter.type==="Sump"?"sump":"sump hidden"}">
 
-
-<h3>🧱 Material filtrante biológico</h3>
+<h3>🛢️ Datos del Sump</h3>
 
 <p class="small">
-
-Para ${tank.liters} litros, como referencia inicial,
-AquaControl calcula aproximadamente
-<strong>${recommended} L</strong> de material biológico.
-La cantidad real depende del material y de la carga biológica.
-
+Introduce las medidas del sump y sus litros útiles.
+AquaControl calculará también su volumen geométrico.
 </p>
 
 
@@ -1266,11 +1408,143 @@ La cantidad real depende del material y de la carga biológica.
 
 <div>
 
+<label>Largo Sump (cm)</label>
+
+<input
+id="sumpLength_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${sump.length||""}">
+
+</div>
+
+
+<div>
+
+<label>Ancho Sump (cm)</label>
+
+<input
+id="sumpWidth_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${sump.width||""}">
+
+</div>
+
+
+<div>
+
+<label>Alto Sump (cm)</label>
+
+<input
+id="sumpHeight_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${sump.height||""}">
+
+</div>
+
+
+<div>
+
+<label>Litros útiles</label>
+
+<input
+id="sumpUseful_${tank.id}"
+type="number"
+min="0"
+step="0.1"
+value="${sump.usefulLiters||""}"
+placeholder="Ej: 80">
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<button
+class="btn green"
+onclick="saveSump(${tank.id})">
+💾 Guardar datos del Sump
+</button>
+
+
+<div style="margin-top:12px">
+
+${sumpCalculated>0
+
+?
+
+`<div class="good">
+📐 Volumen geométrico calculado:
+<strong>${sumpCalculated} L</strong>
+</div>`
+
+:
+
+'<div class="small">Introduce las tres medidas para calcular el volumen.</div>'
+
+}
+
+</div>
+
+</div>
+
+
+<hr>
+
+
+<h3>🧱 Materiales filtrantes</h3>
+
+
+<p class="small">
+
+Como referencia inicial, AquaControl calcula aproximadamente
+<strong>${recommended} L</strong>
+de material biológico para ${tank.liters} L de acuario.
+
+La cantidad real depende del material, la carga biológica y la configuración del sistema.
+
+</p>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>Uso del material</label>
+
+<select id="matUse_${tank.id}">
+
+<option value="">Seleccionar</option>
+
+<option>Biológico</option>
+
+<option>Mecánico</option>
+
+<option>Químico</option>
+
+<option>Otro</option>
+
+</select>
+
+</div>
+
+
+<div>
+
 <label>Tipo de material</label>
 
 <input
 id="matType_${tank.id}"
-placeholder="Ej: Canutillos, Matrix, Siporax">
+placeholder="Ej: Matrix, Siporax, canutillos">
 
 </div>
 
@@ -1299,31 +1573,39 @@ placeholder="Ej: 5">
 
 </div>
 
+
 </div>
 
 
 <br>
 
+
 <button
 class="btn green"
 onclick="addMaterial(${tank.id})">
-
 ＋ Añadir material filtrante
-
 </button>
 
 
 <div style="margin-top:12px">
 
 <strong>
-Total material biológico:
+Total materiales:
 ${materialTotal.toFixed(1)} L
+</strong>
+
+<br>
+
+<strong>
+Material biológico:
+${biologicalTotal.toFixed(1)} L
 </strong>
 
 </div>
 
 
 ${materialsHtml}
+
 
 </div>
 
@@ -1332,13 +1614,17 @@ ${materialsHtml}
 }).join("");
 
 
-/* INICIO */
+home.innerHTML=tanks.map(t=>{
 
-home.innerHTML=tanks.map(t=>`
+const f=ensureFilter(t);
+
+return `
 
 <div class="card">
 
-<h3>🏠 ${t.name}</h3>
+<h3>
+🏠 ${escapeHtml(t.name)}
+</h3>
 
 <div class="small">
 ${t.liters} litros
@@ -1346,41 +1632,61 @@ ${t.liters} litros
 
 <br>
 
-${t.filter.type
+${f.type
+?
+`<span class="badge">🔧 ${escapeHtml(f.type)}</span>`
+:""}
 
-? `<span class="badge">🔧 ${t.filter.type}</span>`
+${f.flow
+?
+`<span class="badge">💧 ${f.flow} L/h</span>`
+:""}
 
-: ""}
+${f.type==="Sump" && f.sump?.usefulLiters
+?
+`<span class="badge">🛢️ Sump ${f.sump.usefulLiters} L útiles</span>`
+:""}
 
-${t.filter.flow
-
-? `<span class="badge">💧 ${t.filter.flow} L/h</span>`
-
-: ""}
-
-${t.filter.materials &&
-t.filter.materials.length
-
-? `<span class="badge">
-🧱 ${t.filter.materials.length} materiales
-</span>`
-
-: ""}
+${f.materials.length
+?
+`<span class="badge">🧱 ${f.materials.length} materiales</span>`
+:""}
 
 </div>
 
-`).join("");
+`;
+
+}).join("");
 
 }
 
 
-/* =========================
-   ESCAPAR TEXTO
-========================= */
+function toggleSump(id){
+
+const select=
+document.getElementById("filterType_"+id);
+
+const box=
+document.getElementById("sumpBox_"+id);
+
+if(!select || !box)return;
+
+if(select.value==="Sump"){
+
+box.classList.remove("hidden");
+
+}else{
+
+box.classList.add("hidden");
+
+}
+
+}
+
 
 function escapeHtml(value){
 
-return String(value || "")
+return String(value ?? "")
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -1390,27 +1696,19 @@ return String(value || "")
 }
 
 
-/* =========================
-   ACTUALIZAR CONTADORES
-========================= */
-
 function updateCounters(){
 
-document.getElementById("tankCount")
-.textContent=tanks.length;
+document.getElementById("tankCount").textContent=
+tanks.length;
 
-document.getElementById("fishCount")
-.textContent=fish.length;
+document.getElementById("fishCount").textContent=
+fish.length;
 
-document.getElementById("plantCount")
-.textContent=plants.length;
+document.getElementById("plantCount").textContent=
+plants.length;
 
 }
 
-
-/* =========================
-   RENDER GENERAL
-========================= */
 
 function renderAll(){
 
@@ -1424,10 +1722,6 @@ renderTanks();
 
 }
 
-
-/* =========================
-   INICIO
-========================= */
 
 renderAll();
 
