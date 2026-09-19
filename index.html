@@ -134,6 +134,7 @@ const fish=[
 {name:"Colisa miel",latin:"Trichogaster chuna",temp:"24–30 °C",ph:"6,0–7,5",size:"5 cm",min:"60 L",group:"1–3",zone:"Superior",difficulty:"Media"},
 {name:"Killifish",latin:"Aphyosemion spp.",temp:"20–25 °C",ph:"5,5–7,0",size:"4–6 cm",min:"40 L",group:"1+",zone:"Superior",difficulty:"Media"},
 {name:"Arcoíris enano",latin:"Melanotaenia praecox",temp:"23–28 °C",ph:"6,5–8,0",size:"6 cm",min:"100 L",group:"6+",zone:"Media",difficulty:"Fácil"},
+
 ];
 for(let i=21;i<=200;i++) fish.push({name:`Pez de acuario ${i}`,latin:`Aquarium species ${i}`,temp:"22–28 °C",ph:"6,0–8,0",size:"5–10 cm",min:"60 L",group:"6+",zone:"Media",difficulty:"Fácil"});
 
@@ -150,6 +151,7 @@ const plants=[
 {name:"Monte Carlo",latin:"Micranthemum tweediei",light:"Media–alta",co2:"Recomendado",size:"3–5 cm",zone:"Primer plano",difficulty:"Media"},
 {name:"Rotala rotundifolia",latin:"Rotala rotundifolia",light:"Media–alta",co2:"Recomendado",size:"20–40 cm",zone:"Fondo",difficulty:"Media"},
 {name:"Limnophila sessiliflora",latin:"Limnophila sessiliflora",light:"Media",co2:"Opcional",size:"20–40 cm",zone:"Fondo",difficulty:"Fácil"},
+
 ];
 for(let i=13;i<=200;i++) plants.push({name:`Planta acuática ${i}`,latin:`Aquatic plant species ${i}`,light:"Media",co2:"Opcional",size:"10–40 cm",zone:"Medio/fondo",difficulty:"Fácil"});
 
@@ -348,8 +350,7 @@ function filterTankSelect(id,type){
     results.map(x=>`<option value="${escapeHtml(x.name)}">${escapeHtml(x.name)} — ${escapeHtml(x.latin)}</option>`).join("");
   if(results.some(x=>x.name===current))select.value=current;
 }
-
-function addTankFish(id){
+  function addTankFish(id){
   const tank=tanks.find(x=>x.id===id);if(!tank)return;
   ensureTankData(tank);
   const name=document.getElementById("fishSelect_"+id).value;
@@ -442,7 +443,7 @@ function switchTankTab(id,tab){
 
 function numValue(v){
   if(v===undefined||v===null||String(v).trim()==="")return null;
-  const n=Number(String(v).replace(",","."));
+  const n=Number(String(v).replace(",",".")); 
   return Number.isFinite(n)?n:null;
 }
 
@@ -478,12 +479,12 @@ function buildMeasurementChart(tank){
       let path="";
       rows.forEach((r,i)=>{if(r[s.key]!==null){const yy=yBase-((r[s.key]-s.min)/(s.max-s.min))*60;path+=(path?" L ":"M ")+x(i).toFixed(1)+" "+Math.max(yTop+3,Math.min(yBase-3,yy)).toFixed(1);}});
       svg+='<path d="'+path+'" fill="none" stroke="#0b6e99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
-      rows.forEach((r,i)=>{if(r[s.key]!==null){const yy=yBase-((r[s.key]-s.min)/(s.max-s.min))*60;svg+='<circle cx="'+x(i).toFixed(1)+'" cy="'+Math.max(yTop+3,Math.min(yBase-3,yy)).toFixed(1)+'" r="4" fill="#0d91b8"><title>'+esc(r.date)+': '+formatValue(r[s.key])+esc(s.unit)+'</title></circle>';}});
+      rows.forEach((r,i)=>{if(r[s.key]!==null){const yy=yBase-((r[s.key]-s.min)/(s.max-s.min))*60;svg+='<circle cx="'+x(i).toFixed(1)+'" cy="'+Math.max(yTop+3,Math.min(yBase-3,yy)).toFixed(1)+'" r="4" fill="#0d91b8"><title>'+esc(r.date)+': '+formatValue(r[s.key])+esc(s.unit)+'</title></circle>';}}); 
     }
     svg+='<text x="'+(left-8)+'" y="'+(yTop+6)+'" text-anchor="end" font-size="10" fill="#607782">'+s.max+'</text><text x="'+(left-8)+'" y="'+(yBase+4)+'" text-anchor="end" font-size="10" fill="#607782">'+s.min+'</text>';
   });
   const tickStep=Math.max(1,Math.ceil(n/6));
-  rows.forEach((r,i)=>{if(i%tickStep===0||i===n-1){svg+='<text x="'+x(i).toFixed(1)+'" y="420" text-anchor="middle" font-size="10" fill="#607782">'+esc((r.date||"").split(",")[0])+'</text>';}});
+  rows.forEach((r,i)=>{if(i%tickStep===0||i===n-1){svg+='<text x="'+x(i).toFixed(1)+'" y="420" text-anchor="middle" font-size="10" fill="#607782">'+esc((r.date||"").split(",")[0])+'</text>';}}); 
   svg+='</svg>'; return svg;
 }
 
@@ -514,6 +515,7 @@ function renderTanks(){
   container.innerHTML=tanks.map(tank=>{
     const f=ensureFilter(tank);
     if(typeof f.maxFlow!=="number") f.maxFlow=Number(f.maxFlow)||0;
+
     const total=f.materials.reduce((s,m)=>s+(Number(m.liters)||0),0);
     const last=tank.measurements[0];
 
