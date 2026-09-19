@@ -5,558 +5,90 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b6e99">
 <title>AquaControl</title>
-
 <style>
-:root{
---blue:#0b6e99;
---blue2:#0d91b8;
---light:#eef8fc;
---dark:#12313f;
---green:#238b57;
---red:#c74b4b;
---orange:#e58a24;
---border:#d7e2e7
-}
-
+:root{--blue:#0b6e99;--blue2:#0d91b8;--light:#eef8fc;--dark:#12313f;--green:#238b57;--red:#c74b4b;--orange:#e58a24;--border:#d7e2e7}
 *{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#f5f8fa;
-color:var(--dark)
-}
-
-header{
-background:linear-gradient(135deg,var(--blue),var(--blue2));
-color:white;
-padding:28px 18px 22px;
-border-radius:0 0 24px 24px
-}
-
-h1{
-margin:0 0 6px;
-font-size:30px
-}
-
-h2{
-margin-top:6px
-}
-
-header p{
-margin:0;
-opacity:.9
-}
-
-nav{
-display:flex;
-gap:8px;
-padding:12px;
-overflow:auto;
-background:white;
-position:sticky;
-top:0;
-z-index:5;
-box-shadow:0 2px 8px #0001
-}
-
-nav button{
-border:0;
-background:#edf4f7;
-color:#31505d;
-padding:11px 15px;
-border-radius:20px;
-white-space:nowrap;
-font-weight:600
-}
-
-nav button.active{
-background:var(--blue);
-color:white
-}
-
-main{
-padding:16px;
-max-width:950px;
-margin:auto
-}
-
-.section{
-display:none
-}
-
-.section.active{
-display:block
-}
-
-.card{
-background:white;
-border-radius:18px;
-padding:16px;
-margin:12px 0;
-box-shadow:0 3px 14px #0000000d
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:12px
-}
-
-input,select{
-width:100%;
-padding:12px;
-border:1px solid var(--border);
-border-radius:12px;
-font-size:16px;
-background:white
-}
-
-label{
-display:block;
-font-weight:600;
-margin-bottom:5px
-}
-
-.btn{
-border:0;
-border-radius:12px;
-padding:11px 14px;
-background:var(--blue);
-color:white;
-font-weight:700;
-cursor:pointer
-}
-
-.btn.green{
-background:var(--green)
-}
-
-.btn.red{
-background:var(--red)
-}
-
-.row{
-display:flex;
-gap:8px;
-align-items:center;
-flex-wrap:wrap
-}
-
-.stat{
-font-size:24px;
-font-weight:800
-}
-
-.small{
-font-size:13px;
-color:#607782
-}
-
-.badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:10px;
-background:var(--light);
-color:var(--blue);
-font-size:12px;
-margin:3px
-}
-
-.item{
-border:1px solid #e2eaee;
-border-radius:15px;
-padding:14px;
-background:#fff
-}
-
-.item h3{
-margin:0 0 5px
-}
-
-.latin{
-font-style:italic;
-color:#607782;
-font-size:14px
-}
-
-.empty{
-text-align:center;
-color:#70838c;
-padding:30px
-}
-
-.good{
-background:#e8f7ee;
-color:#17663d;
-padding:12px;
-border-radius:12px;
-font-weight:600
-}
-
-.warning{
-background:#fff4df;
-color:#8a5a08;
-padding:12px;
-border-radius:12px;
-font-weight:600
-}
-
-.danger{
-background:#fdeaea;
-color:#8c2929;
-padding:12px;
-border-radius:12px;
-font-weight:600
-}
-
-.material{
-border:1px solid #dfe8ec;
-border-radius:14px;
-padding:14px;
-margin-top:10px;
-background:#fafcfd
-}
-
-.sump{
-background:#f1f9fc;
-border:1px solid #cce5ee;
-border-radius:14px;
-padding:14px;
-margin-top:12px
-}
-
-.filter-section{
-border:1px solid #cce5ee;
-border-radius:14px;
-padding:14px;
-margin-top:12px;
-background:#f8fcfd
-}
-
-.filter-section h3{
-margin-bottom:12px
-}
-
-.category-title{
-margin:18px 0 8px;
-padding:9px 12px;
-border-radius:10px;
-background:#eaf6fa;
-color:var(--blue);
-font-size:17px
-}
-
-.category-title:first-child{
-margin-top:12px
-}
-
-.category-total{
-font-size:12px;
-font-weight:600;
-color:#607782;
-margin-left:6px
-}
-
-hr{
-border:0;
-border-top:1px solid #e5ecef;
-margin:18px 0
-}
-
-.home-tank{
-cursor:pointer;
-transition:transform .15s,box-shadow .15s
-}
-
-.home-tank:active{
-transform:scale(.99)
-}
-
-.tank-open{
-outline:3px solid var(--blue2);
-box-shadow:0 0 0 5px #0d91b822
-}
-
-.home-summary{
-margin-top:10px
-}
-
-.measurement{
-border:1px solid #dfe8ec;
-border-radius:14px;
-padding:12px;
-margin-top:8px;
-background:#fafcfd;
-min-height:58px
-}
-
-.measurement-values{
-margin-top:6px
-}
-
-.tank-card{
-scroll-margin-top:70px
-}
-
-.new-tank-card{
-border:2px solid #cce5ee
-}
-
-.tank-tabs{
-display:flex;
-gap:8px;
-margin:12px 0 18px;
-background:#eef8fc;
-padding:6px;
-border-radius:14px
-}
-
-.tank-tab{
-flex:1;
-border:0;
-border-radius:10px;
-padding:11px 8px;
-background:transparent;
-color:#31505d;
-font-weight:800;
-font-size:15px;
-cursor:pointer
-}
-
-.tank-tab.active{
-background:var(--blue);
-color:#fff;
-box-shadow:0 2px 8px #0001
-}
-
-.tank-pane{
-display:none
-}
-
-.tank-pane.active{
-display:block
-}
-
-.visual-hero{
-background:linear-gradient(135deg,#0b6e99,#0d91b8);
-color:#fff;
-border-radius:18px;
-padding:20px;
-margin-bottom:14px
-}
-
-.visual-hero h2{
-margin:0 0 6px
-}
-
-.visual-hero p{
-margin:0;
-opacity:.9
-}
-
-.visual-stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:8px;
-margin-top:15px
-}
-
-.visual-stat{
-background:#ffffff22;
-border:1px solid #ffffff33;
-border-radius:12px;
-padding:10px;
-text-align:center
-}
-
-.visual-stat strong{
-display:block;
-font-size:19px
-}
-
-.visual-stat span{
-font-size:11px;
-opacity:.9
-}
-
-.visual-card{
-background:#fff;
-border:1px solid #dfe8ec;
-border-radius:18px;
-padding:16px;
-margin:12px 0;
-box-shadow:0 3px 12px #0000000a
-}
-
-.visual-card h3{
-margin:0 0 12px
-}
-
-.metric-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px
-}
-
-.metric{
-border-radius:13px;
-padding:12px;
-text-align:center;
-background:#eef8fc
-}
-
-.metric strong{
-display:block;
-font-size:22px;
-color:var(--blue)
-}
-
-.metric span{
-font-size:11px;
-color:#607782;
-font-weight:700
-}
-
-.metric.gh{
-background:#eaf8ef
-}
-
-.metric.gh strong{
-color:#238b57
-}
-
-.metric.kh{
-background:#fff5e6
-}
-
-.metric.kh strong{
-color:#c7770e
-}
-
-.metric.temp{
-background:#fdeeee
-}
-
-.metric.temp strong{
-color:#c74b4b
-}
-
-.visual-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px
-}
-
-.visual-list{
-display:flex;
-flex-wrap:wrap;
-gap:7px
-}
-
-.visual-chip{
-padding:8px 10px;
-border-radius:11px;
-background:#f1f8fb;
-border:1px solid #d8e9ef;
-font-size:13px;
-font-weight:700
-}
-
-.chart-wrap{
-overflow-x:auto
-}
-
-.chart-svg{
-width:100%;
-min-width:330px;
-height:auto;
-display:block
-}
-
-.chart-empty{
-text-align:center;
-padding:25px;
-color:#70838c;
-background:#f7fafb;
-border-radius:14px
-}
-
-.readonly-note{
-background:#e8f7ee;
-color:#17663d;
-border-radius:12px;
-padding:10px 12px;
-font-weight:700;
-margin-bottom:12px
-}
-
-.photo-box{
-border:2px dashed #cce5ee;
-border-radius:18px;
-min-height:220px;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-background:#f7fbfd;
-position:relative;
-margin-bottom:14px
-}
-
-.photo-box img{
-width:100%;
-height:100%;
-max-height:360px;
-object-fit:cover;
-display:block
-}
-
-.photo-placeholder{
-text-align:center;
-color:#607782;
-padding:30px
-}
-
-.photo-actions{
-position:absolute;
-bottom:10px;
-left:10px;
-right:10px;
-display:flex;
-justify-content:center
-}
-
-.photo-actions label{
-background:#0b6e99;
-color:white;
-border-radius:12px;
-padding:10px 14px;
-font-weight:800;
-cursor:pointer;
-box-shadow:0 3px 10px #0003
-}
-
-.photo-actions input{
-display:none
-}
-
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f8fa;color:var(--dark)}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;padding:28px 18px 22px;border-radius:0 0 24px 24px}
+h1{margin:0 0 6px;font-size:30px}
+h2{margin-top:6px}
+header p{margin:0;opacity:.9}
+nav{display:flex;gap:8px;padding:12px;overflow:auto;background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
+nav button{border:0;background:#edf4f7;color:#31505d;padding:11px 15px;border-radius:20px;white-space:nowrap;font-weight:600}
+nav button.active{background:var(--blue);color:white}
+main{padding:16px;max-width:950px;margin:auto}
+.section{display:none}
+.section.active{display:block}
+.card{background:white;border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 3px 14px #0000000d}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+input,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;font-size:16px;background:white}
+label{display:block;font-weight:600;margin-bottom:5px}
+.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--blue);color:white;font-weight:700;cursor:pointer}
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.stat{font-size:24px;font-weight:800}
+.small{font-size:13px;color:#607782}
+.badge{display:inline-block;padding:5px 9px;border-radius:10px;background:var(--light);color:var(--blue);font-size:12px;margin:3px}
+.item{border:1px solid #e2eaee;border-radius:15px;padding:14px;background:#fff}
+.item h3{margin:0 0 5px}
+.latin{font-style:italic;color:#607782;font-size:14px}
+.empty{text-align:center;color:#70838c;padding:30px}
+.good{background:#e8f7ee;color:#17663d;padding:12px;border-radius:12px;font-weight:600}
+.warning{background:#fff4df;color:#8a5a08;padding:12px;border-radius:12px;font-weight:600}
+.danger{background:#fdeaea;color:#8c2929;padding:12px;border-radius:12px;font-weight:600}
+.material{border:1px solid #dfe8ec;border-radius:14px;padding:14px;margin-top:10px;background:#fafcfd}
+.sump{background:#f1f9fc;border:1px solid #cce5ee;border-radius:14px;padding:14px;margin-top:12px}
+.filter-section{border:1px solid #cce5ee;border-radius:14px;padding:14px;margin-top:12px;background:#f8fcfd}
+.filter-section h3{margin-bottom:12px}
+.category-title{margin:18px 0 8px;padding:9px 12px;border-radius:10px;background:#eaf6fa;color:var(--blue);font-size:17px}
+.category-title:first-child{margin-top:12px}
+.category-total{font-size:12px;font-weight:600;color:#607782;margin-left:6px}
+hr{border:0;border-top:1px solid #e5ecef;margin:18px 0}
+.home-tank{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.home-tank:active{transform:scale(.99)}
+.tank-open{outline:3px solid var(--blue2);box-shadow:0 0 0 5px #0d91b822}
+.home-summary{margin-top:10px}
+.measurement{border:1px solid #dfe8ec;border-radius:14px;padding:12px;margin-top:8px;background:#fafcfd;min-height:58px}
+.measurement-values{margin-top:6px}
+.tank-card{scroll-margin-top:70px}
+.new-tank-card{border:2px solid #cce5ee}
+.tank-tabs{display:flex;gap:8px;margin:12px 0 18px;background:#eef8fc;padding:6px;border-radius:14px}
+.tank-tab{flex:1;border:0;border-radius:10px;padding:11px 8px;background:transparent;color:#31505d;font-weight:800;font-size:15px;cursor:pointer}
+.tank-tab.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px #0001}
+.tank-pane{display:none}
+.tank-pane.active{display:block}
+.visual-hero{background:linear-gradient(135deg,#0b6e99,#0d91b8);color:#fff;border-radius:18px;padding:20px;margin-bottom:14px}
+.visual-hero h2{margin:0 0 6px}
+.visual-hero p{margin:0;opacity:.9}
+.visual-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px}
+.visual-stat{background:#ffffff22;border:1px solid #ffffff33;border-radius:12px;padding:10px;text-align:center}
+.visual-stat strong{display:block;font-size:19px}
+.visual-stat span{font-size:11px;opacity:.9}
+.visual-card{background:#fff;border:1px solid #dfe8ec;border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 3px 12px #0000000a}
+.visual-card h3{margin:0 0 12px}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.metric{border-radius:13px;padding:12px;text-align:center;background:#eef8fc}
+.metric strong{display:block;font-size:22px;color:var(--blue)}
+.metric span{font-size:11px;color:#607782;font-weight:700}
+.metric.gh{background:#eaf8ef}
+.metric.gh strong{color:#238b57}
+.metric.kh{background:#fff5e6}
+.metric.kh strong{color:#c7770e}
+.metric.temp{background:#fdeeee}
+.metric.temp strong{color:#c74b4b}
+.visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.visual-list{display:flex;flex-wrap:wrap;gap:7px}
+.visual-chip{padding:8px 10px;border-radius:11px;background:#f1f8fb;border:1px solid #d8e9ef;font-size:13px;font-weight:700}
+.chart-wrap{overflow-x:auto}
+.chart-svg{width:100%;min-width:330px;height:auto;display:block}
+.chart-empty{text-align:center;padding:25px;color:#70838c;background:#f7fafb;border-radius:14px}
+.readonly-note{background:#e8f7ee;color:#17663d;border-radius:12px;padding:10px 12px;font-weight:700;margin-bottom:12px}
 @media(max-width:520px){
-.metric-grid{
-grid-template-columns:repeat(2,1fr)
-}
-
-.visual-grid{
-grid-template-columns:1fr
-}
-
-.visual-stats{
-grid-template-columns:repeat(3,1fr)
-}
-
-.visual-stat strong{
-font-size:16px
-}
+.metric-grid{grid-template-columns:repeat(2,1fr)}
+.visual-grid{grid-template-columns:1fr}
+.visual-stats{grid-template-columns:repeat(3,1fr)}
+.visual-stat strong{font-size:16px}
 }
 </style>
 </head>
@@ -581,9 +113,7 @@ font-size:16px
 
 <div class="card">
 <h2>Mi AquaControl</h2>
-
 <div class="grid">
-
 <div>
 <div class="stat" id="tankCount">0</div>
 <div class="small">acuarios</div>
@@ -598,7 +128,6 @@ font-size:16px
 <div class="stat" id="plantCount">200</div>
 <div class="small">plantas disponibles</div>
 </div>
-
 </div>
 </div>
 
@@ -610,7 +139,6 @@ font-size:16px
 <div id="homeTanks"></div>
 
 <div class="card new-tank-card">
-
 <h3>➕ Crear nuevo acuario</h3>
 
 <div class="grid">
@@ -741,7 +269,6 @@ const fish=[
 ];
 
 for(let i=21;i<=200;i++)
-
 fish.push({
 name:`Pez de acuario ${i}`,
 latin:`Aquarium species ${i}`,
@@ -784,7 +311,6 @@ const plants=[
 ];
 
 for(let i=13;i<=200;i++)
-
 plants.push({
 name:`Planta acuática ${i}`,
 latin:`Aquatic plant species ${i}`,
@@ -800,15 +326,11 @@ let tanks=loadTanks();
 
 
 function loadTanks(){
-
 try{
 return JSON.parse(localStorage.getItem("aquacontrol_tanks")||"[]")
-}
-
-catch(e){
+}catch(e){
 return[]
 }
-
 }
 
 
@@ -854,8 +376,7 @@ function renderFish(){
 
 const box=document.getElementById("fishList");
 
-if(!box)
-return;
+if(!box)return;
 
 const q=(document.getElementById("fishSearch").value||"")
 .toLowerCase()
@@ -867,7 +388,8 @@ const results=fish.filter(x=>
 .includes(q)
 );
 
-box.innerHTML=results.map(x=>`
+box.innerHTML=
+results.map(x=>`
 
 <div class="item">
 
@@ -878,33 +400,23 @@ ${escapeHtml(x.latin)}
 </div>
 
 <p>
-
-<span class="badge">
-🌡 ${escapeHtml(x.temp)}
-</span>
-
-<span class="badge">
-pH ${escapeHtml(x.ph)}
-</span>
-
-<span class="badge">
-📏 ${escapeHtml(x.size)}
-</span>
-
+<span class="badge">🌡 ${escapeHtml(x.temp)}</span>
+<span class="badge">pH ${escapeHtml(x.ph)}</span>
+<span class="badge">📏 ${escapeHtml(x.size)}</span>
 </p>
 
 <div class="small">
-
 Mínimo: ${escapeHtml(x.min)}<br>
 Grupo: ${escapeHtml(x.group)}<br>
 Zona: ${escapeHtml(x.zone)}<br>
 Dificultad: ${escapeHtml(x.difficulty)}
-
 </div>
 
 </div>
 
-`).join("") ||
+`).join("")
+
+||
 
 '<div class="empty">No se encontraron peces.</div>';
 
@@ -915,8 +427,7 @@ function renderPlants(){
 
 const box=document.getElementById("plantList");
 
-if(!box)
-return;
+if(!box)return;
 
 const q=(document.getElementById("plantSearch").value||"")
 .toLowerCase()
@@ -928,7 +439,8 @@ const results=plants.filter(x=>
 .includes(q)
 );
 
-box.innerHTML=results.map(x=>`
+box.innerHTML=
+results.map(x=>`
 
 <div class="item">
 
@@ -939,28 +451,21 @@ ${escapeHtml(x.latin)}
 </div>
 
 <p>
-
-<span class="badge">
-💡 ${escapeHtml(x.light)}
-</span>
-
-<span class="badge">
-CO₂: ${escapeHtml(x.co2)}
-</span>
-
+<span class="badge">💡 ${escapeHtml(x.light)}</span>
+<span class="badge">CO₂: ${escapeHtml(x.co2)}</span>
 </p>
 
 <div class="small">
-
 Altura: ${escapeHtml(x.size)}<br>
 Posición: ${escapeHtml(x.zone)}<br>
 Dificultad: ${escapeHtml(x.difficulty)}
-
 </div>
 
 </div>
 
-`).join("") ||
+`).join("")
+
+||
 
 '<div class="empty">No se encontraron plantas.</div>';
 
@@ -978,11 +483,7 @@ t.plants=[];
 if(!Array.isArray(t.measurements))
 t.measurements=[];
 
-if(typeof t.photo!=="string")
-t.photo="";
-
 if(!t.filter)
-
 t.filter={
 type:"",
 brand:"",
@@ -1005,7 +506,6 @@ if(!Array.isArray(t.filter.materials))
 t.filter.materials=[];
 
 if(!t.filter.sump)
-
 t.filter.sump={
 length:0,
 width:0,
@@ -1020,25 +520,20 @@ return t;
 
 function addTank(){
 
-const name=
-document.getElementById("tankName").value.trim();
+const name=document.getElementById("tankName").value.trim();
 
 const liters=
 Number(document.getElementById("tankLiters").value);
 
 if(!name||!liters){
-
 alert("Introduce al menos el nombre y los litros.");
-
 return;
 }
 
 const tank={
 
 id:Date.now(),
-
 name,
-
 liters,
 
 length:
@@ -1067,8 +562,7 @@ liters:0
 
 fish:[],
 plants:[],
-measurements:[],
-photo:""
+measurements:[]
 
 };
 
@@ -1114,8 +608,7 @@ document.getElementById("navAcuarios")
 
 setTimeout(()=>{
 
-const el=
-document.getElementById("tankCard_"+id);
+const el=document.getElementById("tankCard_"+id);
 
 if(el){
 
@@ -1149,11 +642,9 @@ return t.filter;
 
 function saveFilter(id){
 
-const tank=
-tanks.find(x=>x.id===id);
+const tank=tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 const f=ensureFilter(tank);
 
@@ -1210,6 +701,8 @@ if(sh)
 f.sump.height=Number(sh.value)||0;
 
 
+/* Cálculo automático de litros del SUMP */
+
 const calculatedSumpLiters=
 (Number(f.sump.length)||0)*
 (Number(f.sump.width)||0)*
@@ -1217,12 +710,10 @@ const calculatedSumpLiters=
 1000;
 
 if(calculatedSumpLiters>0)
-
 f.sump.liters=
 Number(calculatedSumpLiters.toFixed(1));
 
 else if(su)
-
 f.sump.liters=
 Number(su.value)||0;
 
@@ -1235,9 +726,7 @@ renderAll();
 
 
 function changeFilterType(id){
-
 saveFilter(id);
-
 }
 
 
@@ -1264,19 +753,13 @@ return Math.round(
 function calculateSumpPreview(id){
 
 const l=
-Number(
-document.getElementById("sumpLength_"+id)?.value
-)||0;
+Number(document.getElementById("sumpLength_"+id)?.value)||0;
 
 const w=
-Number(
-document.getElementById("sumpWidth_"+id)?.value
-)||0;
+Number(document.getElementById("sumpWidth_"+id)?.value)||0;
 
 const h=
-Number(
-document.getElementById("sumpHeight_"+id)?.value
-)||0;
+Number(document.getElementById("sumpHeight_"+id)?.value)||0;
 
 const liters=(l*w*h)/1000;
 
@@ -1287,23 +770,18 @@ const preview=
 document.getElementById("sumpPreview_"+id);
 
 if(out)
-out.value=liters>0?
+out.value=
+liters>0?
 liters.toFixed(1):
 "";
 
 if(preview)
-
 preview.innerHTML=
-
 liters>0
-
 ?
-
 `Volumen geométrico calculado:
 <strong>${liters.toFixed(1)} L</strong>`
-
 :
-
 "Introduce largo, ancho y alto para calcular los litros automáticamente.";
 
 }
@@ -1323,17 +801,11 @@ f.type
 );
 
 if(!installed)
-
 return `
 <div class="warning">
-
-⚠️ Introduce el caudal real del filtro.
-
-<br>
-
+⚠️ Introduce el caudal real del filtro.<br>
 Referencia:
 <strong>${recommended} L/h</strong>.
-
 </div>
 `;
 
@@ -1341,54 +813,34 @@ const turnover=
 installed/tank.liters;
 
 if(turnover<4)
-
 return `
 <div class="danger">
-
-❌ Caudal bajo.
-
-<br>
-
+❌ Caudal bajo.<br>
 Instalado:
 <strong>${installed} L/h</strong>
-
 · Circulación:
 <strong>${turnover.toFixed(1)}×/h</strong>.
-
 </div>
 `;
 
 if(installed<recommended)
-
 return `
 <div class="warning">
-
-⚠️ Caudal aceptable, pero por debajo de la referencia de este tipo.
-
-<br>
-
+⚠️ Caudal aceptable, pero por debajo de la referencia de este tipo.<br>
 Instalado:
 <strong>${installed} L/h</strong>
-
 · Referencia:
 <strong>${recommended} L/h</strong>.
-
 </div>
 `;
 
 return `
 <div class="good">
-
-✅ Caudal dentro de la referencia.
-
-<br>
-
+✅ Caudal dentro de la referencia.<br>
 Instalado:
 <strong>${installed} L/h</strong>
-
 · Circulación:
 <strong>${turnover.toFixed(1)}×/h</strong>.
-
 </div>
 `;
 
@@ -1397,38 +849,26 @@ Instalado:
 
 function addMaterial(id){
 
-const tank=
-tanks.find(x=>x.id===id);
+const tank=tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 const f=ensureFilter(tank);
 
 const type=
-document.getElementById("matType_"+id)
-.value
-.trim();
+document.getElementById("matType_"+id).value.trim();
 
 const brand=
-document.getElementById("matBrand_"+id)
-.value
-.trim();
+document.getElementById("matBrand_"+id).value.trim();
 
 const liters=
-Number(
-document.getElementById("matLiters_"+id).value
-);
+Number(document.getElementById("matLiters_"+id).value);
 
 const kind=
 document.getElementById("matKind_"+id).value;
 
 if(!type||!liters){
-
-alert(
-"Introduce el tipo de material y los litros."
-);
-
+alert("Introduce el tipo de material y los litros.");
 return;
 }
 
@@ -1452,8 +892,7 @@ function deleteMaterial(tankId,materialId){
 const tank=
 tanks.find(x=>x.id===tankId);
 
-if(!tank)
-return;
+if(!tank)return;
 
 const f=ensureFilter(tank);
 
@@ -1473,18 +912,17 @@ function fishOptions(tank){
 
 const selected=
 new Set(
-(tank.fish||[])
-.map(x=>x.name)
+(tank.fish||[]).map(x=>x.name)
 );
 
-return fish.map(x=>
+return fish.map(x=>`
 
-`<option value="${escapeHtml(x.name)}">
+<option value="${escapeHtml(x.name)}">
 ${escapeHtml(x.name)}
 ${selected.has(x.name)?" ✓":""}
-</option>`
+</option>
 
-).join("");
+`).join("");
 
 }
 
@@ -1493,18 +931,17 @@ function plantOptions(tank){
 
 const selected=
 new Set(
-(tank.plants||[])
-.map(x=>x.name)
+(tank.plants||[]).map(x=>x.name)
 );
 
-return plants.map(x=>
+return plants.map(x=>`
 
-`<option value="${escapeHtml(x.name)}">
+<option value="${escapeHtml(x.name)}">
 ${escapeHtml(x.name)}
 ${selected.has(x.name)?" ✓":""}
-</option>`
+</option>
 
-).join("");
+`).join("");
 
 }
 
@@ -1547,12 +984,10 @@ source.filter(x=>
 select.innerHTML=
 '<option value="">Selecciona una especie...</option>'+
 results.map(x=>
-
 `<option value="${escapeHtml(x.name)}">
 ${escapeHtml(x.name)}
-— ${escapeHtml(x.latin)}
+ — ${escapeHtml(x.latin)}
 </option>`
-
 ).join("");
 
 if(results.some(x=>x.name===current))
@@ -1566,8 +1001,7 @@ function addTankFish(id){
 const tank=
 tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 ensureTankData(tank);
 
@@ -1590,9 +1024,7 @@ const item=
 fish.find(x=>x.name===name);
 
 if(!item){
-
 alert("Selecciona un pez.");
-
 return;
 }
 
@@ -1605,7 +1037,6 @@ if(existing)
 existing.quantity+=qty;
 
 else
-
 tank.fish.push({
 name:item.name,
 latin:item.latin,
@@ -1624,8 +1055,7 @@ function removeTankFish(id,name){
 const tank=
 tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 ensureTankData(tank);
 
@@ -1646,8 +1076,7 @@ function addTankPlant(id){
 const tank=
 tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 ensureTankData(tank);
 
@@ -1670,9 +1099,7 @@ const item=
 plants.find(x=>x.name===name);
 
 if(!item){
-
 alert("Selecciona una planta.");
-
 return;
 }
 
@@ -1685,7 +1112,6 @@ if(existing)
 existing.quantity+=qty;
 
 else
-
 tank.plants.push({
 name:item.name,
 latin:item.latin,
@@ -1704,8 +1130,7 @@ function removeTankPlant(id,name){
 const tank=
 tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 ensureTankData(tank);
 
@@ -1726,42 +1151,33 @@ function saveMeasurement(id){
 const tank=
 tanks.find(x=>x.id===id);
 
-if(!tank)
-return;
+if(!tank)return;
 
 ensureTankData(tank);
 
 const ph=
 document.getElementById("ph_"+id)
-.value
-.trim();
+.value.trim();
 
 const gh=
 document.getElementById("gh_"+id)
-.value
-.trim();
+.value.trim();
 
 const kh=
 document.getElementById("kh_"+id)
-.value
-.trim();
+.value.trim();
 
 const temp=
 document.getElementById("temp_"+id)
-.value
-.trim();
+.value.trim();
 
 if(
-ph===""&&
-gh===""&&
-kh===""&&
+ph==="" &&
+gh==="" &&
+kh==="" &&
 temp===""
 ){
-
-alert(
-"Introduce al menos una medición."
-);
-
+alert("Introduce al menos una medición.");
 return;
 }
 
@@ -1770,8 +1186,7 @@ tank.measurements.unshift({
 id:Date.now(),
 
 date:
-new Date()
-.toLocaleString(
+new Date().toLocaleString(
 "es-ES",
 {
 dateStyle:"short",
@@ -1796,13 +1211,15 @@ renderAll();
 }
 
 
-function deleteMeasurement(tankId,measurementId){
+function deleteMeasurement(
+tankId,
+measurementId
+){
 
 const tank=
 tanks.find(x=>x.id===tankId);
 
-if(!tank)
-return;
+if(!tank)return;
 
 ensureTankData(tank);
 
@@ -1821,7 +1238,6 @@ renderAll();
 function measurementHistory(tank){
 
 if(!tank.measurements.length)
-
 return `
 <div class="small">
 Todavía no hay mediciones guardadas.
@@ -1868,7 +1284,8 @@ KH: ${escapeHtml(m.kh||"—")} °dKH
 
 </div>
 
-`).join("");
+`)
+.join("");
 
 }
 
@@ -1880,19 +1297,18 @@ document.getElementById(
 "tankCard_"+id
 );
 
-if(!card)
-return;
+if(!card)return;
 
 card
 .querySelectorAll(".tank-tab")
-.forEach(
-b=>b.classList.remove("active")
+.forEach(b=>
+b.classList.remove("active")
 );
 
 card
 .querySelectorAll(".tank-pane")
-.forEach(
-p=>p.classList.remove("active")
+.forEach(p=>
+p.classList.remove("active")
 );
 
 const btn=
@@ -1956,13 +1372,9 @@ const rows=
 .map(m=>({
 
 date:m.date||"",
-
 ph:numValue(m.ph),
-
 gh:numValue(m.gh),
-
 kh:numValue(m.kh),
-
 temp:numValue(m.temp)
 
 }));
@@ -2008,12 +1420,9 @@ max:32
 ];
 
 if(!rows.length)
-
 return `
 <div class="chart-empty">
-
 📈 Guarda mediciones para ver aquí la evolución de pH, GH, KH y temperatura.
-
 </div>
 `;
 
@@ -2035,7 +1444,6 @@ n===1
 const esc=s=>escapeHtml(s);
 
 let svg=
-
 '<svg class="chart-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Evolución de las mediciones">';
 
 series.forEach((s,si)=>{
@@ -2047,7 +1455,10 @@ const yBase=
 yTop+60;
 
 svg+=
-'<rect x="'+left+'" y="'+yTop+'" width="'+plotW+'" height="60" rx="10" fill="#f7fafb"/>';
+'<rect x="'+left+
+'" y="'+yTop+
+'" width="'+plotW+
+'" height="60" rx="10" fill="#f7fafb"/>';
 
 [0,0.5,1].forEach(fr=>{
 
@@ -2055,12 +1466,18 @@ const y=
 yBase-fr*60;
 
 svg+=
-'<line x1="'+left+'" y1="'+y+'" x2="'+(left+plotW)+'" y2="'+y+'" stroke="#dfe8ec" stroke-width="1"/>';
+'<line x1="'+left+
+'" y1="'+y+
+'" x2="'+(left+plotW)+
+'" y2="'+y+
+'" stroke="#dfe8ec" stroke-width="1"/>';
 
 });
 
 svg+=
-'<text x="12" y="'+(yTop+18)+'" font-size="13" font-weight="800" fill="#12313f">'+
+'<text x="12" y="'+
+(yTop+18)+
+'" font-size="13" font-weight="800" fill="#12313f">'+
 esc(s.label)+
 '</text>';
 
@@ -2079,7 +1496,8 @@ if(r[s.key]!==null){
 
 const yy=
 yBase-
-((r[s.key]-s.min)/(s.max-s.min))*60;
+((r[s.key]-s.min)/
+(s.max-s.min))*60;
 
 path+=
 (path?" L ":"M ")+
@@ -2095,7 +1513,8 @@ Math.min(yBase-3,yy)
 });
 
 svg+=
-'<path d="'+path+'" fill="none" stroke="#0b6e99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+'<path d="'+path+
+'" fill="none" stroke="#0b6e99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
 
 rows.forEach((r,i)=>{
 
@@ -2103,7 +1522,8 @@ if(r[s.key]!==null){
 
 const yy=
 yBase-
-((r[s.key]-s.min)/(s.max-s.min))*60;
+((r[s.key]-s.min)/
+(s.max-s.min))*60;
 
 svg+=
 '<circle cx="'+
@@ -2127,27 +1547,25 @@ esc(s.unit)+
 }
 
 svg+=
-'<text x="'+(left-8)+'" y="'+(yTop+6)+'" text-anchor="end" font-size="10" fill="#607782">'+
+'<text x="'+(left-8)+
+'" y="'+(yTop+6)+
+'" text-anchor="end" font-size="10" fill="#607782">'+
 s.max+
 '</text>'+
-'<text x="'+(left-8)+'" y="'+(yBase+4)+'" text-anchor="end" font-size="10" fill="#607782">'+
+'<text x="'+(left-8)+
+'" y="'+(yBase+4)+
+'" text-anchor="end" font-size="10" fill="#607782">'+
 s.min+
 '</text>';
 
 });
 
 const tickStep=
-Math.max(
-1,
-Math.ceil(n/6)
-);
+Math.max(1,Math.ceil(n/6));
 
 rows.forEach((r,i)=>{
 
-if(
-i%tickStep===0||
-i===n-1
-){
+if(i%tickStep===0||i===n-1){
 
 svg+=
 '<text x="'+
@@ -2167,186 +1585,89 @@ return svg;
 }
 
 
-function categoryTotals(materials){
-
-const cats=[
-"Biológico",
-"Mecánico",
-"Mecánico/Biológico",
-"Químico",
-"Otro"
-];
-
-return cats.map(category=>({
-
-category,
-
-liters:
-(materials||[])
-.filter(
-m=>(m.kind||"Otro")===category
-)
-.reduce(
-(s,m)=>s+(Number(m.liters)||0),
-0
-)
-
-}));
-
-}
-
-
 function visualTank(tank){
 
 ensureTankData(tank);
 
-const f=ensureFilter(tank);
+const f=
+ensureFilter(tank);
 
-const last=tank.measurements[0];
+const last=
+tank.measurements.length
+?tank.measurements[0]
+:null;
 
 const fishQty=
 tank.fish.reduce(
-(s,x)=>s+(Number(x.quantity)||0),
+(sum,x)=>sum+(Number(x.quantity)||0),
 0
 );
 
 const materials=
-f.materials||[];
+Array.isArray(f.materials)
+?f.materials
+:[];
 
-const totals=
-categoryTotals(materials);
-
-const totalLiters=
-totals.reduce(
-(s,x)=>s+x.liters,
+const materialTotal=
+materials.reduce(
+(sum,m)=>sum+(Number(m.liters)||0),
 0
 );
 
-const catIcon={
-
-"Biológico":"🧬",
-
-"Mecánico":"🧽",
-
-"Mecánico/Biológico":"🔄",
-
-"Químico":"🧪",
-
-"Otro":"📦"
-
-};
-
-const photo=
-
-tank.photo
-
-?
-
-`<img src="${tank.photo}" alt="Foto del acuario">`
-
-:
-
-`
-
-<div class="photo-placeholder">
-
-<div style="font-size:42px">
-📷
-</div>
-
-<strong>
-Añade una foto de tu acuario
-</strong>
-
-<div class="small">
-La foto se guarda junto con los datos del acuario.
-</div>
-
-</div>
-
-`;
-
 const fishHtml=
-
 tank.fish.length
 
 ?
 
 tank.fish.map(x=>
-
 '<span class="visual-chip">🐟 '+
 escapeHtml(x.name)+
 ' × '+
 escapeHtml(x.quantity)+
 '</span>'
-
 ).join("")
 
 :
 
 '<span class="small">No hay peces añadidos.</span>';
 
-const plantHtml=
 
+const plantHtml=
 tank.plants.length
 
 ?
 
 tank.plants.map(x=>
-
 '<span class="visual-chip">🌿 '+
 escapeHtml(x.name)+
 ' × '+
 escapeHtml(x.quantity)+
 '</span>'
-
 ).join("")
 
 :
 
 '<span class="small">No hay plantas añadidas.</span>';
 
+
 const materialHtml=
-
-totals.map(x=>
-
-`<div class="item">
-
-<strong>
-${catIcon[x.category]} ${x.category}
-</strong>
-
-<div style="font-size:20px;font-weight:800;color:var(--blue);margin-top:5px">
-
-${x.liters.toFixed(1)} L
-
-</div>
-
-<div class="small">
-Litros de esta categoría
-</div>
-
-</div>`
-
-).join("");
-
-const materialChips=
-
 materials.length
 
 ?
 
 materials.map(x=>
-
 '<span class="visual-chip">🧱 '+
 escapeHtml(
-x.brand?x.brand+" ":""
+x.brand
+?x.brand+" "
+:""
 )+
-escapeHtml(x.type)+
+escapeHtml(
+x.type||"Material"
+)+
 ' · '+
-Number(x.liters||0).toFixed(1)+
+escapeHtml(x.liters||0)+
 ' L</span>'
-
 ).join("")
 
 :
@@ -2354,90 +1675,15 @@ Number(x.liters||0).toFixed(1)+
 '<span class="small">No hay materiales filtrantes añadidos.</span>';
 
 
-return
-
-'<div class="visual-hero">'+
-
-'<h2>📊 '+
-escapeHtml(tank.name)+
-'</h2>'+
-
-'<p>Resumen visual · Solo lectura</p>'+
-
-'<div class="visual-stats">'+
-
-'<div class="visual-stat">'+
-'<strong>'+
-escapeHtml(tank.liters)+
-' L</strong>'+
-'<span>Volumen</span>'+
-'</div>'+
-
-'<div class="visual-stat">'+
-'<strong>'+
-fishQty+
-'</strong>'+
-'<span>Peces</span>'+
-'</div>'+
-
-'<div class="visual-stat">'+
-'<strong>'+
-tank.plants.length+
-'</strong>'+
-'<span>Plantas</span>'+
-'</div>'+
-
-'</div>'+
-'</div>'+
-
-'<div class="readonly-note">'+
-
-'👁️ Esta pestaña es solo de consulta. Para modificar datos usa «✏️ Editar».'+
-
-'</div>'+
-
-'<div class="visual-card">'+
-
-'<h3>📐 Datos del acuario</h3>'+
-
-'<div class="photo-box">'+
-
-photo+
-
-'<div class="photo-actions">'+
-
-'<label>📷 '+
-(tank.photo?'Cambiar foto':'Añadir foto')+
-
-'<input type="file" accept="image/*" onchange="changeTankPhoto('+tank.id+',this)">'+
-
-'</label>'+
-
-'</div>'+
-
-'</div>'+
-
-'<div class="grid">'+
-
-'<div class="item">'+
-'<strong>'+
-escapeHtml(tank.name)+
-'</strong>'+
-'<div class="small">Nombre</div>'+
-'</div>'+
-
-'<div class="item">'+
-'<strong>'+
-escapeHtml(tank.liters)+
-' L</strong>'+
-'<div class="small">Volumen</div>'+
-'</div>'+
-
-'<div class="item">'+
-'<strong>'+
+const dimensions=
 (
-tank.length&&tank.width&&tank.height
+tank.length &&
+tank.width &&
+tank.height
+)
+
 ?
+
 escapeHtml(
 tank.length+
 ' × '+
@@ -2446,216 +1692,260 @@ tank.width+
 tank.height+
 ' cm'
 )
+
 :
-'—'
-)+
-'</strong>'+
-'<div class="small">Medidas (L × An × Al)</div>'+
-'</div>'+
 
-'<div class="item">'+
-'<strong>'+
-escapeHtml(f.type||'—')+
-'</strong>'+
-'<div class="small">Tipo de filtración</div>'+
-'</div>'+
+'—';
 
-'</div>'+
 
-'</div>'+
+const filtration=
+f.type
+?escapeHtml(f.type)
+:'—';
 
-'<div class="visual-card">'+
-
-'<h3>🔧 Filtración</h3>'+
-
-'<div class="grid">'+
-
-'<div class="item">'+
-'<strong>'+
-escapeHtml(f.type||'—')+
-'</strong>'+
-'<div class="small">Tipo</div>'+
-'</div>'+
-
-'<div class="item">'+
-'<strong>'+
-escapeHtml(f.brand||'—')+
-'</strong>'+
-'<div class="small">Marca</div>'+
-'</div>'+
-
-'<div class="item">'+
-'<strong>'+
-escapeHtml(f.model||'—')+
-'</strong>'+
-'<div class="small">Bomba / modelo</div>'+
-'</div>'+
-
-'<div class="item">'+
-'<strong>'+
-escapeHtml(
-f.type==='Sump'&&f.sump?.liters
-?
-Number(f.sump.liters).toFixed(1)+' L'
-:
-f.flow
-?
-f.flow+' L/h'
-:
-'—'
-)+
-'</strong>'+
-'<div class="small">'+
+const sumpLiters=
 (
-f.type==='Sump'
-?
-'Volumen SUMP'
-:
-'Caudal real'
-)+
-'</div>'+
-'</div>'+
-
-'</div>'+
-
-'<h4 style="margin:18px 0 10px">'+
-
-'🧱 Material filtrante · Total: '+
-totalLiters.toFixed(1)+
-' L'+
-
-'</h4>'+
-
-'<div class="grid">'+
-
-materialHtml+
-
-'</div>'+
-
-'<div class="visual-list" style="margin-top:12px">'+
-
-materialChips+
-
-'</div>'+
-
-'</div>'+
-
-'<div class="visual-card">'+
-
-'<h3>🧪 Mediciones</h3>'+
-
-'<div class="metric-grid">'+
-
-'<div class="metric">'+
-'<strong>'+
-escapeHtml(last?.ph||'—')+
-'</strong>'+
-'<span>pH</span>'+
-'</div>'+
-
-'<div class="metric gh">'+
-'<strong>'+
-escapeHtml(last?.gh||'—')+
-'</strong>'+
-'<span>GH °dGH</span>'+
-'</div>'+
-
-'<div class="metric kh">'+
-'<strong>'+
-escapeHtml(last?.kh||'—')+
-'</strong>'+
-'<span>KH °dKH</span>'+
-'</div>'+
-
-'<div class="metric temp">'+
-'<strong>'+
-escapeHtml(last?.temp||'—')+
-'°</strong>'+
-'<span>Temperatura</span>'+
-'</div>'+
-
-'</div>'+
-
-'<div style="margin-top:14px">'+
-
-'<strong>📈 Evolución de parámetros</strong>'+
-
-'<div class="chart-wrap" style="margin-top:10px">'+
-
-buildMeasurementChart(tank)+
-
-'</div>'+
-
-'</div>'+
-
-'</div>'+
-
-'<div class="visual-grid">'+
-
-'<div class="visual-card">'+
-
-'<h3>🐟 Peces ('+
-fishQty+
-')</h3>'+
-
-'<div class="visual-list">'+
-fishHtml+
-'</div>'+
-
-'</div>'+
-
-'<div class="visual-card">'+
-
-'<h3>🌿 Plantas ('+
-tank.plants.length+
-')</h3>'+
-
-'<div class="visual-list">'+
-plantHtml+
-'</div>'+
-
-'</div>'+
-
-'</div>';
-
-}
-
-
-function changeTankPhoto(id,input){
-
-const tank=
-tanks.find(x=>x.id===id);
-
-if(
-!tank||
-!input.files||
-!input.files[0]
+f.sump &&
+Number(f.sump.liters)>0
 )
-return;
 
-const file=
-input.files[0];
+?
 
-const reader=
-new FileReader();
+Number(f.sump.liters).toFixed(1)+' L'
 
-reader.onload=function(){
+:
 
-tank.photo=
-reader.result;
+'';
 
-saveTanks();
+const flow=
+Number(f.flow)>0
+?Number(f.flow)+' L/h'
+:'—';
 
-renderAll();
+const filtrationValue=
+f.type==="Sump" && sumpLiters
+?sumpLiters
+:flow;
 
-setTimeout(
-()=>switchTankTab(id,"visual"),
-50
-);
 
-};
+return `
 
-reader.readAsDataURL(file);
+<div class="visual-hero">
+
+<h2>
+📊 ${escapeHtml(tank.name)}
+</h2>
+
+<p>
+Resumen visual del acuario
+</p>
+
+<div class="visual-stats">
+
+<div class="visual-stat">
+<strong>${escapeHtml(tank.liters)} L</strong>
+<span>Volumen</span>
+</div>
+
+<div class="visual-stat">
+<strong>${fishQty}</strong>
+<span>Peces</span>
+</div>
+
+<div class="visual-stat">
+<strong>${tank.plants.length}</strong>
+<span>Plantas</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="readonly-note">
+👁️ Esta pestaña es solo de consulta.
+Para modificar datos usa «✏️ Editar».
+</div>
+
+
+<div class="visual-card">
+
+<h3>📐 Datos del acuario</h3>
+
+<div class="grid">
+
+<div class="item">
+<strong>${escapeHtml(tank.liters)} L</strong>
+<div class="small">Volumen</div>
+</div>
+
+<div class="item">
+<strong>${dimensions}</strong>
+<div class="small">Medidas</div>
+</div>
+
+<div class="item">
+<strong>${filtration}</strong>
+<div class="small">Filtración</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="visual-card">
+
+<h3>🧪 Mediciones</h3>
+
+<div class="metric-grid">
+
+<div class="metric">
+<strong>
+${escapeHtml(
+last && last.ph
+?last.ph
+:'—'
+)}
+</strong>
+<span>pH</span>
+</div>
+
+<div class="metric gh">
+<strong>
+${escapeHtml(
+last && last.gh
+?last.gh
+:'—'
+)}
+</strong>
+<span>GH °dGH</span>
+</div>
+
+<div class="metric kh">
+<strong>
+${escapeHtml(
+last && last.kh
+?last.kh
+:'—'
+)}
+</strong>
+<span>KH °dKH</span>
+</div>
+
+<div class="metric temp">
+<strong>
+${escapeHtml(
+last && last.temp
+?last.temp
+:'—'
+)}°
+</strong>
+<span>Temperatura</span>
+</div>
+
+</div>
+
+
+<div style="margin-top:14px">
+
+<strong>
+📈 Evolución de parámetros
+</strong>
+
+<div
+class="chart-wrap"
+style="margin-top:10px"
+>
+${buildMeasurementChart(tank)}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="visual-grid">
+
+<div class="visual-card">
+
+<h3>
+🐟 Peces (${fishQty})
+</h3>
+
+<div class="visual-list">
+${fishHtml}
+</div>
+
+</div>
+
+
+<div class="visual-card">
+
+<h3>
+🌿 Plantas (${tank.plants.length})
+</h3>
+
+<div class="visual-list">
+${plantHtml}
+</div>
+
+</div>
+
+</div>
+
+
+<div class="visual-card">
+
+<h3>🔧 Filtración</h3>
+
+<div class="grid">
+
+<div class="item">
+<strong>${filtration}</strong>
+<div class="small">Tipo</div>
+</div>
+
+<div class="item">
+<strong>
+${escapeHtml(filtrationValue)}
+</strong>
+<div class="small">
+${f.type==="Sump"
+?"Volumen SUMP"
+:"Caudal"}
+</div>
+</div>
+
+<div class="item">
+<strong>
+${escapeHtml(f.brand||'—')}
+</strong>
+<div class="small">Marca</div>
+</div>
+
+</div>
+
+<div
+class="small"
+style="margin-top:12px"
+>
+Bomba/modelo:
+${escapeHtml(f.model||'—')}
+· Material filtrante:
+${materialTotal.toFixed(1)} L
+</div>
+
+<div
+class="visual-list"
+style="margin-top:10px"
+>
+${materialHtml}
+</div>
+
+</div>
+
+`;
 
 }
 
@@ -2681,6 +1971,7 @@ return;
 
 }
 
+
 container.innerHTML=
 tanks.map(tank=>{
 
@@ -2702,7 +1993,6 @@ tank.measurements[0];
 
 
 const fishList=
-
 tank.fish.length
 
 ?
@@ -2719,7 +2009,9 @@ onclick="removeTankFish(${tank.id},'${escapeHtml(x.name)}')"
 Eliminar
 </button>
 
-<h3>🐟 ${escapeHtml(x.name)}</h3>
+<h3>
+🐟 ${escapeHtml(x.name)}
+</h3>
 
 <div class="latin">
 ${escapeHtml(x.latin)}
@@ -2739,7 +2031,6 @@ Cantidad: ${x.quantity}
 
 
 const plantList=
-
 tank.plants.length
 
 ?
@@ -2756,7 +2047,9 @@ onclick="removeTankPlant(${tank.id},'${escapeHtml(x.name)}')"
 Eliminar
 </button>
 
-<h3>🌿 ${escapeHtml(x.name)}</h3>
+<h3>
+🌿 ${escapeHtml(x.name)}
+</h3>
 
 <div class="latin">
 ${escapeHtml(x.latin)}
@@ -2815,10 +2108,17 @@ return `
 
 <div class="category-title">
 
-${category==="Biológico"?"🧬":
-category==="Mecánico"?"🧽":
-category==="Mecánico/Biológico"?"🔄":
-category==="Químico"?"🧪":"📦"}
+${
+category==="Biológico"
+?"🧬"
+:category==="Mecánico"
+?"🧽"
+:category==="Mecánico/Biológico"
+?"🔄"
+:category==="Químico"
+?"🧪"
+:"📦"
+}
 
 ${category}
 
@@ -2832,6 +2132,7 @@ ${liters.toFixed(1)} L
 </span>
 
 </div>
+
 
 ${items.map(m=>`
 
@@ -2849,9 +2150,9 @@ Eliminar
 ${escapeHtml(m.type)}
 </strong>
 
-${m.brand?
-" · "+escapeHtml(m.brand):
-""}
+${m.brand
+?" · "+escapeHtml(m.brand)
+:""}
 
 <br>
 
@@ -2861,15 +2162,19 @@ ${m.liters} L
 
 </div>
 
-`).join("")}`;
+`).join("")}
+
+`;
 
 }).join("");
 
 
 const materialsHtml=
-materialGroups ||
+materialGroups||
 
-'<div class="small">No hay materiales añadidos.</div>';
+'<div class="small">
+No hay materiales añadidos.
+</div>';
 
 
 const filtrationHtml=`
@@ -2904,15 +2209,16 @@ ${
 "Otro"
 ]
 .map(v=>
-
-`<option
+`
+<option
 value="${v}"
 ${f.type===v?"selected":""}
 >
 ${v}
-</option>`
-
-).join("")
+</option>
+`
+)
+.join("")
 }
 
 </select>
@@ -2954,6 +2260,7 @@ oninput="calculateSumpPreview(${tank.id})"
 
 </div>
 
+
 <div>
 
 <label>
@@ -2970,6 +2277,7 @@ oninput="calculateSumpPreview(${tank.id})"
 >
 
 </div>
+
 
 <div>
 
@@ -2988,6 +2296,7 @@ oninput="calculateSumpPreview(${tank.id})"
 
 </div>
 
+
 <div>
 
 <label>
@@ -3004,6 +2313,7 @@ value="${f.sump.liters||""}"
 </div>
 
 </div>
+
 
 <div
 id="sumpPreview_${tank.id}"
@@ -3024,9 +2334,11 @@ ${Number(f.sump.liters).toFixed(1)} L
 :
 
 "Introduce largo, ancho y alto para calcular los litros automáticamente."
+
 }
 
 </div>
+
 
 <br>
 
@@ -3062,6 +2374,7 @@ placeholder="Ej: Eheim, Sicce, Jebao..."
 
 </div>
 
+
 <div>
 
 <label>
@@ -3075,6 +2388,7 @@ placeholder="Modelo de la bomba"
 >
 
 </div>
+
 
 <div>
 
@@ -3091,6 +2405,7 @@ placeholder="Ej: 12000"
 >
 
 </div>
+
 
 <div>
 
@@ -3110,6 +2425,7 @@ placeholder="Ej: 9000"
 
 </div>
 
+
 <br>
 
 <button
@@ -3120,9 +2436,7 @@ onclick="saveFilter(${tank.id})"
 </button>
 
 <div style="margin-top:14px">
-
 ${flowMessage(tank)}
-
 </div>
 
 </div>
@@ -3152,6 +2466,7 @@ placeholder="Ej: Eheim"
 
 </div>
 
+
 <div>
 
 <label>
@@ -3165,6 +2480,7 @@ placeholder="Modelo"
 >
 
 </div>
+
 
 <div>
 
@@ -3183,6 +2499,7 @@ value="${f.flow||""}"
 
 </div>
 
+
 <br>
 
 <button
@@ -3193,9 +2510,7 @@ onclick="saveFilter(${tank.id})"
 </button>
 
 <div style="margin-top:14px">
-
 ${flowMessage(tank)}
-
 </div>
 
 `
@@ -3224,15 +2539,16 @@ id="tankCard_${tank.id}"
 
 <div class="small">
 
-${tank.liters}
-litros
+${tank.liters} litros
 
 ${
 tank.length&&tank.width&&tank.height
 
 ?
 
-` · ${tank.length}×${tank.width}×${tank.height} cm`
+` ·
+${tank.length}×${tank.width}×${tank.height}
+cm`
 
 :
 
@@ -3242,6 +2558,7 @@ tank.length&&tank.width&&tank.height
 </div>
 
 </div>
+
 
 <button
 class="btn red"
@@ -3278,9 +2595,13 @@ onclick="switchTankTab(${tank.id},'edit')"
 id="visualPane_${tank.id}"
 class="tank-pane active"
 >
-
-${visualTank(tank)}
-
+${
+visualTank(tank)
+||
+'<div class="chart-empty">
+No hay información visual disponible.
+</div>'
+}
 </div>
 
 
@@ -3289,69 +2610,12 @@ id="editPane_${tank.id}"
 class="tank-pane"
 >
 
-
-<hr>
-
-<h3>
-📷 Foto del acuario
-</h3>
-
-<div class="photo-box">
-
-${
-tank.photo
-
-?
-
-`<img
-src="${tank.photo}"
-alt="Foto del acuario"
->`
-
-:
-
-`
-
-<div class="photo-placeholder">
-
-<div style="font-size:38px">
-📷
-</div>
-
-<strong>
-No hay foto guardada
-</strong>
-
-</div>
-
-`
-}
-
-<div class="photo-actions">
-
-<label>
-
-📷
-${tank.photo?"Cambiar foto":"Añadir foto"}
-
-<input
-type="file"
-accept="image/*"
-onchange="changeTankPhoto(${tank.id},this)"
->
-
-</label>
-
-</div>
-
-</div>
-
-
 <hr>
 
 <h3>
 🐟 Peces que tienes
 </h3>
+
 
 <div class="grid">
 
@@ -3368,6 +2632,7 @@ oninput="filterTankSelect(${tank.id},'fish')"
 >
 
 </div>
+
 
 <div>
 
@@ -3389,6 +2654,7 @@ ${fishOptions(tank)}
 
 </div>
 
+
 <div>
 
 <label>
@@ -3406,6 +2672,7 @@ value="1"
 
 </div>
 
+
 <br>
 
 <button
@@ -3415,13 +2682,12 @@ onclick="addTankFish(${tank.id})"
 ＋ Añadir pez
 </button>
 
+
 <div
 class="grid"
 style="margin-top:12px"
 >
-
 ${fishList}
-
 </div>
 
 
@@ -3430,6 +2696,7 @@ ${fishList}
 <h3>
 🌿 Plantas que tienes
 </h3>
+
 
 <div class="grid">
 
@@ -3446,6 +2713,7 @@ oninput="filterTankSelect(${tank.id},'plant')"
 >
 
 </div>
+
 
 <div>
 
@@ -3467,6 +2735,7 @@ ${plantOptions(tank)}
 
 </div>
 
+
 <div>
 
 <label>
@@ -3484,6 +2753,7 @@ value="1"
 
 </div>
 
+
 <br>
 
 <button
@@ -3493,13 +2763,12 @@ onclick="addTankPlant(${tank.id})"
 ＋ Añadir planta
 </button>
 
+
 <div
 class="grid"
 style="margin-top:12px"
 >
-
 ${plantList}
-
 </div>
 
 
@@ -3508,6 +2777,7 @@ ${plantList}
 <h3>
 🧪 Mediciones del agua
 </h3>
+
 
 <div class="grid">
 
@@ -3526,6 +2796,7 @@ placeholder="Ej: 7,0"
 
 </div>
 
+
 <div>
 
 <label>
@@ -3541,6 +2812,7 @@ placeholder="Ej: 8"
 
 </div>
 
+
 <div>
 
 <label>
@@ -3555,6 +2827,7 @@ placeholder="Ej: 4"
 >
 
 </div>
+
 
 <div>
 
@@ -3573,6 +2846,7 @@ placeholder="Ej: 25"
 
 </div>
 
+
 <br>
 
 <button
@@ -3582,18 +2856,17 @@ onclick="saveMeasurement(${tank.id})"
 💾 Guardar medición
 </button>
 
+
 ${
 last
 
 ?
 
 `
-
 <div
 class="good"
 style="margin-top:12px"
 >
-
 📊 Última medición:
 
 pH
@@ -3617,7 +2890,6 @@ ${escapeHtml(last.temp||"—")} °C
 </strong>
 
 </div>
-
 `
 
 :
@@ -3625,10 +2897,9 @@ ${escapeHtml(last.temp||"—")} °C
 ""
 }
 
+
 <div style="margin-top:12px">
-
 ${measurementHistory(tank)}
-
 </div>
 
 
@@ -3648,16 +2919,10 @@ ${filtrationHtml}
 </h3>
 
 <p class="small">
-
 Los materiales se muestran automáticamente agrupados por categoría y ordenados:
-
-biológico,
-mecánico,
-mecánico + biológico,
-químico
-y otros.
-
+biológico, mecánico, mecánico + biológico, químico y otros.
 </p>
+
 
 <div class="grid">
 
@@ -3674,6 +2939,7 @@ placeholder="Canutillos, Matrix, Siporax..."
 
 </div>
 
+
 <div>
 
 <label>
@@ -3686,6 +2952,7 @@ placeholder="Ej: Seachem"
 >
 
 </div>
+
 
 <div>
 
@@ -3701,6 +2968,7 @@ step="0.1"
 >
 
 </div>
+
 
 <div>
 
@@ -3738,6 +3006,7 @@ Otro
 
 </div>
 
+
 <br>
 
 <button
@@ -3747,9 +3016,8 @@ onclick="addMaterial(${tank.id})"
 ＋ Añadir material
 </button>
 
-<div
-style="margin-top:12px"
->
+
+<div style="margin-top:12px">
 
 <strong>
 Total materiales:
@@ -3758,11 +3026,11 @@ ${total.toFixed(1)} L
 
 </div>
 
+
 <div>
-
 ${materialsHtml}
-
 </div>
+
 
 </div>
 
@@ -3774,7 +3042,6 @@ ${materialsHtml}
 
 
 home.innerHTML=
-
 tanks.map(t=>{
 
 ensureTankData(t);
@@ -3805,15 +3072,16 @@ onclick="openTank(${t.id})"
 
 <div class="small">
 
-${t.liters}
-litros
+${t.liters} litros
 
 ${
 t.length&&t.width&&t.height
 
 ?
 
-` · ${t.length}×${t.width}×${t.height} cm`
+` ·
+${t.length}×${t.width}×${t.height}
+cm`
 
 :
 
@@ -3824,6 +3092,7 @@ t.length&&t.width&&t.height
 
 </div>
 
+
 <button
 class="btn"
 onclick="event.stopPropagation();openTank(${t.id})"
@@ -3832,6 +3101,7 @@ Abrir acuario
 </button>
 
 </div>
+
 
 <div class="home-summary">
 
@@ -3845,7 +3115,11 @@ Abrir acuario
 
 <span class="badge">
 🧪
-${last?"Última medición guardada":"Sin mediciones"}
+${
+last
+?"Última medición guardada"
+:"Sin mediciones"
+}
 </span>
 
 </div>
