@@ -97,6 +97,12 @@ font-size:16px;
 background:white
 }
 
+input[readonly]{
+background:#eef7fa;
+font-weight:700;
+color:#174d60
+}
+
 label{
 display:block;
 font-weight:600;
@@ -294,10 +300,6 @@ onclick="showSection('nuevo',this)">
 
 <main>
 
-<!-- =====================================================
-INICIO
-===================================================== -->
-
 <section id="inicio" class="section active">
 
 <div class="card">
@@ -343,10 +345,6 @@ automáticamente en este dispositivo.
 </section>
 
 
-<!-- =====================================================
-MIS ACUARIOS
-===================================================== -->
-
 <section id="acuarios" class="section">
 
 <h2>🏠 Mis acuarios</h2>
@@ -359,10 +357,6 @@ Aquí aparecen únicamente los acuarios que ya has creado.
 
 </section>
 
-
-<!-- =====================================================
-NUEVO ACUARIO
-===================================================== -->
 
 <section id="nuevo" class="section">
 
@@ -441,10 +435,6 @@ onclick="addTank()">
 </section>
 
 
-<!-- =====================================================
-PECES
-===================================================== -->
-
 <section id="peces" class="section">
 
 <h2>🐟 Base de datos de peces</h2>
@@ -454,7 +444,7 @@ PECES
 <input
 id="fishSearch"
 placeholder="🔍 Buscar pez..."
-oninput="renderFish()">
+oninput="renderFish">
 
 </div>
 
@@ -462,10 +452,6 @@ oninput="renderFish()">
 
 </section>
 
-
-<!-- =====================================================
-PLANTAS
-===================================================== -->
 
 <section id="plantas" class="section">
 
@@ -625,20 +611,9 @@ difficulty:"Fácil"
 
 /* =========================================================
 MATERIALES FILTRANTES
-=========================================================
-
-coverage:
-litros de acuario tratados por UNA unidad
-del producto según fabricante.
-
-Si es 0:
-el fabricante no publica una equivalencia
-cuantitativa adecuada y NO se calcula.
 ========================================================= */
 
 const manufacturerProducts=[
-
-/* ---------- SEACHEM ---------- */
 
 {
 id:"seachem-matrix",
@@ -739,9 +714,6 @@ packageText:"2 L / 4 L",
 source:"Seachem: 2 L para 200 US gallons. Convertido: 757 L de agua por 2 L de producto."
 },
 
-
-/* ---------- SERA ---------- */
-
 {
 id:"sera-siporax",
 brand:"sera",
@@ -785,9 +757,6 @@ coverage:200,
 packageText:"1.000 ml",
 source:"sera: 1.000 ml para 200 L."
 },
-
-
-/* ---------- MARINEPURE ---------- */
 
 {
 id:"marinepure-block",
@@ -857,12 +826,9 @@ kind:"Biológico",
 unit:"unidad",
 coverage:0,
 packageText:"1 Plate",
-source:"CerMedia: Plate de 8 × 8 × 1 pulgadas. No se publica una equivalencia universal de litros de acuario.",
+source:"CerMedia: Plate de 8 × 8 × 1 pulgadas.",
 dimensions:"20,32 × 20,32 × 2,54 cm"
 },
-
-
-/* ---------- EHEIM ---------- */
 
 {
 id:"eheim-substratpro",
@@ -929,6 +895,115 @@ coverage:0,
 packageText:"1 L / 5 L",
 source:"EHEIM no publica una equivalencia universal de litros de acuario."
 }
+
+];
+
+
+/* =========================================================
+BOMBAS DE SUBIDA SUMP
+========================================================= */
+
+const returnPumps=[
+
+/* BLAU AQUARISTIC */
+{brand:"Blau Aquaristic",model:"Reef Motion 1.5KDC",flow:1800},
+{brand:"Blau Aquaristic",model:"Reef Motion 2.3 KDC",flow:2300},
+{brand:"Blau Aquaristic",model:"Reef Motion 4KDC",flow:4000},
+{brand:"Blau Aquaristic",model:"Reef Motion 8KDC",flow:8000},
+{brand:"Blau Aquaristic",model:"Reef Motion 12 KDC",flow:12000},
+
+/* EHEIM */
+{brand:"EHEIM",model:"Universal 1005",flow:270},
+{brand:"EHEIM",model:"Universal 300",flow:300},
+{brand:"EHEIM",model:"Universal 600",flow:600},
+{brand:"EHEIM",model:"Universal 1200",flow:1200},
+{brand:"EHEIM",model:"Universal 2400",flow:2400},
+{brand:"EHEIM",model:"Universal 3400",flow:3400},
+
+/* JEBAO / JECOD */
+{brand:"Jebao / Jecod",model:"DCP-2500",flow:2500},
+{brand:"Jebao / Jecod",model:"DCP-3500",flow:3500},
+{brand:"Jebao / Jecod",model:"DCP-5000",flow:5000},
+{brand:"Jebao / Jecod",model:"DCP-6500",flow:6500},
+{brand:"Jebao / Jecod",model:"DCP-8000",flow:8000},
+{brand:"Jebao / Jecod",model:"DCP-10000",flow:10000},
+{brand:"Jebao / Jecod",model:"DCP-13000",flow:13000},
+{brand:"Jebao / Jecod",model:"DCP-15000",flow:15000},
+{brand:"Jebao / Jecod",model:"DCP-18000",flow:18000},
+{brand:"Jebao / Jecod",model:"DCP-20000",flow:20000},
+
+/* SICCE */
+{brand:"SICCE",model:"Syncra Silent 0.5",flow:700},
+{brand:"SICCE",model:"Syncra Silent 1.0",flow:950},
+{brand:"SICCE",model:"Syncra Silent 1.5",flow:1350},
+{brand:"SICCE",model:"Syncra Silent 2.0",flow:2150},
+{brand:"SICCE",model:"Syncra Silent 2.5",flow:2400},
+{brand:"SICCE",model:"Syncra Silent 3.0",flow:2700},
+{brand:"SICCE",model:"Syncra Silent 3.5",flow:2500},
+{brand:"SICCE",model:"Syncra Silent 4.0",flow:3500},
+{brand:"SICCE",model:"Syncra Silent 5.0",flow:5000},
+
+/* TUNZE */
+{brand:"Tunze",model:"Silence 1073.008",flow:800},
+{brand:"Tunze",model:"Silence 1073.020",flow:2400},
+{brand:"Tunze",model:"Silence 1073.040",flow:3000},
+{brand:"Tunze",model:"Silence 1073.050",flow:3000},
+{brand:"Tunze",model:"Silence 1073.060",flow:3000},
+
+/* MAXSPECT */
+{brand:"Maxspect",model:"MJ-DC6K",flow:6000},
+{brand:"Maxspect",model:"MJ-DC8K",flow:8000},
+{brand:"Maxspect",model:"MJ-DC10K",flow:10000},
+{brand:"Maxspect",model:"MJ-DC12K",flow:12000},
+
+/* D-D */
+{brand:"D-D",model:"Funktion FP2000",flow:2000},
+{brand:"D-D",model:"Funktion FP3500",flow:3500},
+{brand:"D-D",model:"Funktion FP5000",flow:5000},
+{brand:"D-D",model:"Funktion FP6500",flow:6500},
+{brand:"D-D",model:"Funktion FP10000",flow:10000},
+{brand:"D-D",model:"Funktion FP15000",flow:15000},
+{brand:"D-D",model:"Funktion FP20000",flow:20000},
+
+/* AQUA ILLUMINATION */
+{brand:"Aqua Illumination",model:"AI Axis 20",flow:700},
+{brand:"Aqua Illumination",model:"AI Axis 40",flow:1500},
+{brand:"Aqua Illumination",model:"AI Axis 90",flow:3500},
+
+/* ECOTECH MARINE */
+{brand:"EcoTech Marine",model:"Vectra S2",flow:5300},
+{brand:"EcoTech Marine",model:"Vectra M2",flow:7600},
+{brand:"EcoTech Marine",model:"Vectra L2",flow:11700},
+
+/* RED SEA */
+{brand:"Red Sea",model:"ReefRun G2 4000",flow:4000},
+{brand:"Red Sea",model:"ReefRun G2 6000",flow:6500},
+{brand:"Red Sea",model:"ReefRun G2 8000",flow:8300},
+{brand:"Red Sea",model:"ReefRun G2 12000",flow:12000},
+
+/* HYDOR */
+{brand:"Hydor",model:"Seltz D DC 2000",flow:2000},
+{brand:"Hydor",model:"Seltz D DC 3000",flow:3000},
+{brand:"Hydor",model:"Seltz D DC 4000",flow:4000},
+
+/* AQUA MEDIC */
+{brand:"Aqua Medic",model:"DC Runner 1.3",flow:1200},
+{brand:"Aqua Medic",model:"DC Runner 2.3",flow:2000},
+{brand:"Aqua Medic",model:"DC Runner 3.3",flow:3000},
+{brand:"Aqua Medic",model:"DC Runner 5.3",flow:5000},
+{brand:"Aqua Medic",model:"DC Runner 9.3",flow:9000},
+
+/* NEPTUNE SYSTEMS */
+{brand:"Neptune Systems",model:"COR-15",flow:5700},
+{brand:"Neptune Systems",model:"COR-20",flow:7600},
+
+/* OASE */
+{brand:"Oase",model:"OptiMax 800",flow:800},
+{brand:"Oase",model:"OptiMax 1000",flow:1000},
+{brand:"Oase",model:"OptiMax 2000",flow:2000},
+{brand:"Oase",model:"OptiMax 3000",flow:2800},
+{brand:"Oase",model:"OptiMax 4000",flow:4400},
+{brand:"Oase",model:"OptiMax 5000",flow:5000}
 
 ];
 
@@ -1062,6 +1137,9 @@ t.filter={
 type:"",
 brand:"",
 model:"",
+pumpBrand:"",
+pumpModel:"",
+pumpMaxFlow:0,
 flow:0,
 materials:[],
 sump:{
@@ -1087,6 +1165,19 @@ liters:0
 };
 
 }
+
+/* Compatibilidad con acuarios guardados anteriormente */
+
+if(typeof t.filter.pumpBrand==="undefined")
+t.filter.pumpBrand=
+t.filter.type==="Sump" ? (t.filter.brand||"") : "";
+
+if(typeof t.filter.pumpModel==="undefined")
+t.filter.pumpModel=
+t.filter.type==="Sump" ? (t.filter.model||"") : "";
+
+if(typeof t.filter.pumpMaxFlow==="undefined")
+t.filter.pumpMaxFlow=0;
 
 return t;
 
@@ -1157,6 +1248,9 @@ filter:{
 type:"",
 brand:"",
 model:"",
+pumpBrand:"",
+pumpModel:"",
+pumpMaxFlow:0,
 flow:0,
 materials:[],
 sump:{
@@ -1335,7 +1429,7 @@ Dificultad: ${escapeHtml(x.difficulty)}
 
 
 /* =========================================================
-AÑADIR PEZ
+PECES / PLANTAS DEL ACUARIO
 ========================================================= */
 
 function fishOptions(){
@@ -1461,10 +1555,6 @@ renderAll();
 
 }
 
-
-/* =========================================================
-PLANTAS ACUARIO
-========================================================= */
 
 function addTankPlant(id){
 
@@ -1794,6 +1884,217 @@ input.value=((l*w*h)/1000).toFixed(1);
 }
 
 
+/* =========================================================
+BOMBAS SUMP
+========================================================= */
+
+function pumpBrandOptions(selected){
+
+const brands=[...new Set(
+returnPumps.map(x=>x.brand)
+)];
+
+return brands.map(brand=>`
+
+<option
+value="${escapeHtml(brand)}"
+${selected===brand?"selected":""}>
+
+${escapeHtml(brand)}
+
+</option>
+
+`).join("");
+
+}
+
+
+function pumpModelOptions(brand,selected){
+
+const models=
+returnPumps.filter(x=>x.brand===brand);
+
+return models.map(x=>`
+
+<option
+value="${escapeHtml(x.model)}"
+${selected===x.model?"selected":""}>
+
+${escapeHtml(x.model)}
+
+</option>
+
+`).join("");
+
+}
+
+
+function getPump(brand,model){
+
+return returnPumps.find(x=>
+x.brand===brand &&
+x.model===model
+);
+
+}
+
+
+function updatePumpModels(id){
+
+const brand=
+document.getElementById("pumpBrand_"+id)?.value||"";
+
+const select=
+document.getElementById("pumpModel_"+id);
+
+const maxFlow=
+document.getElementById("pumpMaxFlow_"+id);
+
+const realFlow=
+document.getElementById("filterFlow_"+id);
+
+const info=
+document.getElementById("pumpInfo_"+id);
+
+if(!select)return;
+
+const models=
+returnPumps.filter(x=>x.brand===brand);
+
+select.innerHTML=
+'<option value="">Selecciona una bomba...</option>'+
+models.map(x=>`
+
+<option value="${escapeHtml(x.model)}">
+${escapeHtml(x.model)}
+</option>
+
+`).join("");
+
+if(maxFlow)maxFlow.value="";
+if(realFlow)realFlow.value="";
+
+if(info){
+
+info.innerHTML=
+"Selecciona el modelo de la bomba de subida.";
+
+}
+
+}
+
+
+function updatePumpInfo(id){
+
+const brand=
+document.getElementById("pumpBrand_"+id)?.value||"";
+
+const model=
+document.getElementById("pumpModel_"+id)?.value||"";
+
+const pump=
+getPump(brand,model);
+
+const info=
+document.getElementById("pumpInfo_"+id);
+
+const maxFlow=
+document.getElementById("pumpMaxFlow_"+id);
+
+const realFlow=
+document.getElementById("filterFlow_"+id);
+
+if(!pump){
+
+if(maxFlow)maxFlow.value="";
+
+if(realFlow)realFlow.value="";
+
+if(info){
+
+info.innerHTML=
+"Selecciona el modelo de la bomba de subida.";
+
+}
+
+return;
+
+}
+
+if(maxFlow){
+
+maxFlow.value=pump.flow;
+
+}
+
+if(realFlow){
+
+realFlow.value=pump.flow;
+
+}
+
+if(info){
+
+info.innerHTML=`
+
+<strong>💧 ${escapeHtml(pump.brand)}</strong>
+<br>
+${escapeHtml(pump.model)}
+
+<br><br>
+
+Caudal máximo:
+<strong>
+${pump.flow.toLocaleString("es-ES")} L/h
+</strong>
+
+<br><br>
+
+<span class="small">
+
+ℹ️ El caudal real puede ser inferior al máximo
+debido a la altura de subida, tuberías, codos,
+válvulas y demás elementos de la instalación.
+
+</span>
+
+`;
+
+}
+
+}
+
+
+function filterTypeChanged(id){
+
+const type=
+document.getElementById("filterType_"+id).value;
+
+const sump=
+document.getElementById("sumpPumpFields_"+id);
+
+const generic=
+document.getElementById("genericFilterFields_"+id);
+
+if(type==="Sump"){
+
+sump.style.display="block";
+generic.style.display="none";
+
+}else{
+
+sump.style.display="none";
+generic.style.display="block";
+
+}
+
+}
+
+
+/* =========================================================
+GUARDAR FILTRACIÓN
+========================================================= */
+
 function saveFilter(id){
 
 const tank=tanks.find(x=>x.id===id);
@@ -1805,27 +2106,79 @@ const f=ensureFilter(tank);
 f.type=
 document.getElementById("filterType_"+id).value;
 
-f.brand=
-document.getElementById("filterBrand_"+id).value.trim();
 
-f.model=
-document.getElementById("filterModel_"+id).value.trim();
+/* SUMP */
+
+if(f.type==="Sump"){
+
+f.pumpBrand=
+document.getElementById("pumpBrand_"+id)?.value||"";
+
+f.pumpModel=
+document.getElementById("pumpModel_"+id)?.value||"";
+
+const pump=
+getPump(
+f.pumpBrand,
+f.pumpModel
+);
+
+if(pump){
+
+f.pumpMaxFlow=pump.flow;
+
+}else{
+
+f.pumpMaxFlow=0;
+
+}
 
 f.flow=
-Number(document.getElementById("filterFlow_"+id).value)||0;
+Number(
+document.getElementById("filterFlow_"+id)?.value
+)||0;
+
+f.brand=f.pumpBrand;
+f.model=f.pumpModel;
+
+}else{
+
+/* OTROS FILTROS */
+
+f.brand=
+document.getElementById("filterBrand_"+id)?.value.trim()||"";
+
+f.model=
+document.getElementById("filterModel_"+id)?.value.trim()||"";
+
+f.flow=
+Number(
+document.getElementById("genericFilterFlow_"+id)?.value
+)||0;
+
+}
+
+
+/* MEDIDAS SUMP */
 
 f.sump.length=
-Number(document.getElementById("sumpLength_"+id)?.value)||0;
+Number(
+document.getElementById("sumpLength_"+id)?.value
+)||0;
 
 f.sump.width=
-Number(document.getElementById("sumpWidth_"+id)?.value)||0;
+Number(
+document.getElementById("sumpWidth_"+id)?.value
+)||0;
 
 f.sump.height=
-Number(document.getElementById("sumpHeight_"+id)?.value)||0;
+Number(
+document.getElementById("sumpHeight_"+id)?.value
+)||0;
 
 if(
-f.sump.length&&
-f.sump.width&&
+f.sump.length &&
+f.sump.width &&
 f.sump.height
 ){
 
@@ -1841,7 +2194,9 @@ f.sump.height/1000
 }else{
 
 f.sump.liters=
-Number(document.getElementById("sumpLiters_"+id)?.value)||0;
+Number(
+document.getElementById("sumpLiters_"+id)?.value
+)||0;
 
 }
 
@@ -1929,10 +2284,6 @@ ${escapeHtml(product.packageText)}
 }
 
 
-/* =========================================================
-AÑADIR MATERIAL
-========================================================= */
-
 function addMaterial(id){
 
 const tank=tanks.find(x=>x.id===id);
@@ -2017,10 +2368,6 @@ renderAll();
 }
 
 
-/* =========================================================
-ESTADO DEL MATERIAL
-========================================================= */
-
 function materialStatus(tank,m){
 
 const quantity=
@@ -2028,9 +2375,6 @@ Number(m.quantity)||0;
 
 const coverage=
 Number(m.coverage)||0;
-
-
-/* Sin dato cuantitativo */
 
 if(!coverage){
 
@@ -2055,7 +2399,6 @@ AquaControl no inventará una cantidad recomendada.
 
 }
 
-
 const aquariumCoverage=
 quantity*coverage;
 
@@ -2067,7 +2410,6 @@ quantity>=required;
 
 const percentage=
 (quantity/required)*100;
-
 
 if(enough){
 
@@ -2110,7 +2452,6 @@ Según la recomendación del fabricante.
 `;
 
 }
-
 
 return `
 <div class="danger">
@@ -2265,7 +2606,7 @@ const f=ensureFilter(tank);
 const last=tank.measurements[0];
 
 
-/* ---------- PECES ---------- */
+/* PECES */
 
 const fishList=
 
@@ -2310,7 +2651,7 @@ Cantidad: ${x.quantity}
 '<div class="small">No has añadido peces a este acuario.</div>';
 
 
-/* ---------- PLANTAS ---------- */
+/* PLANTAS */
 
 const plantList=
 
@@ -2355,7 +2696,7 @@ Cantidad: ${x.quantity}
 '<div class="small">No has añadido plantas a este acuario.</div>';
 
 
-/* ---------- MATERIALES ---------- */
+/* MATERIALES */
 
 const materials=
 
@@ -2435,7 +2776,7 @@ ${materialStatus(tank,m)}
 '<div class="small">No hay materiales filtrantes añadidos.</div>';
 
 
-/* ---------- SUMP ---------- */
+/* SUMP */
 
 const sump=
 
@@ -2504,6 +2845,48 @@ value="${f.sump.liters||""}">
 <p class="small">
 Las medidas calculan automáticamente el volumen del SUMP.
 </p>
+
+</div>
+
+`
+
+:"";
+
+
+/* INFORMACIÓN BOMBA */
+
+const pumpSummary=
+
+f.type==="Sump" && f.pumpBrand && f.pumpModel
+
+?
+
+`
+
+<div class="manufacturer">
+
+💧 <strong>Bomba de subida</strong>
+
+<br>
+
+${escapeHtml(f.pumpBrand)}
+<br>
+
+${escapeHtml(f.pumpModel)}
+
+<br><br>
+
+Caudal máximo:
+<strong>
+${Number(f.pumpMaxFlow||0).toLocaleString("es-ES")} L/h
+</strong>
+
+<br>
+
+Caudal real:
+<strong>
+${Number(f.flow||0).toLocaleString("es-ES")} L/h
+</strong>
 
 </div>
 
@@ -2823,9 +3206,13 @@ ${measurementHistory(tank)}
 
 <label>Tipo</label>
 
-<select id="filterType_${tank.id}">
+<select
+id="filterType_${tank.id}"
+onchange="filterTypeChanged(${tank.id})">
 
-<option value="">Seleccionar</option>
+<option value="">
+Seleccionar
+</option>
 
 ${[
 "Sump",
@@ -2851,13 +3238,171 @@ ${v}
 
 </div>
 
+</div>
+
+
+<!-- BOMBA SUMP -->
+
+<div
+id="sumpPumpFields_${tank.id}"
+style="
+margin-top:14px;
+${f.type==="Sump"?"":"display:none"}
+">
+
+<div class="sump">
+
+<h3>💧 Bomba de subida</h3>
+
+<div class="grid">
+
+<div>
+
+<label>Marca de la bomba de subida</label>
+
+<select
+id="pumpBrand_${tank.id}"
+onchange="pumpBrandChanged(${tank.id})">
+
+<option value="">
+Selecciona una marca...
+</option>
+
+${pumpBrandOptions(f.pumpBrand)}
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Bomba / modelo</label>
+
+<select
+id="pumpModel_${tank.id}"
+onchange="updatePumpInfo(${tank.id})">
+
+<option value="">
+Selecciona una bomba...
+</option>
+
+${
+f.pumpBrand
+?
+pumpModelOptions(
+f.pumpBrand,
+f.pumpModel
+)
+:""
+}
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Caudal máximo de la bomba (L/h)</label>
+
+<input
+id="pumpMaxFlow_${tank.id}"
+type="number"
+readonly
+value="${f.pumpMaxFlow||""}"
+>
+
+</div>
+
+
+<div>
+
+<label>Caudal real L/h</label>
+
+<input
+id="filterFlow_${tank.id}"
+type="number"
+min="0"
+value="${f.flow||""}"
+placeholder="Caudal real">
+
+</div>
+
+</div>
+
+
+<div
+id="pumpInfo_${tank.id}"
+class="manufacturer"
+style="margin-top:12px">
+
+${
+f.pumpBrand&&f.pumpModel
+
+?
+
+`
+
+<strong>💧
+${escapeHtml(f.pumpBrand)}
+</strong>
+
+<br>
+
+${escapeHtml(f.pumpModel)}
+
+<br><br>
+
+Caudal máximo:
+<strong>
+${Number(f.pumpMaxFlow||0).toLocaleString("es-ES")} L/h
+</strong>
+
+<br>
+
+<span class="small">
+
+El caudal máximo corresponde al valor de referencia
+de la bomba. El caudal real puede ser menor por
+altura, tuberías, codos y válvulas.
+
+</span>
+
+`
+
+:
+
+"Selecciona la marca y el modelo de la bomba de subida."
+
+}
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FILTROS QUE NO SON SUMP -->
+
+<div
+id="genericFilterFields_${tank.id}"
+style="
+margin-top:14px;
+${f.type==="Sump"?"display:none":""}
+">
+
+<div class="grid">
+
 <div>
 
 <label>Marca</label>
 
 <input
 id="filterBrand_${tank.id}"
-value="${escapeHtml(f.brand)}">
+value="${escapeHtml(f.brand)}"
+placeholder="Ej: EHEIM">
 
 </div>
 
@@ -2867,7 +3412,8 @@ value="${escapeHtml(f.brand)}">
 
 <input
 id="filterModel_${tank.id}"
-value="${escapeHtml(f.model)}">
+value="${escapeHtml(f.model)}"
+placeholder="Ej: Professionel 4+">
 
 </div>
 
@@ -2876,13 +3422,17 @@ value="${escapeHtml(f.model)}">
 <label>Caudal real L/h</label>
 
 <input
-id="filterFlow_${tank.id}"
+id="genericFilterFlow_${tank.id}"
 type="number"
-value="${f.flow||""}">
+value="${f.type==="Sump"?"":(f.flow||"")}"
+placeholder="Caudal real">
 
 </div>
 
 </div>
+
+</div>
+
 
 <br>
 
@@ -2893,6 +3443,8 @@ onclick="saveFilter(${tank.id})">
 💾 Guardar filtración
 
 </button>
+
+${pumpSummary}
 
 <div style="margin-top:14px">
 
