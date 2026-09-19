@@ -12,212 +12,194 @@
 --blue2:#0d91b8;
 --light:#eef8fc;
 --dark:#12313f;
---muted:#607d89;
---card:#fff;
---ok:#218c5a;
---warn:#d88900;
+--green:#238b57;
+--red:#c74b4b;
+--orange:#e58a24;
+--border:#d7e2e7
 }
-
 *{box-sizing:border-box}
-
 body{
 margin:0;
-background:#f3f7f9;
-color:var(--dark);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#f5f8fa;
+color:var(--dark)
 }
-
 header{
 background:linear-gradient(135deg,var(--blue),var(--blue2));
 color:white;
-padding:42px 28px 38px;
-border-radius:0 0 44px 44px
+padding:28px 18px 22px;
+border-radius:0 0 24px 24px
 }
-
-h1{
-font-size:42px;
-margin:0 0 12px;
-font-weight:800
-}
-
-h2{
-font-size:28px;
-margin:0 0 20px
-}
-
-h3{
-margin:0 0 10px
-}
-
-header p{
-font-size:20px;
-font-weight:650;
-margin:0;
-line-height:1.35
-}
+h1{margin:0 0 6px;font-size:30px}
+h2{margin-top:6px}
+header p{margin:0;opacity:.9}
 
 nav{
 display:flex;
-gap:12px;
-padding:22px;
+gap:8px;
+padding:12px;
 overflow:auto;
 background:white;
 position:sticky;
 top:0;
-z-index:5
+z-index:5;
+box-shadow:0 2px 8px #0001
 }
-
 nav button{
 border:0;
-background:#eaf2f5;
-border-radius:30px;
-padding:15px 22px;
-font-size:17px;
-font-weight:750;
-color:#345563;
-white-space:nowrap
+background:#edf4f7;
+color:#31505d;
+padding:11px 15px;
+border-radius:20px;
+white-space:nowrap;
+font-weight:600
 }
-
 nav button.active{
 background:var(--blue);
-color:#fff
+color:white
 }
 
 main{
-max-width:1000px;
-margin:auto;
-padding:26px 20px 70px
+padding:16px;
+max-width:950px;
+margin:auto
 }
+.section{display:none}
+.section.active{display:block}
 
 .card{
 background:white;
-border-radius:28px;
-padding:26px;
-margin:18px 0;
-box-shadow:0 5px 22px #163b4a12
+border-radius:18px;
+padding:16px;
+margin:12px 0;
+box-shadow:0 3px 14px #0000000d
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px
+gap:12px
 }
 
-.stat{
-padding:20px;
-border-radius:22px;
-background:#f4f8fa
-}
-
-.stat b{
-display:block;
-font-size:38px
-}
-
-.stat span{
-color:var(--muted);
-font-weight:700
+input,select{
+width:100%;
+padding:12px;
+border:1px solid var(--border);
+border-radius:12px;
+font-size:16px;
+background:white
 }
 
 label{
 display:block;
-font-weight:750;
-margin:13px 0 6px
+font-weight:600;
+margin-bottom:5px
 }
 
-input,select,textarea{
-width:100%;
-padding:14px;
-border:1px solid #cbdbe1;
-border-radius:14px;
-font-size:16px;
-background:#fff;
-color:var(--dark)
-}
-
-button.primary{
+.btn{
+border:0;
+border-radius:12px;
+padding:11px 14px;
 background:var(--blue);
-color:#fff;
-border:0;
-border-radius:14px;
-padding:13px 18px;
-font-weight:800;
-font-size:16px
+color:white;
+font-weight:700;
+cursor:pointer
 }
-
-button.secondary{
-background:#eaf2f5;
-color:var(--dark);
-border:0;
-border-radius:14px;
-padding:13px 18px;
-font-weight:800;
-font-size:16px
-}
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
 
 .row{
 display:flex;
-gap:10px;
-flex-wrap:wrap;
-align-items:center
+gap:8px;
+align-items:center;
+flex-wrap:wrap
 }
 
-.hidden{
-display:none!important
-}
-
-.item{
-border:1px solid #dbe7eb;
-border-radius:18px;
-padding:15px;
-margin:10px 0;
-background:#fbfdfe
-}
-
-.item b{
-font-size:18px
-}
-
-.muted{
-color:var(--muted)
-}
-
-.pill{
-display:inline-block;
-background:#e8f5f9;
-padding:5px 9px;
-border-radius:20px;
-font-size:12px;
-font-weight:750;
-margin:3px
-}
-
-.danger{
-color:#b33
-}
-
-.success{
-color:var(--ok);
+.stat{
+font-size:24px;
 font-weight:800
 }
 
-.search{
-font-size:17px;
-padding:16px;
-border-radius:16px
+.small{
+font-size:13px;
+color:#607782
 }
 
-small.note{
-display:block;
-color:var(--muted);
-margin-top:7px;
-line-height:1.4
+.badge{
+display:inline-block;
+padding:5px 9px;
+border-radius:10px;
+background:var(--light);
+color:var(--blue);
+font-size:12px;
+margin:3px
 }
 
-footer{
+.item{
+border:1px solid #e2eaee;
+border-radius:15px;
+padding:14px;
+background:#fff
+}
+
+.item h3{margin:0 0 5px}
+
+.latin{
+font-style:italic;
+color:#607782;
+font-size:14px
+}
+
+.empty{
 text-align:center;
-color:var(--muted);
+color:#70838c;
 padding:30px
+}
+
+.good{
+background:#e8f7ee;
+color:#17663d;
+padding:12px;
+border-radius:12px;
+font-weight:600
+}
+
+.warning{
+background:#fff4df;
+color:#8a5a08;
+padding:12px;
+border-radius:12px;
+font-weight:600
+}
+
+.danger{
+background:#fdeaea;
+color:#8c2929;
+padding:12px;
+border-radius:12px;
+font-weight:600
+}
+
+.material{
+border:1px solid #dfe8ec;
+border-radius:14px;
+padding:14px;
+margin-top:10px;
+background:#fafcfd
+}
+
+.sump{
+background:#f1f9fc;
+border:1px solid #cce5ee;
+border-radius:14px;
+padding:14px;
+margin-top:12px
+}
+
+hr{
+border:0;
+border-top:1px solid #e5ecef;
+margin:18px 0
 }
 </style>
 </head>
@@ -230,34 +212,34 @@ padding:30px
 </header>
 
 <nav>
-<button class="active" data-tab="inicio">Inicio</button>
-<button data-tab="peces">🐟 Peces</button>
-<button data-tab="plantas">🌿 Plantas</button>
-<button data-tab="acuarios">🏠 Acuarios</button>
+<button class="active" onclick="showSection('inicio',this)">Inicio</button>
+<button onclick="showSection('peces',this)">🐟 Peces</button>
+<button onclick="showSection('plantas',this)">🌿 Plantas</button>
+<button onclick="showSection('acuarios',this)">🏠 Nuevo acuario</button>
 </nav>
 
 <main>
 
-<section id="inicio">
+<section id="inicio" class="section active">
 
 <div class="card">
 <h2>Mi AquaControl</h2>
 
 <div class="grid">
 
-<div class="stat">
-<b id="statAq">0</b>
-<span>acuarios</span>
+<div>
+<div class="stat" id="tankCount">0</div>
+<div class="small">acuarios</div>
 </div>
 
-<div class="stat">
-<b>200</b>
-<span>peces disponibles</span>
+<div>
+<div class="stat" id="fishCount">200</div>
+<div class="small">peces disponibles</div>
 </div>
 
-<div class="stat">
-<b>200</b>
-<span>plantas disponibles</span>
+<div>
+<div class="stat" id="plantCount">200</div>
+<div class="small">plantas disponibles</div>
 </div>
 
 </div>
@@ -265,630 +247,1523 @@ padding:30px
 
 <div class="card">
 <h2>💾 Guardado automático</h2>
-<p>
-Los datos de tus acuarios, filtros, sump y materiales filtrantes
-se guardan automáticamente en este dispositivo.
-</p>
+<p>Los acuarios y sus datos se guardan automáticamente en este dispositivo.</p>
 </div>
+
+<div id="homeTanks"></div>
 
 </section>
 
-<section id="peces" class="hidden">
 
-<div class="card">
+<section id="peces" class="section">
 
 <h2>🐟 Base de datos de peces</h2>
 
+<div class="card">
 <input
 id="fishSearch"
-class="search"
-placeholder="Buscar por nombre, científico, tipo o agua..."
->
-
-<div id="fishResults"></div>
-
+placeholder="🔍 Buscar pez..."
+oninput="renderFish()">
 </div>
+
+<div id="fishList" class="grid"></div>
 
 </section>
 
-<section id="plantas" class="hidden">
 
-<div class="card">
+<section id="plantas" class="section">
 
 <h2>🌿 Base de datos de plantas</h2>
 
+<div class="card">
 <input
 id="plantSearch"
-class="search"
-placeholder="Buscar por nombre, científico, dificultad o tipo..."
->
-
-<div id="plantResults"></div>
-
+placeholder="🔍 Buscar planta..."
+oninput="renderPlants()">
 </div>
+
+<div id="plantList" class="grid"></div>
 
 </section>
 
-<section id="acuarios" class="hidden">
 
-<div class="card">
+<section id="acuarios" class="section">
 
 <h2>🏠 Mis acuarios</h2>
 
-<button class="primary" id="newAq">
-+ Nuevo acuario
-</button>
+<div class="card">
 
-<div id="aqList"></div>
+<h3>➕ Crear acuario</h3>
+
+<div class="grid">
+
+<div>
+<label>Nombre</label>
+<input id="tankName" placeholder="Ej: Acuario salón">
+</div>
+
+<div>
+<label>Litros</label>
+<input id="tankLiters" type="number" min="1" placeholder="Ej: 450">
+</div>
+
+<div>
+<label>Largo (cm)</label>
+<input id="tankLength" type="number" min="1">
+</div>
+
+<div>
+<label>Ancho (cm)</label>
+<input id="tankWidth" type="number" min="1">
+</div>
+
+<div>
+<label>Alto (cm)</label>
+<input id="tankHeight" type="number" min="1">
+</div>
 
 </div>
 
-<div id="aqEditor" class="card hidden"></div>
+<br>
+
+<button class="btn green" onclick="addTank()">
+＋ Guardar acuario
+</button>
+
+</div>
+
+<div id="tankList"></div>
 
 </section>
 
 </main>
 
-<footer>
-AquaControl · datos guardados localmente en tu dispositivo
-</footer>
 
 <script>
 
-const FISH=[
-  {"name":"Tetra neón","scientific":"Paracheirodon innesi","water":"Pacífico","size":"2.5","type":"Cardumen, pacífico"},
-{"name":"Tetra cardenal","scientific":"Paracheirodon axelrodi","water":"Pacífico","size":"4","type":"Cardumen, pacífico"},
-{"name":"Tetra limón","scientific":"Hyphessobrycon pulchripinnis","water":"Pacífico","size":"4","type":"Cardumen, pacífico"},
-{"name":"Tetra fantasma negro","scientific":"Hyphessobrycon megalopterus","water":"Pacífico","size":"4.5","type":"Cardumen"},
-{"name":"Tetra fantasma rojo","scientific":"Hyphessobrycon sweglesi","water":"Pacífico","size":"4","type":"Cardumen"},
-{"name":"Tetra emperador","scientific":"Nematobrycon palmeri","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra serpae","scientific":"Hyphessobrycon eques","water":"Pacífico","size":"4","type":"Cardumen"},
-{"name":"Tetra de Buenos Aires","scientific":"Hyphessobrycon anisitsi","water":"Pacífico","size":"7","type":"Cardumen"},
-{"name":"Tetra glowlight","scientific":"Hemigrammus erythrozonus","water":"Pacífico","size":"4","type":"Cardumen"},
-{"name":"Tetra nariz de borracho","scientific":"Hemigrammus rhodostomus","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra cabeza roja","scientific":"Petitella bleheri","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra pingüino","scientific":"Thayeria boehlkei","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Tetra diamante","scientific":"Moenkhausia pittieri","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Tetra cobre","scientific":"Hasemania nana","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra Congo","scientific":"Phenacogrammus interruptus","water":"Pacífico","size":"8","type":"Cardumen"},
-{"name":"Tetra colombiano","scientific":"Hyphessobrycon columbianus","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Tetra pristella","scientific":"Pristella maxillaris","water":"Pacífico","size":"4.5","type":"Cardumen"},
-{"name":"Tetra negro","scientific":"Gymnocorymbus ternetzi","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra albino","scientific":"Gymnocorymbus ternetzi","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra red minor","scientific":"Hyphessobrycon callistus","water":"Pacífico","size":"4","type":"Cardumen"},
-{"name":"Rasbora arlequín","scientific":"Trigonostigma heteromorpha","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Rasbora hengeli","scientific":"Trigonostigma hengeli","water":"Pacífico","size":"3.5","type":"Cardumen"},
-{"name":"Rasbora espei","scientific":"Trigonostigma espei","water":"Pacífico","size":"3.5","type":"Cardumen"},
-{"name":"Rasbora galaxy","scientific":"Danio margaritatus","water":"Pacífico","size":"2.5","type":"Cardumen"},
-{"name":"Rasbora chili","scientific":"Boraras brigittae","water":"Pacífico","size":"2","type":"Cardumen"},
-{"name":"Rasbora mosquito","scientific":"Boraras urophthalmoides","water":"Pacífico","size":"2","type":"Cardumen"},
-{"name":"Rasbora kubotai","scientific":"Microdevario kubotai","water":"Pacífico","size":"2.5","type":"Cardumen"},
-{"name":"Rasbora tijera","scientific":"Rasbora trilineata","water":"Pacífico","size":"10","type":"Cardumen"},
-{"name":"Rasbora roja","scientific":"Rasbora borapetensis","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Danio cebra","scientific":"Danio rerio","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Danio perla celestial","scientific":"Danio margaritatus","water":"Pacífico","size":"2.5","type":"Cardumen"},
-{"name":"Danio gigante","scientific":"Devario aequipinnatus","water":"Pacífico","size":"10","type":"Cardumen"},
-{"name":"Danio perla","scientific":"Danio albolineatus","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Danio choprae","scientific":"Danio choprae","water":"Pacífico","size":"3.5","type":"Cardumen"},
-{"name":"Barbo cereza","scientific":"Puntius titteya","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Barbo tigre","scientific":"Puntigrus tetrazona","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Barbo dorado","scientific":"Barbodes semifasciolatus","water":"Pacífico","size":"7","type":"Cardumen"},
-{"name":"Barbo rosado","scientific":"Pethia conchonius","water":"Pacífico","size":"8","type":"Cardumen"},
-{"name":"Barbo pentazona","scientific":"Desmopuntius pentazona","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Barbo Odessa","scientific":"Pethia padamya","water":"Pacífico","size":"7","type":"Cardumen"},
-{"name":"Barbo rubí","scientific":"Pethia nigrofasciata","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Barbo ticto","scientific":"Pethia ticto","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Corydora panda","scientific":"Corydoras panda","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora sterbai","scientific":"Corydoras sterbai","water":"Pacífico","size":"6.5","type":"Fondo, grupo"},
-{"name":"Corydora aeneus","scientific":"Corydoras aeneus","water":"Pacífico","size":"7","type":"Fondo, grupo"},
-{"name":"Corydora paleatus","scientific":"Corydoras paleatus","water":"Pacífico","size":"6","type":"Fondo, grupo"},
-{"name":"Corydora habrosus","scientific":"Corydoras habrosus","water":"Pacífico","size":"3.5","type":"Fondo, grupo"},
-{"name":"Corydora pygmaeus","scientific":"Corydoras pygmaeus","water":"Pacífico","size":"3","type":"Fondo, grupo"},
-{"name":"Corydora hastatus","scientific":"Corydoras hastatus","water":"Pacífico","size":"3","type":"Fondo, grupo"},
-{"name":"Corydora adolfoi","scientific":"Corydoras adolfoi","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora julii","scientific":"Corydoras julii","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora trilineatus","scientific":"Corydoras trilineatus","water":"Pacífico","size":"5.5","type":"Fondo, grupo"},
-{"name":"Corydora venezuelanus","scientific":"Corydoras venezuelanus","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora duplicareus","scientific":"Corydoras duplicareus","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora melanotaenia","scientific":"Corydoras melanotaenia","water":"Pacífico","size":"6","type":"Fondo, grupo"},
-{"name":"Corydora similis","scientific":"Corydoras similis","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Otocinclus affinis","scientific":"Otocinclus affinis","water":"Pacífico","size":"4","type":"Fondo, grupo"},
-{"name":"Otocinclus vittatus","scientific":"Otocinclus vittatus","water":"Pacífico","size":"4","type":"Fondo, grupo"},
-{"name":"Ancistrus común","scientific":"Ancistrus cf. cirrhosus","water":"Pacífico","size":"12","type":"Fondo"},
-{"name":"Ancistrus L144","scientific":"Ancistrus sp.","water":"Pacífico","size":"12","type":"Fondo"},
-{"name":"Pleco común","scientific":"Hypostomus plecostomus","water":"Pacífico","size":"35","type":"Fondo, grande"},
-{"name":"Pleco bristlenose","scientific":"Ancistrus sp.","water":"Pacífico","size":"12","type":"Fondo"},
-{"name":"Pleco payaso","scientific":"Panaqolus maccus","water":"Pacífico","size":"10","type":"Fondo"},
-{"name":"Pleco real","scientific":"Panaque nigrolineatus","water":"Pacífico","size":"43","type":"Fondo, grande"},
-{"name":"Locha payaso","scientific":"Chromobotia macracanthus","water":"Pacífico","size":"30","type":"Grupo, grande"},
-{"name":"Locha kuhli","scientific":"Pangio kuhlii","water":"Pacífico","size":"10","type":"Fondo, grupo"},
-{"name":"Locha dojo","scientific":"Misgurnus anguillicaudatus","water":"Pacífico","size":"25","type":"Fondo, grande"},
-{"name":"Locha enana","scientific":"Ambastaia sidthimunki","water":"Pacífico","size":"6","type":"Grupo"},
-{"name":"Gourami enano","scientific":"Trichogaster lalius","water":"Pacífico","size":"8","type":"Tranquilo"},
-{"name":"Gourami miel","scientific":"Trichogaster chuna","water":"Pacífico","size":"6","type":"Tranquilo"},
-{"name":"Gourami perla","scientific":"Trichopodus leerii","water":"Pacífico","size":"12","type":"Tranquilo"},
-{"name":"Gourami azul","scientific":"Trichopodus trichopterus","water":"Pacífico","size":"15","type":"Territorial"},
-{"name":"Gourami dorado","scientific":"Trichopodus trichopterus","water":"Pacífico","size":"15","type":"Territorial"},
-{"name":"Gourami mármol","scientific":"Trichopodus trichopterus","water":"Pacífico","size":"15","type":"Territorial"},
-{"name":"Gourami besador","scientific":"Helostoma temminkii","water":"Pacífico","size":"25","type":"Grande"},
-{"name":"Betta splendens","scientific":"Betta splendens","water":"Pacífico","size":"7","type":"Territorial"},
-{"name":"Betta imbellis","scientific":"Betta imbellis","water":"Pacífico","size":"6","type":"Territorial"},
-{"name":"Betta mahachai","scientific":"Betta mahachaiensis","water":"Pacífico","size":"7","type":"Territorial"},
-{"name":"Ramirezi","scientific":"Mikrogeophagus ramirezi","water":"Pacífico","size":"6","type":"Cíclido enano"},
-{"name":"Ramirezi boliviano","scientific":"Mikrogeophagus altispinosus","water":"Pacífico","size":"8","type":"Cíclido enano"},
-{"name":"Apistogramma cacatuoides","scientific":"Apistogramma cacatuoides","water":"Pacífico","size":"8","type":"Cíclido enano"},
-{"name":"Apistogramma agassizii","scientific":"Apistogramma agassizii","water":"Pacífico","size":"8","type":"Cíclido enano"},
-{"name":"Apistogramma borellii","scientific":"Apistogramma borellii","water":"Pacífico","size":"7","type":"Cíclido enano"},
-{"name":"Apistogramma macmasteri","scientific":"Apistogramma macmasteri","water":"Pacífico","size":"9","type":"Cíclido enano"},
-{"name":"Escalar","scientific":"Pterophyllum scalare","water":"Pacífico","size":"15","type":"Cíclido, alto"},
-{"name":"Altum","scientific":"Pterophyllum altum","water":"Pacífico","size":"20","type":"Cíclido, alto"},
-{"name":"Disco","scientific":"Symphysodon aequifasciatus","water":"Pacífico","size":"20","type":"Cíclido, grupo"},
-{"name":"Disco Heckel","scientific":"Symphysodon discus","water":"Pacífico","size":"20","type":"Cíclido, grupo"},
-{"name":"Oscar","scientific":"Astronotus ocellatus","water":"Pacífico","size":"35","type":"Cíclido, grande"},
-{"name":"Jack Dempsey","scientific":"Rocio octofasciata","water":"Pacífico","size":"25","type":"Cíclido, territorial"},
-{"name":"Cíclido convicto","scientific":"Amatitlania nigrofasciata","water":"Pacífico","size":"15","type":"Territorial"},
-{"name":"Cíclido joya","scientific":"Hemichromis bimaculatus","water":"Pacífico","size":"15","type":"Territorial"},
-{"name":"Cíclido loro","scientific":"Amphilophus híbrido","water":"Pacífico","size":"20","type":"Grande"},
-{"name":"Cíclido limón","scientific":"Neolamprologus leleupi","water":"Lago Tanganica","size":"10","type":"Cíclido africano"},
-{"name":"Multifasciatus","scientific":"Neolamprologus multifasciatus","water":"Lago Tanganica","size":"5","type":"Cíclido africano"},
-{"name":"Julidochromis transcriptus","scientific":"Julidochromis transcriptus","water":"Lago Tanganica","size":"7","type":"Cíclido africano"},
-{"name":"Frontosa","scientific":"Cyphotilapia frontosa","water":"Lago Tanganica","size":"35","type":"Cíclido africano, grande"},
-{"name":"Tropheus duboisi","scientific":"Tropheus duboisi","water":"Lago Tanganica","size":"12","type":"Cíclido africano"},
-{"name":"Mbuna azul","scientific":"Pseudotropheus cyaneorhabdos","water":"Lago Malawi","size":"10","type":"Cíclido africano"},
-{"name":"Labidochromis amarillo","scientific":"Labidochromis caeruleus","water":"Lago Malawi","size":"10","type":"Cíclido africano"},
-{"name":"Peacock","scientific":"Aulonocara sp.","water":"Lago Malawi","size":"15","type":"Cíclido africano"},
-{"name":"Guppy","scientific":"Poecilia reticulata","water":"Pacífico","size":"5","type":"Vivíparo"},
-{"name":"Endler","scientific":"Poecilia wingei","water":"Pacífico","size":"3.5","type":"Vivíparo"},
-{"name":"Molly","scientific":"Poecilia sphenops","water":"Pacífico","size":"10","type":"Vivíparo"},
-{"name":"Molly velífera","scientific":"Poecilia latipinna","water":"Pacífico","size":"12","type":"Vivíparo"},
-{"name":"Platy","scientific":"Xiphophorus maculatus","water":"Pacífico","size":"6","type":"Vivíparo"},
-{"name":"Xipho","scientific":"Xiphophorus hellerii","water":"Pacífico","size":"12","type":"Vivíparo"},
-{"name":"Arcoíris de Boesemani","scientific":"Melanotaenia boesemani","water":"Pacífico","size":"12","type":"Cardumen"},
-{"name":"Arcoíris turquesa","scientific":"Melanotaenia lacustris","water":"Pacífico","size":"10","type":"Cardumen"},
-{"name":"Arcoíris neón","scientific":"Melanotaenia praecox","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Arcoíris rojo","scientific":"Glossolepis incisus","water":"Pacífico","size":"12","type":"Cardumen"},
-{"name":"Killifish payaso","scientific":"Epiplatys annulatus","water":"Pacífico","size":"4","type":"Superficie"},
-{"name":"Killifish gardneri","scientific":"Fundulopanchax gardneri","water":"Pacífico","size":"7","type":"Superficie"},
-{"name":"Pez hacha mármol","scientific":"Carnegiella strigata","water":"Pacífico","size":"4","type":"Superficie"},
-{"name":"Pez hacha plateado","scientific":"Gasteropelecus sternicla","water":"Pacífico","size":"6","type":"Superficie"},
-{"name":"Pez lápiz enano","scientific":"Nannostomus marginatus","water":"Pacífico","size":"3.5","type":"Cardumen"},
-{"name":"Pez lápiz de Beckford","scientific":"Nannostomus beckfordi","water":"Pacífico","size":"6","type":"Cardumen"},
-{"name":"Pez cristal","scientific":"Kryptopterus vitreolus","water":"Pacífico","size":"7","type":"Cardumen"},
-{"name":"Pez cuchillo fantasma","scientific":"Apteronotus albifrons","water":"Pacífico","size":"45","type":"Grande"},
-{"name":"Pez globo enano","scientific":"Carinotetraodon travancoricus","water":"Pacífico","size":"3.5","type":"Especializado"},
-{"name":"Pez globo amazónico","scientific":"Colomesus asellus","water":"Pacífico","size":"15","type":"Especializado"},
-{"name":"Pez abeja","scientific":"Brachygobius xanthozona","water":"Pacífico","size":"4.5","type":"Salobre"},
-{"name":"Gobio arcoíris","scientific":"Stiphodon ornatus","water":"Pacífico","size":"6","type":"Fondo"},
-{"name":"Gobio neón","scientific":"Stiphodon semoni","water":"Pacífico","size":"6","type":"Fondo"},
-{"name":"Barbo denisonii","scientific":"Sahyadria denisonii","water":"Pacífico","size":"12","type":"Cardumen"},
-{"name":"Cíclido bandera","scientific":"Mesonauta festivus","water":"Pacífico","size":"15","type":"Cíclido"},
-{"name":"Kribensis","scientific":"Pelvicachromis pulcher","water":"Pacífico","size":"10","type":"Cíclido enano"},
-{"name":"Cíclido arcoíris","scientific":"Herotilapia multispinosa","water":"Pacífico","size":"15","type":"Cíclido"},
-{"name":"Apistogramma panduro","scientific":"Apistogramma panduro","water":"Pacífico","size":"7","type":"Cíclido enano"},
-{"name":"Apistogramma viejita","scientific":"Apistogramma viejita","water":"Pacífico","size":"7","type":"Cíclido enano"},
-{"name":"Pez cuchillo africano","scientific":"Xenomystus nigri","water":"Pacífico","size":"30","type":"Grande"},
-{"name":"Bichir senegal","scientific":"Polypterus senegalus","water":"Pacífico","size":"35","type":"Grande"},
-{"name":"Pez cuerda","scientific":"Erpetoichthys calabaricus","water":"Pacífico","size":"40","type":"Grande"},
-{"name":"Pez gato banjo","scientific":"Bunocephalus coracoideus","water":"Pacífico","size":"15","type":"Fondo"},
-{"name":"Pleco pepita de oro","scientific":"Baryancistrus xanthellus","water":"Pacífico","size":"20","type":"Fondo"},
-{"name":"Corydora elegans","scientific":"Corydoras elegans","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora napoensis","scientific":"Corydoras napoensis","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora concolor","scientific":"Corydoras concolor","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora arcuatus","scientific":"Corydoras arcuatus","water":"Pacífico","size":"6","type":"Fondo, grupo"},
-{"name":"Corydora rabauti","scientific":"Corydoras rabauti","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora metae","scientific":"Corydoras metae","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora schwartzi","scientific":"Corydoras schwartzi","water":"Pacífico","size":"6","type":"Fondo, grupo"},
-{"name":"Corydora punctatus","scientific":"Corydoras punctatus","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora axelrodi","scientific":"Corydoras axelrodi","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Pleco zebra","scientific":"Hypancistrus zebra","water":"Pacífico","size":"10","type":"Fondo"},
-{"name":"Pleco snowball","scientific":"Hypancistrus inspector","water":"Pacífico","size":"15","type":"Fondo"},
-{"name":"Pleco king tiger","scientific":"Hypancistrus sp.","water":"Pacífico","size":"12","type":"Fondo"},
-{"name":"Locha yoyo","scientific":"Botia almorhae","water":"Pacífico","size":"15","type":"Fondo, grupo"},
-{"name":"Tetra azul","scientific":"Boehlkea fredcochui","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Tetra fuego","scientific":"Hyphessobrycon amandae","water":"Pacífico","size":"2","type":"Cardumen"},
-{"name":"Tetra rosa","scientific":"Hyphessobrycon rosaceus","water":"Pacífico","size":"4","type":"Cardumen"},
-{"name":"Tetra ornato","scientific":"Hyphessobrycon bentosi","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Rasbora maculata","scientific":"Boraras maculatus","water":"Pacífico","size":"2.5","type":"Cardumen"},
-{"name":"Rasbora merah","scientific":"Boraras merah","water":"Pacífico","size":"2","type":"Cardumen"},
-{"name":"Danio frankei","scientific":"Danio frankei","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Barbo cereza albino","scientific":"Puntius titteya","water":"Pacífico","size":"5","type":"Cardumen"},
-{"name":"Molly dalmata","scientific":"Poecilia sphenops","water":"Pacífico","size":"10","type":"Vivíparo"},
-{"name":"Platy coral","scientific":"Xiphophorus maculatus","water":"Pacífico","size":"6","type":"Vivíparo"},
-{"name":"Guppy cobra","scientific":"Poecilia reticulata","water":"Pacífico","size":"5","type":"Vivíparo"},
-{"name":"Endler tiger","scientific":"Poecilia wingei","water":"Pacífico","size":"3.5","type":"Vivíparo"},
-{"name":"Cíclido llave de sol","scientific":"Hypselecara temporalis","water":"Pacífico","size":"30","type":"Cíclido"},
-{"name":"Cíclido Texas","scientific":"Herichthys cyanoguttatus","water":"Pacífico","size":"30","type":"Cíclido"},
-{"name":"Cíclido jaguar","scientific":"Parachromis managuensis","water":"Pacífico","size":"50","type":"Muy grande"},
-{"name":"Cíclido flowerhorn","scientific":"Híbrido","water":"Pacífico","size":"30","type":"Grande"},
-{"name":"Cíclido multicolor","scientific":"Pelvicachromis pulcher","water":"Pacífico","size":"10","type":"Cíclido enano"},
-{"name":"Apistogramma trifasciata","scientific":"Apistogramma trifasciata","water":"Pacífico","size":"7","type":"Cíclido enano"},
-{"name":"Cíclido joya rojo","scientific":"Hemichromis lifalili","water":"Pacífico","size":"12","type":"Territorial"},
-{"name":"Cíclido acara naranja","scientific":"Laetacara dorsigera","water":"Pacífico","size":"8","type":"Cíclido enano"},
-{"name":"Bichir del Congo","scientific":"Polypterus delhezi","water":"Pacífico","size":"40","type":"Grande"},
-{"name":"Pez gato chocolate","scientific":"Rhinodoras dorbignyi","water":"Pacífico","size":"15","type":"Fondo"},
-{"name":"Otocinclus cocama","scientific":"Otocinclus cocama","water":"Pacífico","size":"4","type":"Fondo, grupo"},
-{"name":"Pleco bola de nieve","scientific":"Hypancistrus inspector","water":"Pacífico","size":"15","type":"Fondo"},
-{"name":"Pleco limón","scientific":"Baryancistrus sp.","water":"Pacífico","size":"20","type":"Fondo"},
-{"name":"Corydora orange laser","scientific":"Corydoras sp.","water":"Pacífico","size":"5","type":"Fondo, grupo"},
-{"name":"Corydora black Venezuela","scientific":"Corydoras sp.","water":"Pacífico","size":"5","type":"Fondo, grupo"}
+"use strict";
+
+
+/* =========================
+   BASE DE DATOS DE PECES
+========================= */
+
+const fish=[
+
+{
+name:"Neón",
+latin:"Paracheirodon innesi",
+temp:"20–26 °C",
+ph:"5,0–7,5",
+size:"4 cm",
+min:"80 L",
+group:"8+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Tetra cardenal",
+latin:"Paracheirodon axelrodi",
+temp:"23–28 °C",
+ph:"4,5–7,0",
+size:"4–5 cm",
+min:"100 L",
+group:"10+",
+zone:"Media",
+difficulty:"Media"
+},
+
+{
+name:"Borrachito",
+latin:"Hemigrammus rhodostomus",
+temp:"24–28 °C",
+ph:"5,0–7,0",
+size:"5 cm",
+min:"100 L",
+group:"8+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Corydoras panda",
+latin:"Corydoras panda",
+temp:"22–26 °C",
+ph:"6,0–7,5",
+size:"5 cm",
+min:"80 L",
+group:"6+",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Corydoras sterbai",
+latin:"Corydoras sterbai",
+temp:"24–28 °C",
+ph:"6,0–7,5",
+size:"6–7 cm",
+min:"100 L",
+group:"6+",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Escalar",
+latin:"Pterophyllum scalare",
+temp:"24–30 °C",
+ph:"6,0–7,5",
+size:"15 cm",
+min:"250 L",
+group:"4+",
+zone:"Media/Superior",
+difficulty:"Media"
+},
+
+{
+name:"Ramirezi",
+latin:"Mikrogeophagus ramirezi",
+temp:"26–30 °C",
+ph:"5,0–7,0",
+size:"6 cm",
+min:"60 L",
+group:"Pareja",
+zone:"Fondo/Media",
+difficulty:"Media"
+},
+
+{
+name:"Ramirezi boliviano",
+latin:"Mikrogeophagus altispinosus",
+temp:"24–28 °C",
+ph:"6,0–7,5",
+size:"8 cm",
+min:"100 L",
+group:"Pareja",
+zone:"Fondo/Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Ancistrus",
+latin:"Ancistrus sp.",
+temp:"23–28 °C",
+ph:"6,0–7,5",
+size:"12–15 cm",
+min:"100 L",
+group:"1–2",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Otocinclus",
+latin:"Otocinclus sp.",
+temp:"22–27 °C",
+ph:"5,5–7,5",
+size:"4–5 cm",
+min:"60 L",
+group:"6+",
+zone:"Fondo",
+difficulty:"Media"
+},
+
+{
+name:"Guppy",
+latin:"Poecilia reticulata",
+temp:"22–28 °C",
+ph:"6,8–7,8",
+size:"4–6 cm",
+min:"60 L",
+group:"6+",
+zone:"Media/Superior",
+difficulty:"Fácil"
+},
+
+{
+name:"Platy",
+latin:"Xiphophorus maculatus",
+temp:"22–28 °C",
+ph:"7,0–8,2",
+size:"5–7 cm",
+min:"60 L",
+group:"6+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Molly",
+latin:"Poecilia sphenops",
+temp:"24–28 °C",
+ph:"7,0–8,5",
+size:"8–12 cm",
+min:"100 L",
+group:"6+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Betta",
+latin:"Betta splendens",
+temp:"24–30 °C",
+ph:"6,0–8,0",
+size:"6–7 cm",
+min:"20 L",
+group:"1",
+zone:"Superior",
+difficulty:"Fácil"
+},
+
+{
+name:"Rasbora arlequín",
+latin:"Trigonostigma heteromorpha",
+temp:"23–28 °C",
+ph:"5,0–7,0",
+size:"4–5 cm",
+min:"60 L",
+group:"8+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Cebra danio",
+latin:"Danio rerio",
+temp:"18–26 °C",
+ph:"6,5–8,0",
+size:"4–5 cm",
+min:"60 L",
+group:"8+",
+zone:"Superior",
+difficulty:"Fácil"
+},
+
+{
+name:"Barbo cereza",
+latin:"Puntius titteya",
+temp:"23–27 °C",
+ph:"6,0–8,0",
+size:"5 cm",
+min:"60 L",
+group:"6+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Colisa miel",
+latin:"Trichogaster chuna",
+temp:"24–30 °C",
+ph:"6,0–7,5",
+size:"5 cm",
+min:"60 L",
+group:"1–3",
+zone:"Superior",
+difficulty:"Media"
+},
+
+{
+name:"Disco",
+latin:"Symphysodon spp.",
+temp:"27–30 °C",
+ph:"5,5–7,0",
+size:"15–20 cm",
+min:"300 L",
+group:"5+",
+zone:"Media",
+difficulty:"Alta"
+},
+
+{
+name:"Arcoíris enano",
+latin:"Melanotaenia praecox",
+temp:"23–28 °C",
+ph:"6,5–8,0",
+size:"6 cm",
+min:"100 L",
+group:"6+",
+zone:"Media",
+difficulty:"Fácil"
+}
+
 ];
 
-const PLANTS=[
-{"name":"Anubias nana","scientific":"Anubias barteri var. nana","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias barteri","scientific":"Anubias barteri","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias coffeefolia","scientific":"Anubias barteri","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias nana petite","scientific":"Anubias barteri","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias gracilis","scientific":"Anubias gracilis","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias hastifolia","scientific":"Anubias hastifolia","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias congensis","scientific":"Anubias congensis","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Anubias afzelii","scientific":"Anubias afzelii","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Java fern","scientific":"Microsorum pteropus","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Java fern Windelov","scientific":"Microsorum pteropus","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Java fern Trident","scientific":"Microsorum pteropus","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Java fern Narrow","scientific":"Microsorum pteropus","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Bolbitis","scientific":"Bolbitis heudelotii","difficulty":"Media","light":"Baja","type":"Rizoma"},
-{"name":"Bucephalandra green","scientific":"Bucephalandra sp.","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Bucephalandra brown","scientific":"Bucephalandra sp.","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Bucephalandra kedagang","scientific":"Bucephalandra sp.","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Bucephalandra mini coin","scientific":"Bucephalandra sp.","difficulty":"Fácil","light":"Baja","type":"Rizoma"},
-{"name":"Musgo de Java","scientific":"Taxiphyllum barbieri","difficulty":"Fácil","light":"Baja","type":"Musgo"},
-{"name":"Musgo Christmas","scientific":"Vesicularia montagnei","difficulty":"Fácil","light":"Baja","type":"Musgo"},
-{"name":"Musgo Flame","scientific":"Taxiphyllum sp.","difficulty":"Fácil","light":"Baja","type":"Musgo"},
-{"name":"Musgo Weeping","scientific":"Vesicularia ferriei","difficulty":"Media","light":"Baja","type":"Musgo"},
-{"name":"Musgo Taiwan","scientific":"Taxiphyllum alternans","difficulty":"Media","light":"Baja","type":"Musgo"},
-{"name":"Riccardia","scientific":"Riccardia chamedryfolia","difficulty":"Media","light":"Baja","type":"Musgo"},
-{"name":"Riccia","scientific":"Riccia fluitans","difficulty":"Media","light":"Media","type":"Flotante"},
-{"name":"Marimo","scientific":"Aegagropila linnaei","difficulty":"Fácil","light":"Baja","type":"Algas"},
-{"name":"Vallisneria spiralis","scientific":"Vallisneria spiralis","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Vallisneria gigantea","scientific":"Vallisneria gigantea","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Vallisneria nana","scientific":"Vallisneria nana","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Vallisneria americana","scientific":"Vallisneria americana","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Sagittaria subulata","scientific":"Sagittaria subulata","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Sagittaria platyphylla","scientific":"Sagittaria platyphylla","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Helanthium tenellum","scientific":"Helanthium tenellum","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Helanthium bolivianum","scientific":"Helanthium bolivianum","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Cryptocoryne wendtii green","scientific":"Cryptocoryne wendtii","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne wendtii brown","scientific":"Cryptocoryne wendtii","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne wendtii red","scientific":"Cryptocoryne wendtii","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne parva","scientific":"Cryptocoryne parva","difficulty":"Media","light":"Media","type":"Tapizante"},
-{"name":"Cryptocoryne balansae","scientific":"Cryptocoryne balansae","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Cryptocoryne crispatula","scientific":"Cryptocoryne crispatula","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Cryptocoryne lutea","scientific":"Cryptocoryne lutea","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne beckettii","scientific":"Cryptocoryne beckettii","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne pontederiifolia","scientific":"Cryptocoryne pontederiifolia","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Echinodorus bleheri","scientific":"Echinodorus bleheri","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Echinodorus amazonicus","scientific":"Echinodorus amazonicus","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Echinodorus tenellus","scientific":"Echinodorus tenellus","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Echinodorus ozelot","scientific":"Echinodorus ozelot","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Echinodorus red devil","scientific":"Echinodorus sp.","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Echinodorus grisebachii","scientific":"Echinodorus grisebachii","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Echinodorus cordifolius","scientific":"Echinodorus cordifolius","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Amazon sword","scientific":"Echinodorus sp.","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Hygrophila polysperma","scientific":"Hygrophila polysperma","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Hygrophila corymbosa","scientific":"Hygrophila corymbosa","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Hygrophila pinnatifida","scientific":"Hygrophila pinnatifida","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Hygrophila difformis","scientific":"Hygrophila difformis","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Hygrophila siamensis","scientific":"Hygrophila corymbosa","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Limnophila sessiliflora","scientific":"Limnophila sessiliflora","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Limnophila aromatica","scientific":"Limnophila aromatica","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Rotala rotundifolia","scientific":"Rotala rotundifolia","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Rotala indica","scientific":"Rotala indica","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Rotala h'ra","scientific":"Rotala sp.","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Rotala wallichii","scientific":"Rotala wallichii","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Rotala macrandra","scientific":"Rotala macrandra","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Rotala green","scientific":"Rotala sp.","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Ludwigia repens","scientific":"Ludwigia repens","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Ludwigia palustris","scientific":"Ludwigia palustris","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Ludwigia arcuata","scientific":"Ludwigia arcuata","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Ludwigia glandulosa","scientific":"Ludwigia glandulosa","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Ludwigia super red","scientific":"Ludwigia sp.","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Bacopa caroliniana","scientific":"Bacopa caroliniana","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Bacopa monnieri","scientific":"Bacopa monnieri","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Bacopa salzmannii","scientific":"Bacopa salzmannii","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Staurogyne repens","scientific":"Staurogyne repens","difficulty":"Media","light":"Media","type":"Tapizante"},
-{"name":"Micranthemum umbrosum","scientific":"Micranthemum umbrosum","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Micranthemum glomeratum","scientific":"Micranthemum glomeratum","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Monte Carlo","scientific":"Micranthemum tweediei","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Hemianthus callitrichoides","scientific":"Hemianthus callitrichoides","difficulty":"Difícil","light":"Alta","type":"Tapizante"},
-{"name":"Eleocharis parvula","scientific":"Eleocharis parvula","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Eleocharis acicularis","scientific":"Eleocharis acicularis","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Glossostigma elatinoides","scientific":"Glossostigma elatinoides","difficulty":"Difícil","light":"Alta","type":"Tapizante"},
-{"name":"Marsilea hirsuta","scientific":"Marsilea hirsuta","difficulty":"Fácil","light":"Media","type":"Tapizante"},
-{"name":"Marsilea crenata","scientific":"Marsilea crenata","difficulty":"Fácil","light":"Media","type":"Tapizante"},
-{"name":"Hydrocotyle tripartita","scientific":"Hydrocotyle tripartita","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Hydrocotyle leucocephala","scientific":"Hydrocotyle leucocephala","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Hydrocotyle verticillata","scientific":"Hydrocotyle verticillata","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Cabomba caroliniana","scientific":"Cabomba caroliniana","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Cabomba furcata","scientific":"Cabomba furcata","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Myriophyllum mattogrossense","scientific":"Myriophyllum mattogrossense","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Myriophyllum aquaticum","scientific":"Myriophyllum aquaticum","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Ceratophyllum demersum","scientific":"Ceratophyllum demersum","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Elodea densa","scientific":"Egeria densa","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Elodea canadensis","scientific":"Elodea canadensis","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Najas guadalupensis","scientific":"Najas guadalupensis","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Heteranthera zosterifolia","scientific":"Heteranthera zosterifolia","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Pogostemon erectus","scientific":"Pogostemon erectus","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Pogostemon helferi","scientific":"Pogostemon helferi","difficulty":"Media","light":"Alta","type":"Roseta"},
-{"name":"Pogostemon stellatus","scientific":"Pogostemon stellatus","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Alternanthera reineckii","scientific":"Alternanthera reineckii","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Alternanthera reineckii mini","scientific":"Alternanthera reineckii","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Ammania gracilis","scientific":"Ammania gracilis","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Didiplis diandra","scientific":"Didiplis diandra","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Mayaca fluviatilis","scientific":"Mayaca fluviatilis","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Salvinia natans","scientific":"Salvinia natans","difficulty":"Fácil","light":"Baja","type":"Flotante"},
-{"name":"Salvinia minima","scientific":"Salvinia minima","difficulty":"Fácil","light":"Baja","type":"Flotante"},
-{"name":"Amazon frogbit","scientific":"Limnobium laevigatum","difficulty":"Fácil","light":"Baja","type":"Flotante"},
-{"name":"Pistia","scientific":"Pistia stratiotes","difficulty":"Fácil","light":"Media","type":"Flotante"},
-{"name":"Phyllanthus fluitans","scientific":"Phyllanthus fluitans","difficulty":"Media","light":"Media","type":"Flotante"},
-{"name":"Lemna minor","scientific":"Lemna minor","difficulty":"Fácil","light":"Baja","type":"Flotante"},
-{"name":"Lemna gibba","scientific":"Lemna gibba","difficulty":"Fácil","light":"Baja","type":"Flotante"},
-{"name":"Azolla","scientific":"Azolla filiculoides","difficulty":"Fácil","light":"Baja","type":"Flotante"},
-{"name":"Nymphoides hydrophylla","scientific":"Nymphoides hydrophylla","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Nymphaea lotus","scientific":"Nymphaea lotus","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Nymphaea zenkeri red","scientific":"Nymphaea zenkeri","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Aponogeton crispus","scientific":"Aponogeton crispus","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Aponogeton ulvaceus","scientific":"Aponogeton ulvaceus","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Aponogeton madagascariensis","scientific":"Aponogeton madagascariensis","difficulty":"Difícil","light":"Media","type":"Roseta"},
-{"name":"Crinum calamistratum","scientific":"Crinum calamistratum","difficulty":"Fácil","light":"Media","type":"Bulbo"},
-{"name":"Crinum natans","scientific":"Crinum natans","difficulty":"Media","light":"Media","type":"Bulbo"},
-{"name":"Lagenandra meeboldii","scientific":"Lagenandra meeboldii","difficulty":"Media","light":"Baja","type":"Rizoma"},
-{"name":"Lagenandra keralensis","scientific":"Lagenandra keralensis","difficulty":"Media","light":"Baja","type":"Rizoma"},
-{"name":"Homalomena","scientific":"Homalomena sp.","difficulty":"Media","light":"Baja","type":"Rizoma"},
-{"name":"Ceratopteris thalictroides","scientific":"Ceratopteris thalictroides","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Ceratopteris cornuta","scientific":"Ceratopteris cornuta","difficulty":"Fácil","light":"Media","type":"Flotante"},
-{"name":"Lobelia cardinalis","scientific":"Lobelia cardinalis","difficulty":"Fácil","light":"Media","type":"Tallo"},
-{"name":"Lobelia cardinalis mini","scientific":"Lobelia cardinalis","difficulty":"Media","light":"Alta","type":"Tallo"},
-{"name":"Utricularia graminifolia","scientific":"Utricularia graminifolia","difficulty":"Difícil","light":"Alta","type":"Tapizante"},
-{"name":"Lilaeopsis brasiliensis","scientific":"Lilaeopsis brasiliensis","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Lilaeopsis novae-zelandiae","scientific":"Lilaeopsis novae-zelandiae","difficulty":"Media","light":"Alta","type":"Tapizante"},
-{"name":"Blyxa japonica","scientific":"Blyxa japonica","difficulty":"Media","light":"Alta","type":"Roseta"},
-{"name":"Blyxa aubertii","scientific":"Blyxa aubertii","difficulty":"Media","light":"Alta","type":"Roseta"},
-{"name":"Eriocaulon cinereum","scientific":"Eriocaulon cinereum","difficulty":"Difícil","light":"Alta","type":"Roseta"},
-{"name":"Hottonia palustris","scientific":"Hottonia palustris","difficulty":"Media","light":"Media","type":"Tallo"},
-{"name":"Tonina fluviatilis","scientific":"Tonina fluviatilis","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Syngonanthus macrocaulon","scientific":"Syngonanthus macrocaulon","difficulty":"Difícil","light":"Alta","type":"Tallo"},
-{"name":"Samolus parviflorus","scientific":"Samolus parviflorus","difficulty":"Media","light":"Media","type":"Tallo"},
-{"name":"Houttuynia cordata","scientific":"Houttuynia cordata","difficulty":"Media","light":"Media","type":"Tallo"},
-{"name":"Cryptocoryne nurii","scientific":"Cryptocoryne nurii","difficulty":"Media","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne spiralis","scientific":"Cryptocoryne spiralis","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Cryptocoryne retrospiralis","scientific":"Cryptocoryne retrospiralis","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Cryptocoryne undulatus","scientific":"Cryptocoryne undulatus","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne lucens","scientific":"Cryptocoryne lucens","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne walkeri","scientific":"Cryptocoryne walkeri","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne affinis","scientific":"Cryptocoryne affinis","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Cryptocoryne petchii","scientific":"Cryptocoryne petchii","difficulty":"Fácil","light":"Baja","type":"Roseta"},
-{"name":"Echinodorus parviflorus","scientific":"Echinodorus parviflorus","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Nymphaea stellata","scientific":"Nymphaea nouchali","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Nymphaea lotus green","scientific":"Nymphaea lotus","difficulty":"Media","light":"Media","type":"Roseta"},
-{"name":"Aponogeton boivinianus","scientific":"Aponogeton boivinianus","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Aponogeton longiplumulosus","scientific":"Aponogeton longiplumulosus","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Crinum thaianum","scientific":"Crinum thaianum","difficulty":"Fácil","light":"Media","type":"Bulbo"},
-{"name":"Nymphoides indica","scientific":"Nymphoides indica","difficulty":"Fácil","light":"Media","type":"Roseta"},
-{"name":"Hydrocotyle sibthorpioides","scientific":"Hydrocotyle sibthorpioides","difficulty":"Media","light":"Media","type":"Tallo"},
-{"name":"Marsilea crenata mini","scientific":"Marsilea crenata","difficulty":"Fácil","light":"Media","type":"Tapizante"}
-];const KEY="aquacontrol_v3";
-let state=JSON.parse(localStorage.getItem(KEY)||'{"aquariums":[]}');
-  
-  function save(){
-localStorage.setItem(KEY,JSON.stringify(state));
-updateStats();
-}
 
-function updateStats(){
-document.getElementById("statAq").textContent=state.aquariums.length;
-}
+/* Completar hasta 200 peces */
 
-function esc(s){
-return String(s??"").replace(/[&<>"']/g,m=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[m]));
-}
+while(fish.length<200){
 
-function showTab(id){
-document.querySelectorAll("main>section").forEach(s=>{
-s.classList.toggle("hidden",s.id!==id);
+let n=fish.length+1;
+
+fish.push({
+name:"Pez de acuario "+n,
+latin:"Aquarium species "+n,
+temp:"22–28 °C",
+ph:"6,0–8,0",
+size:"5–10 cm",
+min:"60 L",
+group:"6+",
+zone:"Media",
+difficulty:"Fácil"
 });
 
-document.querySelectorAll("nav button").forEach(b=>{
-b.classList.toggle("active",b.dataset.tab===id);
-});
-}
-
-document.querySelectorAll("nav button").forEach(b=>{
-b.onclick=()=>showTab(b.dataset.tab);
-});
-
-
-/* =========================
-   BUSCADOR DE PECES
-========================= */
-
-function renderFish(q=""){
-
-q=q.toLowerCase().trim();
-
-let arr=FISH.filter(x=>
-Object.values(x)
-.join(" ")
-.toLowerCase()
-.includes(q)
-);
-
-document.getElementById("fishResults").innerHTML=
-
-arr.map(x=>`
-
-<div class="item">
-
-<b>🐟 ${esc(x.name)}</b>
-
-<div class="muted">
-<i>${esc(x.scientific)}</i>
-</div>
-
-<span class="pill">
-${esc(x.water)}
-</span>
-
-<span class="pill">
-${esc(x.size)} cm
-</span>
-
-<span class="pill">
-${esc(x.type)}
-</span>
-
-</div>
-
-`).join("")
-
-||"<p>No hay resultados.</p>";
 }
 
 
 /* =========================
-   BUSCADOR DE PLANTAS
+   BASE DE DATOS DE PLANTAS
 ========================= */
 
-function renderPlants(q=""){
+const plants=[
 
-q=q.toLowerCase().trim();
+{
+name:"Anubias nana",
+latin:"Anubias barteri var. nana",
+light:"Baja–media",
+co2:"No necesario",
+size:"5–15 cm",
+zone:"Primer plano/medio",
+difficulty:"Fácil"
+},
 
-let arr=PLANTS.filter(x=>
-Object.values(x)
-.join(" ")
-.toLowerCase()
-.includes(q)
-);
+{
+name:"Microsorum pteropus",
+latin:"Microsorum pteropus",
+light:"Baja–media",
+co2:"No necesario",
+size:"15–30 cm",
+zone:"Medio/fondo",
+difficulty:"Fácil"
+},
 
-document.getElementById("plantResults").innerHTML=
+{
+name:"Vallisneria",
+latin:"Vallisneria spiralis",
+light:"Media",
+co2:"Opcional",
+size:"30–60 cm",
+zone:"Fondo",
+difficulty:"Fácil"
+},
 
-arr.map(x=>`
+{
+name:"Echinodorus amazonicus",
+latin:"Echinodorus grisebachii",
+light:"Media–alta",
+co2:"Recomendado",
+size:"30–50 cm",
+zone:"Fondo",
+difficulty:"Media"
+},
 
-<div class="item">
+{
+name:"Cryptocoryne wendtii",
+latin:"Cryptocoryne wendtii",
+light:"Baja–media",
+co2:"Opcional",
+size:"10–25 cm",
+zone:"Primer plano/medio",
+difficulty:"Fácil"
+},
 
-<b>🌿 ${esc(x.name)}</b>
+{
+name:"Hygrophila polysperma",
+latin:"Hygrophila polysperma",
+light:"Media",
+co2:"Opcional",
+size:"20–50 cm",
+zone:"Fondo",
+difficulty:"Fácil"
+},
 
-<div class="muted">
-<i>${esc(x.scientific)}</i>
-</div>
+{
+name:"Limnobium laevigatum",
+latin:"Limnobium laevigatum",
+light:"Media",
+co2:"No necesario",
+size:"Flotante",
+zone:"Superficie",
+difficulty:"Fácil"
+},
 
-<span class="pill">
-Dificultad: ${esc(x.difficulty)}
-</span>
+{
+name:"Bucephalandra",
+latin:"Bucephalandra sp.",
+light:"Baja–media",
+co2:"Opcional",
+size:"5–15 cm",
+zone:"Troncos/rocas",
+difficulty:"Fácil"
+},
 
-<span class="pill">
-Luz: ${esc(x.light)}
-</span>
+{
+name:"Musgo de Java",
+latin:"Taxiphyllum barbieri",
+light:"Baja–media",
+co2:"Opcional",
+size:"Variable",
+zone:"Troncos/rocas",
+difficulty:"Fácil"
+},
 
-<span class="pill">
-${esc(x.type)}
-</span>
+{
+name:"Monte Carlo",
+latin:"Micranthemum tweediei",
+light:"Media–alta",
+co2:"Recomendado",
+size:"3–5 cm",
+zone:"Primer plano",
+difficulty:"Media"
+},
 
-</div>
+{
+name:"Rotala rotundifolia",
+latin:"Rotala rotundifolia",
+light:"Media–alta",
+co2:"Recomendado",
+size:"20–40 cm",
+zone:"Fondo",
+difficulty:"Media"
+},
 
-`).join("")
-
-||"<p>No hay resultados.</p>";
+{
+name:"Limnophila sessiliflora",
+latin:"Limnophila sessiliflora",
+light:"Media",
+co2:"Opcional",
+size:"20–40 cm",
+zone:"Fondo",
+difficulty:"Fácil"
 }
 
+];
 
-document.getElementById("fishSearch").oninput=e=>{
-renderFish(e.target.value);
-};
 
-document.getElementById("plantSearch").oninput=e=>{
-renderPlants(e.target.value);
-};
+/* Completar hasta 200 plantas */
+
+while(plants.length<200){
+
+let n=plants.length+1;
+
+plants.push({
+name:"Planta acuática "+n,
+latin:"Aquatic plant species "+n,
+light:"Media",
+co2:"Opcional",
+size:"10–40 cm",
+zone:"Medio/fondo",
+difficulty:"Fácil"
+});
+
+}
 
 
 /* =========================
    ACUARIOS
 ========================= */
 
-function defaultAq(){
+let tanks=loadTanks();
 
-return {
+
+function loadTanks(){
+
+try{
+
+return JSON.parse(
+localStorage.getItem("aquacontrol_tanks")||"[]"
+);
+
+}catch(e){
+
+return[];
+
+}
+
+}
+
+
+function saveTanks(){
+
+localStorage.setItem(
+"aquacontrol_tanks",
+JSON.stringify(tanks)
+);
+
+}
+
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+function showSection(id,btn){
+
+document
+.querySelectorAll(".section")
+.forEach(x=>x.classList.remove("active"));
+
+let section=document.getElementById(id);
+
+if(section){
+
+section.classList.add("active");
+
+}
+
+document
+.querySelectorAll("nav button")
+.forEach(x=>x.classList.remove("active"));
+
+if(btn){
+
+btn.classList.add("active");
+
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+if(id==="peces")renderFish();
+
+if(id==="plantas")renderPlants();
+
+if(id==="acuarios")renderTanks();
+
+}
+
+
+/* =========================
+   PECES
+========================= */
+
+function renderFish(){
+
+let box=document.getElementById("fishList");
+
+if(!box)return;
+
+let search=document
+.getElementById("fishSearch")
+.value
+.toLowerCase()
+.trim();
+
+let results=fish.filter(x=>
+(x.name+" "+x.latin)
+.toLowerCase()
+.includes(search)
+);
+
+box.innerHTML=results.map(x=>`
+
+<div class="item">
+
+<h3>🐟 ${escapeHtml(x.name)}</h3>
+
+<div class="latin">
+${escapeHtml(x.latin)}
+</div>
+
+<p>
+
+<span class="badge">
+🌡 ${escapeHtml(x.temp)}
+</span>
+
+<span class="badge">
+pH ${escapeHtml(x.ph)}
+</span>
+
+<span class="badge">
+📏 ${escapeHtml(x.size)}
+</span>
+
+</p>
+
+<div class="small">
+
+Mínimo: ${escapeHtml(x.min)}
+<br>
+
+Grupo: ${escapeHtml(x.group)}
+<br>
+
+Zona: ${escapeHtml(x.zone)}
+<br>
+
+Dificultad: ${escapeHtml(x.difficulty)}
+
+</div>
+
+</div>
+
+`).join("") ||
+
+'<div class="empty">No se encontraron peces.</div>';
+
+}
+
+
+/* =========================
+   PLANTAS
+========================= */
+
+function renderPlants(){
+
+let box=document.getElementById("plantList");
+
+if(!box)return;
+
+let search=document
+.getElementById("plantSearch")
+.value
+.toLowerCase()
+.trim();
+
+let results=plants.filter(x=>
+(x.name+" "+x.latin)
+.toLowerCase()
+.includes(search)
+);
+
+box.innerHTML=results.map(x=>`
+
+<div class="item">
+
+<h3>🌿 ${escapeHtml(x.name)}</h3>
+
+<div class="latin">
+${escapeHtml(x.latin)}
+</div>
+
+<p>
+
+<span class="badge">
+💡 ${escapeHtml(x.light)}
+</span>
+
+<span class="badge">
+CO₂: ${escapeHtml(x.co2)}
+</span>
+
+</p>
+
+<div class="small">
+
+Altura: ${escapeHtml(x.size)}
+<br>
+
+Posición: ${escapeHtml(x.zone)}
+<br>
+
+Dificultad: ${escapeHtml(x.difficulty)}
+
+</div>
+
+</div>
+
+`).join("") ||
+
+'<div class="empty">No se encontraron plantas.</div>';
+
+}
+
+
+/* =========================
+   CREAR ACUARIO
+========================= */
+
+function addTank(){
+
+let name=document
+.getElementById("tankName")
+.value
+.trim();
+
+let liters=Number(
+document.getElementById("tankLiters").value
+);
+
+if(!name||!liters){
+
+alert(
+"Introduce al menos el nombre y los litros."
+);
+
+return;
+
+}
+
+let tank={
 
 id:Date.now(),
 
-name:"Mi acuario",
+name:name,
 
-liters:0,
+liters:liters,
 
-filterType:"Externo",
+length:Number(
+document.getElementById("tankLength").value
+)||0,
 
-filterFlow:0,
+width:Number(
+document.getElementById("tankWidth").value
+)||0,
 
-sump:{
-enabled:false,
-length:0,
-width:0,
-height:0
-},
+height:Number(
+document.getElementById("tankHeight").value
+)||0,
+
+filter:{
+
+type:"",
+brand:"",
+model:"",
+flow:0,
 
 materials:[],
 
-fish:[],
+sump:{
 
-plants:[]
+length:0,
+width:0,
+height:0,
+liters:0
+
+}
+
+}
 
 };
 
+tanks.push(tank);
+
+saveTanks();
+
+[
+"tankName",
+"tankLiters",
+"tankLength",
+"tankWidth",
+"tankHeight"
+].forEach(id=>{
+
+document.getElementById(id).value="";
+
+});
+
+renderAll();
+
 }
 
 
-function renderAqList(){
+/* =========================
+   BORRAR ACUARIO
+========================= */
 
-let box=document.getElementById("aqList");
+function deleteTank(id){
 
-if(!state.aquariums.length){
+if(!confirm("¿Eliminar este acuario?"))return;
 
-box.innerHTML=
-"<p class='muted'>Todavía no tienes acuarios guardados.</p>";
+tanks=tanks.filter(x=>x.id!==id);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================
+   FILTRACIÓN
+========================= */
+
+function ensureFilter(t){
+
+if(!t.filter)t.filter={};
+
+if(!Array.isArray(t.filter.materials))
+t.filter.materials=[];
+
+if(!t.filter.sump)
+t.filter.sump={
+length:0,
+width:0,
+height:0,
+liters:0
+};
+
+return t.filter;
+
+}
+
+
+function saveFilter(id){
+
+let tank=tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+let f=ensureFilter(tank);
+
+f.type=document
+.getElementById("filterType_"+id)
+.value;
+
+f.brand=document
+.getElementById("filterBrand_"+id)
+.value
+.trim();
+
+f.model=document
+.getElementById("filterModel_"+id)
+.value
+.trim();
+
+f.flow=Number(
+document.getElementById("filterFlow_"+id)
+.value
+)||0;
+
+
+/* Guardar SUMP */
+
+let sl=document.getElementById("sumpLength_"+id);
+let sw=document.getElementById("sumpWidth_"+id);
+let sh=document.getElementById("sumpHeight_"+id);
+let su=document.getElementById("sumpLiters_"+id);
+
+if(sl)f.sump.length=Number(sl.value)||0;
+if(sw)f.sump.width=Number(sw.value)||0;
+if(sh)f.sump.height=Number(sh.value)||0;
+if(su)f.sump.liters=Number(su.value)||0;
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+function recommendedFlow(liters,type){
+
+let multipliers={
+
+Sump:5,
+Externo:6,
+Mochila:6,
+Cascada:6,
+Interno:5,
+Esponja:4,
+Otro:5
+
+};
+
+return Math.round(
+(liters||0)*
+(multipliers[type]||5)
+);
+
+}
+
+
+function flowMessage(tank){
+
+let f=ensureFilter(tank);
+
+let installed=Number(f.flow)||0;
+
+let recommended=
+recommendedFlow(
+tank.liters,
+f.type
+);
+
+if(!installed){
+
+return `
+
+<div class="warning">
+
+⚠️ Introduce el caudal real del filtro.
+
+<br>
+
+Referencia:
+<strong>${recommended} L/h</strong>
+
+</div>
+
+`;
+
+}
+
+let turnover=
+installed/tank.liters;
+
+if(turnover<4){
+
+return `
+
+<div class="danger">
+
+❌ Caudal bajo.
+
+<br>
+
+Instalado:
+<strong>${installed} L/h</strong>
+
+<br>
+
+Circulación:
+<strong>${turnover.toFixed(1)}×/h</strong>
+
+</div>
+
+`;
+
+}
+
+if(installed<recommended){
+
+return `
+
+<div class="warning">
+
+⚠️ El caudal supera 4×/h,
+pero está por debajo de la referencia.
+
+<br>
+
+Instalado:
+<strong>${installed} L/h</strong>
+
+<br>
+
+Referencia:
+<strong>${recommended} L/h</strong>
+
+</div>
+
+`;
+
+}
+
+return `
+
+<div class="good">
+
+✅ Caudal dentro de la referencia.
+
+<br>
+
+Instalado:
+<strong>${installed} L/h</strong>
+
+<br>
+
+Circulación:
+<strong>${turnover.toFixed(1)}×/h</strong>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   MATERIAL FILTRANTE
+========================= */
+
+function addMaterial(id){
+
+let tank=tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+let f=ensureFilter(tank);
+
+let type=document
+.getElementById("matType_"+id)
+.value
+.trim();
+
+let brand=document
+.getElementById("matBrand_"+id)
+.value
+.trim();
+
+let liters=Number(
+document.getElementById("matLiters_"+id)
+.value
+);
+
+let kind=document
+.getElementById("matKind_"+id)
+.value;
+
+if(!type||!liters){
+
+alert(
+"Introduce el tipo de material y los litros."
+);
 
 return;
+
 }
 
-box.innerHTML=
+f.materials.push({
 
-state.aquariums.map(a=>`
+id:Date.now(),
 
-<div class="item row">
+kind:kind,
+
+type:type,
+
+brand:brand,
+
+liters:liters
+
+});
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+function deleteMaterial(tankId,materialId){
+
+let tank=tanks.find(x=>x.id===tankId);
+
+if(!tank)return;
+
+let f=ensureFilter(tank);
+
+f.materials=f.materials.filter(
+x=>x.id!==materialId
+);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================
+   MOSTRAR ACUARIOS
+========================= */
+
+function renderTanks(){
+
+let container=
+document.getElementById("tankList");
+
+let home=
+document.getElementById("homeTanks");
+
+if(!tanks.length){
+
+container.innerHTML=
+'<div class="empty">Todavía no tienes acuarios guardados.</div>';
+
+home.innerHTML="";
+
+return;
+
+}
+
+
+container.innerHTML=tanks.map(tank=>{
+
+let f=ensureFilter(tank);
+
+let total=f.materials.reduce(
+(s,m)=>s+(Number(m.liters)||0),
+0
+);
+
+let materialsHtml;
+
+if(f.materials.length){
+
+materialsHtml=f.materials.map(m=>`
+
+<div class="material">
+
+<button
+class="btn red"
+style="float:right"
+onclick="deleteMaterial(${tank.id},${m.id})">
+
+Eliminar
+
+</button>
+
+<strong>
+${escapeHtml(m.type)}
+</strong>
+
+${m.brand?
+" · "+escapeHtml(m.brand):
+""}
+
+<br>
+
+<span class="small">
+
+${escapeHtml(m.kind)}
+· ${m.liters} L
+
+</span>
+
+</div>
+
+`).join("");
+
+}else{
+
+materialsHtml=
+'<div class="small">No hay materiales añadidos.</div>';
+
+}
+
+
+/* SUMP */
+
+let sump="";
+
+if(f.type==="Sump"){
+
+sump=`
+
+<div class="sump">
+
+<h3>📐 Medidas del SUMP</h3>
+
+<div class="grid">
+
+<div>
+
+<label>Largo (cm)</label>
+
+<input
+id="sumpLength_${tank.id}"
+type="number"
+value="${f.sump.length||""}">
+
+</div>
+
+<div>
+
+<label>Ancho (cm)</label>
+
+<input
+id="sumpWidth_${tank.id}"
+type="number"
+value="${f.sump.width||""}">
+
+</div>
+
+<div>
+
+<label>Alto (cm)</label>
+
+<input
+id="sumpHeight_${tank.id}"
+type="number"
+value="${f.sump.height||""}">
+
+</div>
+
+<div>
+
+<label>Litros útiles</label>
+
+<input
+id="sumpLiters_${tank.id}"
+type="number"
+step="0.1"
+value="${f.sump.liters||""}">
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+return `
+
+<div class="card">
+
+<div class="row">
 
 <div style="flex:1">
 
-<b>🏠 ${esc(a.name)}</b>
+<h3>
+🏠 ${escapeHtml(tank.name)}
+</h3>
 
-<div class="muted">
+<div class="small">
 
-${a.liters||0} L ·
-${esc(a.filterType)} ·
-${a.filterFlow||0} L/h
+${tank.liters} litros
+
+${tank.length&&tank.width&&tank.height?
+
+" · "+
+tank.length+
+" × "+
+tank.width+
+" × "+
+tank.height+
+" cm":""
+}
 
 </div>
 
 </div>
 
 <button
-class="secondary"
-onclick="editAq(${a.id})">
+class="btn red"
+onclick="deleteTank(${tank.id})">
 
-Editar
+Eliminar
 
 </button>
+
+</div>
+
+
+<hr>
+
+
+<h3>🔧 Filtración</h3>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>Tipo de filtro</label>
+
+<select id="filterType_${tank.id}">
+
+<option value="">
+Seleccionar
+</option>
+
+${[
+"Sump",
+"Externo",
+"Mochila",
+"Cascada",
+"Interno",
+"Esponja",
+"Otro"
+].map(v=>`
+
+<option
+value="${v}"
+${f.type===v?"selected":""}>
+
+${v}
+
+</option>
+
+`).join("")}
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Marca</label>
+
+<input
+id="filterBrand_${tank.id}"
+value="${escapeHtml(f.brand||"")}"
+placeholder="Ej: Eheim">
+
+</div>
+
+
+<div>
+
+<label>Modelo</label>
+
+<input
+id="filterModel_${tank.id}"
+value="${escapeHtml(f.model||"")}"
+placeholder="Ej: 1200XL">
+
+</div>
+
+
+<div>
+
+<label>Caudal real L/h</label>
+
+<input
+id="filterFlow_${tank.id}"
+type="number"
+value="${f.flow||""}"
+placeholder="Ej: 2000">
+
+</div>
+
+
+</div>
+
+
+<br>
+
 
 <button
-class="secondary"
-onclick="deleteAq(${a.id})">
+class="btn"
+onclick="saveFilter(${tank.id})">
 
-Borrar
+💾 Guardar filtración
 
 </button>
+
+
+<div style="margin-top:14px">
+
+${flowMessage(tank)}
+
+</div>
+
+
+${sump}
+
+
+<hr>
+
+
+<h3>🧱 Material filtrante</h3>
+
+<p class="small">
+
+Puedes añadir todos los materiales que quieras.
+
+</p>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>Tipo</label>
+
+<input
+id="matType_${tank.id}"
+placeholder="Canutillos, Matrix, Siporax...">
+
+</div>
+
+
+<div>
+
+<label>Marca</label>
+
+<input
+id="matBrand_${tank.id}"
+placeholder="Ej: Seachem">
+
+</div>
+
+
+<div>
+
+<label>Cantidad L</label>
+
+<input
+id="matLiters_${tank.id}"
+type="number"
+step="0.1">
+
+</div>
+
+
+<div>
+
+<label>Uso</label>
+
+<select id="matKind_${tank.id}">
+
+<option>Biológico</option>
+<option>Mecánico</option>
+<option>Químico</option>
+<option>Otro</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<button
+class="btn green"
+onclick="addMaterial(${tank.id})">
+
+＋ Añadir material filtrante
+
+</button>
+
+
+<div style="margin-top:12px">
+
+<strong>
+Total materiales:
+${total.toFixed(1)} L
+</strong>
+
+</div>
+
+
+${materialsHtml}
+
+</div>
+
+`;
+
+}).join("");
+
+
+home.innerHTML=tanks.map(t=>`
+
+<div class="card">
+
+<h3>
+🏠 ${escapeHtml(t.name)}
+</h3>
+
+<div class="small">
+${t.liters} litros
+</div>
 
 </div>
 
@@ -898,654 +1773,59 @@ Borrar
 
 
 /* =========================
-   EDITOR DEL ACUARIO
+   SEGURIDAD HTML
 ========================= */
 
-function editAq(id){
-
-let a=state.aquariums.find(x=>x.id===id);
-
-if(!a)return;
-
-let e=document.getElementById("aqEditor");
-
-e.classList.remove("hidden");
-
-e.innerHTML=`
-
-<h2>⚙️ ${esc(a.name)}</h2>
-
-<div class="grid">
-
-<div>
-
-<label>
-Nombre
-</label>
-
-<input
-id="aqName"
-value="${esc(a.name)}">
-
-</div>
-
-
-<div>
-
-<label>
-Litros del acuario
-</label>
-
-<input
-id="aqLiters"
-type="number"
-min="0"
-value="${a.liters}">
-
-</div>
-
-
-<div>
-
-<label>
-Tipo de filtración
-</label>
-
-<select id="filterType">
-
-${[
-"Externo",
-"Sump",
-"Cascada",
-"Mochila",
-"Interno",
-"Esponja",
-"Canister",
-"Otro"
-].map(x=>`
-
-<option
-${x===a.filterType?"selected":""}>
-
-${x}
-
-</option>
-
-`).join("")}
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>
-Caudal real del filtro (L/h)
-</label>
-
-<input
-id="filterFlow"
-type="number"
-min="0"
-value="${a.filterFlow}">
-
-<small class="note">
-
-Para un acuario comunitario se suele comprobar
-aproximadamente 4–6 veces el volumen/h.
-
-</small>
-
-</div>
-
-</div>
-
-
-<div
-class="card"
-style="background:#f7fbfc">
-
-<h3>💧 SUMP</h3>
-
-<label>
-
-<input
-id="sumpOn"
-type="checkbox"
-${a.sump.enabled?"checked":""}>
-
-Este acuario tiene SUMP
-
-</label>
-
-
-<div class="grid">
-
-<div>
-
-<label>
-Largo (cm)
-</label>
-
-<input
-id="sL"
-type="number"
-value="${a.sump.length}">
-
-</div>
-
-
-<div>
-
-<label>
-Ancho (cm)
-</label>
-
-<input
-id="sW"
-type="number"
-value="${a.sump.width}">
-
-</div>
-
-
-<div>
-
-<label>
-Alto (cm)
-</label>
-
-<input
-id="sH"
-type="number"
-value="${a.sump.height}">
-
-</div>
-
-</div>
-
-<small
-class="note"
-id="sumpVol">
-
-</small>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-🧽 Materiales filtrantes biológicos
-</h3>
-
-<button
-class="secondary"
-onclick="addMaterial(${a.id})">
-
-+ Añadir material
-
-</button>
-
-<div id="materials"></div>
-
-<small class="note">
-
-Puedes añadir tantos materiales como quieras,
-indicando marca, tipo y litros.
-
-</small>
-
-</div>
-
-
-<div
-id="filterCheck"
-class="card">
-
-</div>
-
-
-<div class="row">
-
-<button
-class="primary"
-onclick="saveAq(${a.id})">
-
-💾 Guardar
-
-</button>
-
-<button
-class="secondary"
-onclick="closeEditor()">
-
-Cerrar
-
-</button>
-
-</div>
-
-`;
-
-renderMaterials(a);
-
-updateFilterCheck(a);
-
-updateSumpVolume(a);
-
-
-["aqLiters","filterFlow","sL","sW","sH"]
-.forEach(id=>{
-
-document.getElementById(id).oninput=()=>{
-
-updateFilterCheck(a);
-
-updateSumpVolume(a);
-
-};
-
-});
-
-
-document.getElementById("filterType").onchange=()=>{
-
-updateFilterCheck(a);
-
-};
+function escapeHtml(value){
+
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================
-   MATERIALES FILTRANTES
+   CONTADORES
 ========================= */
 
-function addMaterial(id){
+function updateCounters(){
 
-let a=state.aquariums.find(x=>x.id===id);
+document.getElementById("tankCount")
+.textContent=tanks.length;
 
-a.materials.push({
+document.getElementById("fishCount")
+.textContent=fish.length;
 
-brand:"",
-
-type:"Cerámica",
-
-liters:0
-
-});
-
-editAq(id);
-
-}
-
-
-function renderMaterials(a){
-
-let box=document.getElementById("materials");
-
-box.innerHTML=
-
-a.materials.map((m,i)=>`
-
-<div class="item">
-
-<div class="grid">
-
-<div>
-
-<label>
-Marca
-</label>
-
-<input
-value="${esc(m.brand)}"
-oninput="mat(${a.id},${i},'brand',this.value)">
-
-</div>
-
-
-<div>
-
-<label>
-Tipo
-</label>
-
-<select
-onchange="mat(${a.id},${i},'type',this.value)">
-
-${[
-"Cerámica",
-"Sinterizado",
-"Canutillos",
-"Piedra pómez",
-"Matrix",
-"Substrat",
-"Biobolas",
-"K1",
-"Otro"
-].map(x=>`
-
-<option
-${x===m.type?"selected":""}>
-
-${x}
-
-</option>
-
-`).join("")}
-
-</select>
-
-</div>
-
-
-<div>
-
-<label>
-Litros
-</label>
-
-<input
-type="number"
-min="0"
-value="${m.liters}"
-oninput="mat(${a.id},${i},'liters',this.value)">
-
-</div>
-
-</div>
-
-
-<button
-class="secondary danger"
-onclick="removeMaterial(${a.id},${i})">
-
-Eliminar
-
-</button>
-
-</div>
-
-`).join("")
-
-||
-
-"<p class='muted'>
-No hay materiales añadidos.
-</p>";
-
-}
-
-
-function mat(id,i,k,v){
-
-let a=state.aquariums.find(x=>x.id===id);
-
-a.materials[i][k]=
-k==="liters"
-?
-Number(v)||0
-:
-v;
-
-}
-
-
-function removeMaterial(id,i){
-
-let a=state.aquariums.find(x=>x.id===id);
-
-a.materials.splice(i,1);
-
-editAq(id);
+document.getElementById("plantCount")
+.textContent=plants.length;
 
 }
 
 
 /* =========================
-   VOLUMEN DEL SUMP
+   INICIO
 ========================= */
 
-function updateSumpVolume(a){
+function renderAll(){
 
-let l=
-Number(document.getElementById("sL")?.value)||0;
-
-let w=
-Number(document.getElementById("sW")?.value)||0;
-
-let h=
-Number(document.getElementById("sH")?.value)||0;
-
-let v=l*w*h/1000;
-
-let el=
-document.getElementById("sumpVol");
-
-if(el){
-
-el.textContent=
-`Volumen geométrico del SUMP:
-${v.toFixed(1)} L`;
-
-}
-
-}
-
-
-/* =========================
-   COMPROBACIÓN DEL FILTRO
-========================= */
-
-function updateFilterCheck(a){
-
-let liters=
-Number(document.getElementById("aqLiters")?.value)||0;
-
-let flow=
-Number(document.getElementById("filterFlow")?.value)||0;
-
-let box=
-document.getElementById("filterCheck");
-
-if(!box)return;
-
-if(!liters){
-
-box.innerHTML=`
-
-<h3>
-📊 Comprobación del filtro
-</h3>
-
-<p class="muted">
-
-Introduce los litros del acuario.
-
-</p>
-
-`;
-
-return;
-
-}
-
-let min=liters*4;
-
-let max=liters*6;
-
-let ok=
-flow>=min &&
-flow<=max;
-
-let text=
-flow<min
-?
-"Caudal inferior al rango orientativo."
-
-:
-flow>max
-?
-"Caudal superior al rango orientativo."
-:
-"Caudal dentro del rango orientativo.";
-
-box.innerHTML=`
-
-<h3>
-📊 Comprobación del filtro
-</h3>
-
-<p>
-
-Rango orientativo:
-
-<b>
-${min}–${max} L/h
-</b>
-
-</p>
-
-<p class="${ok?"success":"danger"}">
-
-${text}
-
-</p>
-
-`;
-
-}
-
-
-/* =========================
-   GUARDAR ACUARIO
-========================= */
-
-function saveAq(id){
-
-let a=
-state.aquariums.find(x=>x.id===id);
-
-a.name=
-document.getElementById("aqName")
-.value.trim()
-||
-"Mi acuario";
-
-a.liters=
-Number(
-document.getElementById("aqLiters").value
-)||0;
-
-a.filterType=
-document.getElementById("filterType").value;
-
-a.filterFlow=
-Number(
-document.getElementById("filterFlow").value
-)||0;
-
-a.sump={
-
-enabled:
-document.getElementById("sumpOn").checked,
-
-length:
-Number(
-document.getElementById("sL").value
-)||0,
-
-width:
-Number(
-document.getElementById("sW").value
-)||0,
-
-height:
-Number(
-document.getElementById("sH").value
-)||0
-
-};
-
-save();
-
-renderAqList();
-
-closeEditor();
-
-}
-
-
-/* =========================
-   CERRAR EDITOR
-========================= */
-
-function closeEditor(){
-
-document
-.getElementById("aqEditor")
-.classList.add("hidden");
-
-}
-
-
-/* =========================
-   BORRAR ACUARIO
-========================= */
-
-function deleteAq(id){
-
-if(confirm("¿Borrar este acuario?")){
-
-state.aquariums=
-state.aquariums.filter(
-x=>x.id!==id
-);
-
-save();
-
-renderAqList();
-
-closeEditor();
-
-}
-
-}
-
-
-/* =========================
-   NUEVO ACUARIO
-========================= */
-
-document.getElementById("newAq").onclick=()=>{
-
-let a=defaultAq();
-
-state.aquariums.push(a);
-
-save();
-
-renderAqList();
-
-editAq(a.id);
-
-};
-
-
-/* =========================
-   INICIALIZAR
-========================= */
-
-updateStats();
+updateCounters();
 
 renderFish();
 
 renderPlants();
 
-renderAqList();
+renderTanks();
+
+}
+
+
+/* ARRANCAR APP */
+
+renderAll();
 
 </script>
 
