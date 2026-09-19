@@ -90,6 +90,12 @@ font-size:16px;
 background:white
 }
 
+input[readonly]{
+background:#f4f8fa;
+font-weight:700;
+color:#17663d
+}
+
 label{
 display:block;
 font-weight:600;
@@ -194,6 +200,15 @@ border:1px solid #cce5ee;
 border-radius:14px;
 padding:14px;
 margin-top:12px
+}
+
+.sump-result{
+margin-top:12px;
+background:#e8f7ee;
+color:#17663d;
+padding:12px;
+border-radius:12px;
+font-weight:700
 }
 
 hr{
@@ -1104,6 +1119,10 @@ return t.filter;
 }
 
 
+/* =========================
+   GUARDAR FILTRACIÓN
+========================= */
+
 function saveFilter(id){
 
 let tank=tanks.find(x=>x.id===id);
@@ -1112,27 +1131,24 @@ if(!tank)return;
 
 let f=ensureFilter(tank);
 
-f.type=document
-.getElementById("filterType_"+id)
-.value;
 
-f.brand=document
-.getElementById("filterBrand_"+id)
-.value
-.trim();
+/* FILTRO */
 
-f.model=document
-.getElementById("filterModel_"+id)
-.value
-.trim();
+let type=document.getElementById("filterType_"+id);
+let brand=document.getElementById("filterBrand_"+id);
+let model=document.getElementById("filterModel_"+id);
+let flow=document.getElementById("filterFlow_"+id);
 
-f.flow=Number(
-document.getElementById("filterFlow_"+id)
-.value
-)||0;
+if(type)f.type=type.value;
+
+if(brand)f.brand=brand.value.trim();
+
+if(model)f.model=model.value.trim();
+
+if(flow)f.flow=Number(flow.value)||0;
 
 
-/* Guardar SUMP */
+/* SUMP */
 
 let sl=document.getElementById("sumpLength_"+id);
 let sw=document.getElementById("sumpWidth_"+id);
@@ -1140,9 +1156,37 @@ let sh=document.getElementById("sumpHeight_"+id);
 let su=document.getElementById("sumpLiters_"+id);
 
 if(sl)f.sump.length=Number(sl.value)||0;
+
 if(sw)f.sump.width=Number(sw.value)||0;
+
 if(sh)f.sump.height=Number(sh.value)||0;
-if(su)f.sump.liters=Number(su.value)||0;
+
+
+/* CALCULAR LITROS DEL SUMP */
+
+let litros=
+(
+f.sump.length*
+f.sump.width*
+f.sump.height
+)/1000;
+
+if(litros>0){
+
+f.sump.liters=
+Math.round(litros*10)/10;
+
+}else{
+
+f.sump.liters=0;
+
+}
+
+if(su){
+
+su.value=f.sump.liters||"";
+
+}
 
 saveTanks();
 
@@ -1150,6 +1194,76 @@ renderAll();
 
 }
 
+
+/* =========================
+   ACTUALIZAR SUMP
+   GUARDADO AUTOMÁTICO
+========================= */
+
+function updateSump(id){
+
+let tank=tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+let f=ensureFilter(tank);
+
+let sl=document.getElementById("sumpLength_"+id);
+let sw=document.getElementById("sumpWidth_"+id);
+let sh=document.getElementById("sumpHeight_"+id);
+let su=document.getElementById("sumpLiters_"+id);
+
+if(!sl||!sw||!sh||!su)return;
+
+
+let largo=Number(sl.value)||0;
+let ancho=Number(sw.value)||0;
+let alto=Number(sh.value)||0;
+
+
+/* GUARDAR MEDIDAS INMEDIATAMENTE */
+
+f.sump.length=largo;
+f.sump.width=ancho;
+f.sump.height=alto;
+
+
+/* CALCULAR LITROS */
+
+let litros=
+(largo*ancho*alto)/1000;
+
+if(litros>0){
+
+litros=Math.round(litros*10)/10;
+
+}else{
+
+litros=0;
+
+}
+
+
+/* GUARDAR LITROS */
+
+f.sump.liters=litros;
+
+
+/* MOSTRAR RESULTADO */
+
+su.value=litros||"";
+
+
+/* GUARDAR EN LOCALSTORAGE */
+
+saveTanks();
+
+}
+
+
+/* =========================
+   CAUDAL RECOMENDADO
+========================= */
 
 function recommendedFlow(liters,type){
 
@@ -1172,6 +1286,10 @@ return Math.round(
 
 }
 
+
+/* =========================
+   MENSAJE CAUDAL
+========================= */
 
 function flowMessage(tank){
 
@@ -1439,7 +1557,9 @@ materialsHtml=
 }
 
 
-/* SUMP */
+/* =========================
+   SUMP
+========================= */
 
 let sump="";
 
@@ -1451,6 +1571,10 @@ sump=`
 
 <h3>📐 Medidas del SUMP</h3>
 
+<p class="small">
+Introduce las medidas interiores del SUMP. Los litros se calculan automáticamente.
+</p>
+
 <div class="grid">
 
 <div>
@@ -1460,7 +1584,10 @@ sump=`
 <input
 id="sumpLength_${tank.id}"
 type="number"
-value="${f.sump.length||""}">
+min="0"
+step="0.1"
+value="${f.sump.length||""}"
+oninput="updateSump(${tank.id})">
 
 </div>
 
@@ -1471,7 +1598,10 @@ value="${f.sump.length||""}">
 <input
 id="sumpWidth_${tank.id}"
 type="number"
-value="${f.sump.width||""}">
+min="0"
+step="0.1"
+value="${f.sump.width||""}"
+oninput="updateSump(${tank.id})">
 
 </div>
 
@@ -1482,7 +1612,10 @@ value="${f.sump.width||""}">
 <input
 id="sumpHeight_${tank.id}"
 type="number"
-value="${f.sump.height||""}">
+min="0"
+step="0.1"
+value="${f.sump.height||""}"
+oninput="updateSump(${tank.id})">
 
 </div>
 
@@ -1494,11 +1627,29 @@ value="${f.sump.height||""}">
 id="sumpLiters_${tank.id}"
 type="number"
 step="0.1"
-value="${f.sump.liters||""}">
+value="${f.sump.liters||""}"
+readonly>
 
 </div>
 
 </div>
+
+${f.sump.liters>0?`
+
+<div class="sump-result">
+
+💧 Capacidad calculada del SUMP:
+<strong>${f.sump.liters.toFixed(1)} litros</strong>
+
+<br>
+
+<span class="small">
+${f.sump.length} × ${f.sump.width} × ${f.sump.height} cm
+</span>
+
+</div>
+
+`:""}
 
 </div>
 
@@ -1823,7 +1974,9 @@ renderTanks();
 }
 
 
-/* ARRANCAR APP */
+/* =========================
+   ARRANCAR APP
+========================= */
 
 renderAll();
 
