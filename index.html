@@ -1,133 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#087f8c">
 <title>AquaControl</title>
 
 <style>
+:root{
+--bg:#08121c;
+--card:#102333;
+--card2:#142c3e;
+--txt:#edf7ff;
+--muted:#9fb5c6;
+--accent:#35c6d9;
+--ok:#41d392;
+--warn:#f5c451;
+--bad:#ff6b6b
+}
+
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#eef7f8;
-  color:#17323a;
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+background:linear-gradient(145deg,#061019,#0b1e2c);
+color:var(--txt)
 }
+
 header{
-  background:linear-gradient(135deg,#087f8c,#0aa6a6);
-  color:white;
-  padding:24px 18px;
-  border-radius:0 0 24px 24px;
+padding:22px 18px;
+position:sticky;
+top:0;
+background:#08121ceb;
+backdrop-filter:blur(12px);
+z-index:5;
+border-bottom:1px solid #ffffff12
 }
-header h1{margin:0;font-size:30px}
-header p{margin:5px 0 0;opacity:.9}
-nav{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding:12px;
-  background:white;
-  position:sticky;
-  top:0;
-  z-index:5;
+
+h1{
+margin:0;
+font-size:27px
 }
-nav button{
-  border:0;
-  background:#e4f3f4;
-  color:#17606a;
-  padding:11px 15px;
-  border-radius:20px;
-  white-space:nowrap;
-  font-weight:600;
+
+header p{
+margin:5px 0 0;
+color:var(--muted)
 }
-nav button.active{
-  background:#087f8c;
-  color:white;
+
+main{
+max-width:1100px;
+margin:auto;
+padding:18px
 }
-main{padding:15px;max-width:900px;margin:auto}
-section{display:none}
-section.active{display:block}
-.card{
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 3px 12px #0000000d;
+
+.tabs{
+display:flex;
+gap:8px;
+overflow:auto;
+margin-bottom:16px
 }
-.card h2,.card h3{margin-top:0}
+
+button,.tab{
+border:0;
+border-radius:12px;
+padding:11px 14px;
+background:var(--card2);
+color:var(--txt);
+font-weight:700;
+cursor:pointer
+}
+
+button.active,.tab.active{
+background:var(--accent);
+color:#03202a
+}
+
+section{
+display:none
+}
+
+section.active{
+display:block
+}
+
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px
 }
-.stat{
-  background:#f1fafb;
-  padding:14px;
-  border-radius:14px;
+
+.card{
+background:#ffffff08;
+border:1px solid #ffffff12;
+border-radius:18px;
+padding:16px;
+margin-bottom:14px
 }
-.stat strong{display:block;font-size:23px;color:#087f8c}
+
 label{
-  display:block;
-  margin:10px 0 5px;
-  font-weight:600;
+display:block;
+color:var(--muted);
+font-size:13px;
+margin-bottom:5px
 }
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #c9dfe2;
-  border-radius:10px;
-  font-size:16px;
-  background:white;
+
+input,select{
+width:100%;
+padding:11px;
+border-radius:10px;
+border:1px solid #ffffff1b;
+background:#07141e;
+color:var(--txt);
+font-size:15px
 }
-button.primary{
-  width:100%;
-  border:0;
-  background:#087f8c;
-  color:white;
-  padding:14px;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:bold;
-  margin-top:12px;
+
+.big{
+font-size:28px;
+font-weight:800
 }
-button.danger{
-  border:0;
-  background:#ffe8e8;
-  color:#b52b2b;
-  padding:8px 12px;
-  border-radius:8px;
+
+.result{
+padding:14px;
+border-radius:14px;
+margin-top:12px;
+background:#ffffff08
 }
-.item{
-  border:1px solid #dcecef;
-  border-radius:14px;
-  padding:14px;
-  margin:10px 0;
+
+.ok{
+border:1px solid #41d39266
 }
-.item-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+
+.warn{
+border:1px solid #f5c45166
 }
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:12px;
-  background:#dff4f4;
-  color:#087f8c;
-  font-size:13px;
+
+.bad{
+border:1px solid #ff6b6b66
 }
+
+.muted{
+color:var(--muted)
+}
+
 .search{
-  margin-bottom:15px;
+margin-bottom:12px
 }
-.small{font-size:13px;color:#688087}
-.good{color:#16834b;font-weight:bold}
-.warn{color:#c57900;font-weight:bold}
-.bad{color:#c52d2d;font-weight:bold}
-footer{
-  text-align:center;
-  padding:30px;
-  color:#789097;
+
+.item{
+padding:13px;
+border-bottom:1px solid #ffffff0e
+}
+
+.item:last-child{
+border-bottom:0
+}
+
+.pill{
+display:inline-block;
+padding:4px 8px;
+border-radius:99px;
+background:#ffffff10;
+margin:3px;
+font-size:12px
+}
+
+.notice{
+font-size:13px;
+color:var(--muted);
+line-height:1.5
+}
+
+.footer{
+color:var(--muted);
+font-size:12px;
+padding:25px 0
 }
 </style>
 </head>
@@ -135,806 +181,1178 @@ footer{
 <body>
 
 <header>
-  <h1>🐠 AquaControl</h1>
-  <p>Control y gestión de tus acuarios</p>
+<h1>🐠 AquaControl</h1>
+<p>Gestión de acuarios · filtración · peces · plantas</p>
 </header>
-
-<nav>
-  <button class="active" onclick="showTab('inicio',this)">🏠 Inicio</button>
-  <button onclick="showTab('acuarios',this)">💧 Acuarios</button>
-  <button onclick="showTab('peces',this)">🐟 Peces</button>
-  <button onclick="showTab('plantas',this)">🌿 Plantas</button>
-  <button onclick="showTab('registro',this)">📋 Registro</button>
-</nav>
 
 <main>
 
-<!-- INICIO -->
-<section id="inicio" class="active">
+<nav class="tabs">
+<button class="tab active" data-tab="acuario">Acuario</button>
+<button class="tab" data-tab="filtracion">Filtración</button>
+<button class="tab" data-tab="peces">🐟 Peces</button>
+<button class="tab" data-tab="plantas">🌿 Plantas</button>
+</nav>
+
+<section id="acuario" class="active">
 
 <div class="card">
-<h2>Mi AquaControl</h2>
-<p>Gestiona tus acuarios, peces, plantas y parámetros del agua.</p>
-</div>
+
+<h2>Mi acuario</h2>
 
 <div class="grid">
-<div class="stat">
-<strong id="totalAcuarios">0</strong>
-Acuarios
+
+<div>
+<label>Litros del acuario</label>
+<input id="litros" type="number" min="1" value="550">
 </div>
-<div class="stat">
-<strong id="totalPeces">0</strong>
-Peces
+
+<div>
+<label>Litros del sump</label>
+<input id="sumpLitros" type="number" min="0" value="120">
 </div>
-<div class="stat">
-<strong id="totalPlantas">0</strong>
->Plantas
+
+<div>
+<label>Litros totales del sistema (opcional)</label>
+<input id="totalLitros" type="number" min="0" placeholder="Automático">
 </div>
-<div class="stat">
-<strong id="totalRegistros">0</strong>
-Mediciones
+
 </div>
+
+<p class="notice">
+Los cálculos de caudal y material biológico se basan en los litros totales del sistema.
+</p>
+
 </div>
 
 <div class="card">
-<h3>💡 Consejo</h3>
-<p>Registra regularmente los parámetros del agua para detectar cambios antes de que afecten a los peces.</p>
+
+<h2>📊 Resumen</h2>
+
+<div class="grid">
+
+<div>
+<span class="muted">Acuario</span>
+<div class="big" id="resLitros">550 L</div>
+</div>
+
+<div>
+<span class="muted">Sistema</span>
+<div class="big" id="resSistema">670 L</div>
+</div>
+
+<div>
+<span class="muted">Caudal objetivo</span>
+<div class="big" id="resCaudal">2.680–4.020 L/h</div>
+</div>
+
+</div>
+
 </div>
 
 </section>
 
 
-<!-- ACUARIOS -->
-<section id="acuarios">
+<section id="filtracion">
 
 <div class="card">
-<h2>💧 Mis acuarios</h2>
 
-<div id="listaAcuarios"></div>
+<h2>🔧 Configuración del filtro</h2>
 
-<h3>➕ Añadir acuario</h3>
+<div class="grid">
 
-<label>Nombre</label>
-<input id="nombreAcuario" placeholder="Ej. Amazónico 550 L">
+<div>
+<label>Tipo de filtro</label>
 
-<label>Litros</label>
-<input id="litrosAcuario" type="number" placeholder="550">
+<select id="tipo">
 
-<label>Dimensiones</label>
-<input id="dimensionesAcuario" placeholder="150 x 60 x 60 cm">
+<option>Sump</option>
+<option>Filtro externo</option>
+<option>Filtro de cascada</option>
+<option>Filtro de mochila</option>
+<option>Filtro interno</option>
+<option>Filtro de esponja</option>
+<option>Filtro de fondo</option>
+<option>Reactor / filtro adicional</option>
 
-<button class="primary" onclick="crearAcuario()">Añadir acuario</button>
+</select>
+</div>
+
+<div>
+<label>Marca / modelo</label>
+<input id="modelo" placeholder="Ej. Eheim / Sicce / Oase">
+</div>
+
+<div>
+<label>Caudal nominal (L/h)</label>
+<input id="caudal" type="number" min="0" placeholder="3000">
+</div>
+
+<div>
+<label>Caudal real medido (L/h), opcional</label>
+<input id="real" type="number" min="0" placeholder="Si lo conoces">
+</div>
+
+<div>
+<label>Altura de subida (m), para sump</label>
+<input id="altura" type="number" min="0" step="0.1" value="0">
+</div>
+
+</div>
+
+<button onclick="calcular()">Calcular filtración</button>
+
+<div id="filtroResultado"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🧫 Material biológico</h2>
+
+<div class="grid">
+
+<div>
+<label>Marca</label>
+<input id="bioMarca" placeholder="Seachem, Sera, Eheim...">
+</div>
+
+<div>
+<label>Producto</label>
+<input id="bioProducto" placeholder="Matrix, Siporax...">
+</div>
+
+<div>
+<label>Tipo de material</label>
+
+<select id="bioTipo">
+
+<option>Vidrio sinterizado</option>
+<option>Cerámica</option>
+<option>Material poroso</option>
+<option>Esponja biológica</option>
+<option>Lava volcánica</option>
+<option>Otro</option>
+
+</select>
+
+</div>
+
+<div>
+<label>Litros instalados</label>
+<input id="bioLitros" type="number" min="0" step="0.1">
+</div>
+
+<div>
+<label>Litros recomendados por 200 L</label>
+<input id="bioDosis" type="number" min="0" step="0.01" value="0.25">
+</div>
+
+</div>
+
+<button onclick="calcularBio()">
+Calcular material biológico
+</button>
+
+<div id="bioResultado"></div>
+
 </div>
 
 </section>
 
 
-<!-- PECES -->
 <section id="peces">
 
 <div class="card">
+
 <h2>🐟 Base de datos de peces</h2>
 
-<input class="search" id="buscarPez" oninput="mostrarPeces()"
-placeholder="🔎 Buscar pez...">
+<p class="notice">
+Busca por nombre común, nombre científico, zona o dificultad.
+</p>
 
-<div id="listaPeces"></div>
-</div>
+<input
+class="search"
+id="buscarPez"
+placeholder="Buscar pez..."
+oninput="renderFish()"
+>
 
-<div class="card">
-<h3>➕ Añadir pez a mi acuario</h3>
+<div id="fishList"></div>
 
-<label>Acuario</label>
-<select id="pezAcuario"></select>
-
-<label>Especie</label>
-<select id="pezEspecie"></select>
-
-<label>Cantidad</label>
-<input id="cantidadPez" type="number" min="1" value="1">
-
-<button class="primary" onclick="agregarPez()">Añadir</button>
 </div>
 
 </section>
 
 
-<!-- PLANTAS -->
 <section id="plantas">
 
 <div class="card">
+
 <h2>🌿 Base de datos de plantas</h2>
 
-<input class="search" id="buscarPlanta" oninput="mostrarPlantas()"
-placeholder="🔎 Buscar planta...">
+<p class="notice">
+Busca por planta, especie, posición, luz o CO₂.
+</p>
 
-<div id="listaPlantas"></div>
+<input
+class="search"
+id="buscarPlanta"
+placeholder="Buscar planta..."
+oninput="renderPlants()"
+>
+
+<div id="plantList"></div>
+
 </div>
 
 </section>
-
-
-<!-- REGISTRO -->
-<section id="registro">
-
-<div class="card">
-<h2>📋 Registrar parámetros</h2>
-
-<label>Acuario</label>
-<select id="registroAcuario"></select>
-
-<label>pH</label>
-<input id="ph" type="number" step="0.1" placeholder="6.8">
-
-<label>KH</label>
-<input id="kh" type="number" step="0.1" placeholder="4">
-
-<label>GH</label>
-<input id="gh" type="number" step="0.1" placeholder="6">
-
-<label>Temperatura °C</label>
-<input id="temp" type="number" step="0.1" placeholder="26">
-
-<label>NO₂ mg/L</label>
-<input id="no2" type="number" step="0.01" placeholder="0">
-
-<label>NO₃ mg/L</label>
-<input id="no3" type="number" step="0.1" placeholder="10">
-
-<button class="primary" onclick="guardarRegistro()">💾 Guardar medición</button>
+  <div class="footer">
+AquaControl · Las recomendaciones son orientativas. Comprueba siempre las especificaciones del fabricante.
 </div>
-
-<div class="card">
-<h2>Historial</h2>
-<div id="historial"></div>
-</div>
-
-</section>
 
 </main>
-
-<footer>
-AquaControl · Tu acuario bajo control 🐠
-</footer>
-
 
 <script>
 
 /* =========================
-   DATOS
+   BASE DE DATOS DE PECES
 ========================= */
 
 const peces = [
 
 {
-nombre:"Neón tetra",
-cientifico:"Paracheirodon innesi",
-tipo:"Cardumen",
-tamano:"3-4 cm",
-ph:"5.0-7.5",
-temp:"20-26 °C",
-grupo:"Mínimo 8-10"
+common:"Neón",
+scientific:"Paracheirodon innesi",
+size:4,tmin:22,tmax:26,
+phmin:5,phmax:7,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Borrachito",
-cientifico:"Hemigrammus rhodostomus",
-tipo:"Cardumen",
-tamano:"4-5 cm",
-ph:"5.0-7.0",
-temp:"24-28 °C",
-grupo:"Mínimo 8-10"
+common:"Neón cardenal",
+scientific:"Paracheirodon axelrodi",
+size:5,tmin:23,tmax:28,
+phmin:4,phmax:7,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Corydoras panda",
-cientifico:"Corydoras panda",
-tipo:"Fondo",
-tamano:"4-5 cm",
-ph:"6.0-7.5",
-temp:"22-26 °C",
-grupo:"Mínimo 6"
+common:"Tetra borrachito",
+scientific:"Hemigrammus rhodostomus",
+size:5,tmin:24,tmax:28,
+phmin:5,phmax:7,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Corydoras pygmaeus",
-cientifico:"Corydoras pygmaeus",
-tipo:"Fondo",
-tamano:"2-3 cm",
-ph:"6.0-7.5",
-temp:"22-26 °C",
-grupo:"Mínimo 8"
+common:"Tetra nariz de borracho",
+scientific:"Petitella bleheri",
+size:5,tmin:24,tmax:28,
+phmin:5,phmax:7,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Escalar",
-cientifico:"Pterophyllum scalare",
-tipo:"Cíclido",
-tamano:"15 cm",
-ph:"6.0-7.5",
-temp:"24-30 °C",
-grupo:"Pareja o grupo"
+common:"Tetra limón",
+scientific:"Hyphessobrycon pulchripinnis",
+size:5,tmin:23,tmax:28,
+phmin:5,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Ramirezi",
-cientifico:"Mikrogeophagus ramirezi",
-tipo:"Cíclido enano",
-tamano:"5-7 cm",
-ph:"5.0-7.0",
-temp:"26-30 °C",
-grupo:"Pareja"
+common:"Tetra ámbar",
+scientific:"Hyphessobrycon amandae",
+size:2,tmin:23,tmax:28,
+phmin:5,phmax:7,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Ramirezi boliviano",
-cientifico:"Mikrogeophagus altispinosus",
-tipo:"Cíclido enano",
-tamano:"7-9 cm",
-ph:"6.0-7.5",
-temp:"24-28 °C",
-grupo:"Pareja"
+common:"Tetra negro",
+scientific:"Gymnocorymbus ternetzi",
+size:6,tmin:22,tmax:27,
+phmin:6,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Apistogramma cacatuoides",
-cientifico:"Apistogramma cacatuoides",
-tipo:"Cíclido enano",
-tamano:"7-9 cm",
-ph:"6.0-7.5",
-temp:"23-28 °C",
-grupo:"Pareja o harén"
+common:"Tetra serpae",
+scientific:"Hyphessobrycon eques",
+size:5,tmin:22,tmax:27,
+phmin:5.5,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Ancistrus",
-cientifico:"Ancistrus sp.",
-tipo:"Lorícarido",
-tamano:"10-15 cm",
-ph:"6.0-7.5",
-temp:"23-28 °C",
-grupo:"1-2"
+common:"Tetra emperador",
+scientific:"Nematobrycon palmeri",
+size:5,tmin:23,tmax:28,
+phmin:5,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Fácil"
 },
 
 {
-nombre:"Otocinclus",
-cientifico:"Otocinclus sp.",
-tipo:"Comealgas",
-tamano:"3-5 cm",
-ph:"6.0-7.5",
-temp:"22-26 °C",
-grupo:"Mínimo 6"
+common:"Tetra Congo",
+scientific:"Phenacogrammus interruptus",
+size:8,tmin:23,tmax:28,
+phmin:6,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Intermedio"
 },
 
 {
-nombre:"Neritina",
-cientifico:"Neritina sp.",
-tipo:"Caracol",
-tamano:"2-3 cm",
-ph:"7.0-8.5",
-temp:"22-28 °C",
-grupo:"1+"
+common:"Rasbora arlequín",
+scientific:"Trigonostigma heteromorpha",
+size:5,tmin:23,tmax:28,
+phmin:5,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Fácil"
+},
+
+{
+common:"Rasbora espei",
+scientific:"Trigonostigma espei",
+size:4,tmin:23,tmax:28,
+phmin:5,phmax:7.5,
+zone:"Cardumen",
+difficulty:"Fácil"
+},
+
+{
+common:"Rasbora galaxy",
+scientific:"Danio margaritatus",
+size:2,tmin:20,tmax:26,
+phmin:6.5,phmax:8,
+zone:"Cardumen",
+difficulty:"Intermedio"
+},
+
+{
+common:"Danio cebra",
+scientific:"Danio rerio",
+size:5,tmin:18,tmax:26,
+phmin:6.5,phmax:8,
+zone:"Cardumen",
+difficulty:"Fácil"
+},
+
+{
+common:"Barbo cereza",
+scientific:"Puntius titteya",
+size:5,tmin:22,tmax:28,
+phmin:6,phmax:8,
+zone:"Cardumen",
+difficulty:"Fácil"
+},
+
+{
+common:"Barbo tigre",
+scientific:"Puntigrus tetrazona",
+size:7,tmin:22,tmax:28,
+phmin:6,phmax:8,
+zone:"Cardumen",
+difficulty:"Fácil"
+},
+
+{
+common:"Corydora panda",
+scientific:"Corydoras panda",
+size:5,tmin:20,tmax:26,
+phmin:6,phmax:7.5,
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+common:"Corydora sterbai",
+scientific:"Corydoras sterbai",
+size:6,tmin:24,tmax:28,
+phmin:6,phmax:7.5,
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+common:"Corydora aeneus",
+scientific:"Corydoras aeneus",
+size:7,tmin:22,tmax:28,
+phmin:6,phmax:8,
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+common:"Corydora paleatus",
+scientific:"Corydoras paleatus",
+size:6,tmin:20,tmax:26,
+phmin:6,phmax:8,
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+common:"Corydora pygmaeus",
+scientific:"Corydoras pygmaeus",
+size:3,tmin:22,tmax:27,
+phmin:5.5,phmax:7.5,
+zone:"Fondo",
+difficulty:"Intermedio"
+},
+
+{
+common:"Corydora habrosus",
+scientific:"Corydoras habrosus",
+size:3,tmin:22,tmax:27,
+phmin:5.5,phmax:7.5,
+zone:"Fondo",
+difficulty:"Intermedio"
+},
+
+{
+common:"Otocinclus",
+scientific:"Otocinclus vittatus",
+size:4,tmin:22,tmax:27,
+phmin:6,phmax:7.5,
+zone:"Fondo",
+difficulty:"Intermedio"
+},
+
+{
+common:"Ancistrus",
+scientific:"Ancistrus cf. cirrhosus",
+size:12,tmin:22,tmax:28,
+phmin:6,phmax:8,
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+common:"Pleco payaso",
+scientific:"Panaqolus maccus",
+size:10,tmin:23,tmax:28,
+phmin:6,phmax:7.5,
+zone:"Fondo",
+difficulty:"Intermedio"
+},
+
+{
+common:"Escalar",
+scientific:"Pterophyllum scalare",
+size:15,tmin:24,tmax:30,
+phmin:6,phmax:7.5,
+zone:"Media",
+difficulty:"Intermedio"
+},
+
+{
+common:"Ramirezi",
+scientific:"Mikrogeophagus ramirezi",
+size:6,tmin:26,tmax:30,
+phmin:5,phmax:7,
+zone:"Fondo/Media",
+difficulty:"Avanzado"
+},
+
+{
+common:"Apistogramma cacatuoides",
+scientific:"Apistogramma cacatuoides",
+size:8,tmin:24,tmax:29,
+phmin:5.5,phmax:7.5,
+zone:"Fondo",
+difficulty:"Intermedio"
+},
+
+{
+common:"Gurami perla",
+scientific:"Trichopodus leerii",
+size:12,tmin:24,tmax:30,
+phmin:6,phmax:7.5,
+zone:"Media/Superior",
+difficulty:"Intermedio"
+},
+
+{
+common:"Molly",
+scientific:"Poecilia sphenops",
+size:10,tmin:24,tmax:28,
+phmin:7,phmax:8.5,
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+common:"Platy",
+scientific:"Xiphophorus maculatus",
+size:6,tmin:22,tmax:28,
+phmin:7,phmax:8.2,
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+common:"Guppy",
+scientific:"Poecilia reticulata",
+size:5,tmin:22,tmax:28,
+phmin:7,phmax:8.2,
+zone:"Media/Superior",
+difficulty:"Fácil"
 }
 
 ];
 
+
+/* =========================
+   BASE DE DATOS DE PLANTAS
+========================= */
 
 const plantas = [
 
 {
-nombre:"Anubias nana",
-tipo:"Epífita",
-luz:"Baja-media",
-co2:"Opcional",
-velocidad:"Lenta"
+common:"Anubias nana",
+scientific:"Anubias barteri var. nana",
+light:"Baja",
+co2:"No necesario",
+position:"Frontal/Media",
+growth:"Lenta"
 },
 
 {
-nombre:"Microsorum pteropus",
-tipo:"Helecho",
-luz:"Baja-media",
-co2:"Opcional",
-velocidad:"Lenta"
+common:"Anubias barteri",
+scientific:"Anubias barteri",
+light:"Baja",
+co2:"No necesario",
+position:"Media",
+growth:"Lenta"
 },
 
 {
-nombre:"Cryptocoryne wendtii",
-tipo:"Roseta",
-luz:"Baja-media",
+common:"Bucephalandra",
+scientific:"Bucephalandra sp.",
+light:"Baja",
 co2:"Opcional",
-velocidad:"Media"
+position:"Frontal/Media",
+growth:"Lenta"
 },
 
 {
-nombre:"Echinodorus bleheri",
-tipo:"Roseta",
-luz:"Media-alta",
+common:"Microsorum pteropus",
+scientific:"Microsorum pteropus",
+light:"Baja",
+co2:"Opcional",
+position:"Media/Fondo",
+growth:"Lenta"
+},
+
+{
+common:"Java Moss",
+scientific:"Taxiphyllum barbieri",
+light:"Baja",
+co2:"Opcional",
+position:"Frontal/Decoración",
+growth:"Media"
+},
+
+{
+common:"Vallisneria",
+scientific:"Vallisneria spiralis",
+light:"Media",
+co2:"Opcional",
+position:"Fondo",
+growth:"Rápida"
+},
+
+{
+common:"Echinodorus amazonicus",
+scientific:"Echinodorus grisebachii",
+light:"Media-Alta",
 co2:"Recomendado",
-velocidad:"Media"
+position:"Fondo",
+growth:"Media"
 },
 
 {
-nombre:"Vallisneria spiralis",
-tipo:"Tallo",
-luz:"Media",
+common:"Cryptocoryne wendtii",
+scientific:"Cryptocoryne wendtii",
+light:"Baja",
 co2:"Opcional",
-velocidad:"Rápida"
+position:"Frontal/Media",
+growth:"Media"
 },
 
 {
-nombre:"Hygrophila polysperma",
-tipo:"Tallo",
-luz:"Media",
+common:"Cryptocoryne parva",
+scientific:"Cryptocoryne parva",
+light:"Media",
 co2:"Opcional",
-velocidad:"Rápida"
+position:"Frontal",
+growth:"Lenta"
 },
 
 {
-nombre:"Rotala rotundifolia",
-tipo:"Tallo",
-luz:"Media-alta",
+common:"Hygrophila polysperma",
+scientific:"Hygrophila polysperma",
+light:"Media",
+co2:"Opcional",
+position:"Fondo",
+growth:"Rápida"
+},
+
+{
+common:"Hygrophila corymbosa",
+scientific:"Hygrophila corymbosa",
+light:"Baja-Media",
+co2:"Opcional",
+position:"Fondo",
+growth:"Rápida"
+},
+
+{
+common:"Rotala rotundifolia",
+scientific:"Rotala rotundifolia",
+light:"Media-Alta",
 co2:"Recomendado",
-velocidad:"Rápida"
+position:"Fondo",
+growth:"Rápida"
 },
 
 {
-nombre:"Bucephalandra",
-tipo:"Epífita",
-luz:"Baja-media",
+common:"Ludwigia repens",
+scientific:"Ludwigia repens",
+light:"Media-Alta",
+co2:"Recomendado",
+position:"Fondo",
+growth:"Media"
+},
+
+{
+common:"Bacopa caroliniana",
+scientific:"Bacopa caroliniana",
+light:"Media",
 co2:"Opcional",
-velocidad:"Lenta"
+position:"Fondo",
+growth:"Media"
+},
+
+{
+common:"Limnophila sessiliflora",
+scientific:"Limnophila sessiliflora",
+light:"Media",
+co2:"Opcional",
+position:"Fondo",
+growth:"Rápida"
+},
+
+{
+common:"Limnophila aquatica",
+scientific:"Limnophila aquatica",
+light:"Media-Alta",
+co2:"Recomendado",
+position:"Fondo",
+growth:"Rápida"
+},
+
+{
+common:"Cabomba",
+scientific:"Cabomba caroliniana",
+light:"Media-Alta",
+co2:"Recomendado",
+position:"Fondo",
+growth:"Rápida"
+},
+
+{
+common:"Sagittaria subulata",
+scientific:"Sagittaria subulata",
+light:"Baja-Media",
+co2:"Opcional",
+position:"Frontal",
+growth:"Media"
+},
+
+{
+common:"Eleocharis acicularis",
+scientific:"Eleocharis acicularis",
+light:"Media-Alta",
+co2:"Recomendado",
+position:"Frontal",
+growth:"Media"
+},
+
+{
+common:"Monte Carlo",
+scientific:"Micranthemum tweediei",
+light:"Media-Alta",
+co2:"Recomendado",
+position:"Frontal",
+growth:"Media"
+},
+
+{
+common:"HC Cuba",
+scientific:"Hemianthus callitrichoides",
+light:"Alta",
+co2:"Recomendado",
+position:"Frontal",
+growth:"Media"
+},
+
+{
+common:"Lilaeopsis brasiliensis",
+scientific:"Lilaeopsis brasiliensis",
+light:"Media",
+co2:"Recomendado",
+position:"Frontal",
+growth:"Media"
+},
+
+{
+common:"Nymphaea lotus red",
+scientific:"Nymphaea lotus",
+light:"Media",
+co2:"Opcional",
+position:"Media",
+growth:"Media"
+},
+
+{
+common:"Pistia",
+scientific:"Pistia stratiotes",
+light:"Media",
+co2:"No necesario",
+position:"Flotante",
+growth:"Rápida"
+},
+
+{
+common:"Salvinia",
+scientific:"Salvinia natans",
+light:"Baja-Media",
+co2:"No necesario",
+position:"Flotante",
+growth:"Rápida"
+},
+
+{
+common:"Limnobium",
+scientific:"Limnobium laevigatum",
+light:"Media",
+co2:"No necesario",
+position:"Flotante",
+growth:"Rápida"
+},
+
+{
+common:"Riccia",
+scientific:"Riccia fluitans",
+light:"Media",
+co2:"Opcional",
+position:"Flotante",
+growth:"Rápida"
 }
 
 ];
 
 
 /* =========================
-   DATOS GUARDADOS
+   CAMBIO DE PESTAÑAS
 ========================= */
 
-let acuarios =
-JSON.parse(localStorage.getItem("acuarios") || "[]");
+document.querySelectorAll(".tab").forEach(b=>{
 
-let registros =
-JSON.parse(localStorage.getItem("registros") || "[]");
+b.onclick=()=>{
 
-let habitantes =
-JSON.parse(localStorage.getItem("habitantes") || "[]");
-
-
-/* =========================
-   NAVEGACIÓN
-========================= */
-
-function showTab(id,boton){
+document.querySelectorAll(".tab")
+.forEach(x=>x.classList.remove("active"));
 
 document.querySelectorAll("section")
-.forEach(s=>s.classList.remove("active"));
+.forEach(x=>x.classList.remove("active"));
 
-document.getElementById(id)
+b.classList.add("active");
+
+document
+.getElementById(b.dataset.tab)
 .classList.add("active");
-
-document.querySelectorAll("nav button")
-.forEach(b=>b.classList.remove("active"));
-
-boton.classList.add("active");
-
-actualizar();
-
-}
-
-
-/* =========================
-   ACUARIOS
-========================= */
-
-function crearAcuario(){
-
-const nombre =
-document.getElementById("nombreAcuario").value.trim();
-
-const litros =
-Number(document.getElementById("litrosAcuario").value);
-
-const dimensiones =
-document.getElementById("dimensionesAcuario").value.trim();
-
-if(!nombre || !litros){
-
-alert("Introduce al menos el nombre y los litros.");
-
-return;
-}
-
-acuarios.push({
-
-id:Date.now(),
-nombre,
-litros,
-dimensiones
-
-});
-
-guardar();
-
-document.getElementById("nombreAcuario").value="";
-document.getElementById("litrosAcuario").value="";
-document.getElementById("dimensionesAcuario").value="";
-
-actualizar();
-
-}
-
-
-function eliminarAcuario(id){
-
-if(!confirm("¿Eliminar este acuario?")) return;
-
-acuarios =
-acuarios.filter(a=>a.id!==id);
-
-guardar();
-
-actualizar();
-
-}
-
-
-/* =========================
-   PECES
-========================= */
-
-function mostrarPeces(){
-
-const texto =
-document.getElementById("buscarPez")
-.value.toLowerCase();
-
-const lista =
-peces.filter(p=>
-p.nombre.toLowerCase().includes(texto) ||
-p.cientifico.toLowerCase().includes(texto)
-);
-
-document.getElementById("listaPeces").innerHTML =
-lista.map(p=>`
-
-<div class="item">
-
-<div class="item-title">
-<strong>🐟 ${p.nombre}</strong>
-<span class="badge">${p.tipo}</span>
-</div>
-
-<p class="small">${p.cientifico}</p>
-
-<p>
-<strong>Tamaño:</strong> ${p.tamano}<br>
-<strong>pH:</strong> ${p.ph}<br>
-<strong>Temperatura:</strong> ${p.temp}<br>
-<strong>Grupo:</strong> ${p.grupo}
-</p>
-
-</div>
-
-`).join("");
-
-}
-
-
-function agregarPez(){
-
-const acuario =
-Number(document.getElementById("pezAcuario").value);
-
-const especie =
-document.getElementById("pezEspecie").value;
-
-const cantidad =
-Number(document.getElementById("cantidadPez").value);
-
-if(!acuario || !especie || !cantidad){
-
-alert("Completa todos los campos.");
-
-return;
-
-}
-
-habitantes.push({
-
-id:Date.now(),
-acuario,
-especie,
-cantidad
-
-});
-
-guardar();
-
-alert("Pez añadido al acuario.");
-
-}
-
-
-/* =========================
-   PLANTAS
-========================= */
-
-function mostrarPlantas(){
-
-const texto =
-document.getElementById("buscarPlanta")
-.value.toLowerCase();
-
-const lista =
-plantas.filter(p=>
-p.nombre.toLowerCase().includes(texto)
-);
-
-document.getElementById("listaPlantas").innerHTML =
-lista.map(p=>`
-
-<div class="item">
-
-<div class="item-title">
-<strong>🌿 ${p.nombre}</strong>
-<span class="badge">${p.tipo}</span>
-</div>
-
-<p>
-<strong>Luz:</strong> ${p.luz}<br>
-<strong>CO₂:</strong> ${p.co2}<br>
-<strong>Crecimiento:</strong> ${p.velocidad}
-</p>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   REGISTROS
-========================= */
-
-function guardarRegistro(){
-
-const acuario =
-Number(document.getElementById("registroAcuario").value);
-
-if(!acuario){
-
-alert("Selecciona un acuario.");
-
-return;
-
-}
-
-const registro={
-
-id:Date.now(),
-
-acuario,
-
-fecha:new Date().toLocaleString("es-ES"),
-
-ph:document.getElementById("ph").value,
-
-kh:document.getElementById("kh").value,
-
-gh:document.getElementById("gh").value,
-
-temp:document.getElementById("temp").value,
-
-no2:document.getElementById("no2").value,
-
-no3:document.getElementById("no3").value
 
 };
 
-registros.unshift(registro);
-
-guardar();
-
-alert("Medición guardada.");
-
-document.querySelectorAll("#registro input")
-.forEach(i=>i.value="");
-
-actualizar();
-
-}
+});
 
 
 /* =========================
-   HISTORIAL
+   VOLUMEN DEL SISTEMA
 ========================= */
 
-function mostrarHistorial(){
+["litros","sumpLitros","totalLitros"]
+.forEach(id=>{
 
-const html =
-registros.map(r=>{
+document
+.getElementById(id)
+.addEventListener("input",actualizarResumen);
+
+});
+
+
+function volumenSistema(){
 
 const acuario =
-acuarios.find(a=>a.id===r.acuario);
+Number(document.getElementById("litros").value) || 0;
 
-return `
+const sump =
+Number(document.getElementById("sumpLitros").value) || 0;
+
+const total =
+Number(document.getElementById("totalLitros").value) || 0;
+
+return total > 0 ? total : acuario + sump;
+
+}
+
+
+/* =========================
+   RESUMEN
+========================= */
+
+function actualizarResumen(){
+
+const acuario =
+Number(document.getElementById("litros").value) || 0;
+
+const sistema =
+volumenSistema();
+
+const minimo =
+Math.round(sistema * 4);
+
+const maximo =
+Math.round(sistema * 6);
+
+document.getElementById("resLitros")
+.textContent =
+acuario.toLocaleString("es-ES")+" L";
+
+document.getElementById("resSistema")
+.textContent =
+sistema.toLocaleString("es-ES")+" L";
+
+document.getElementById("resCaudal")
+.textContent =
+minimo.toLocaleString("es-ES")+
+"–"+
+maximo.toLocaleString("es-ES")+
+" L/h";
+
+}
+
+
+/* =========================
+   CALCULAR FILTRACIÓN
+========================= */
+
+function calcular(){
+
+const volumen =
+volumenSistema();
+
+const caudalReal =
+Number(document.getElementById("real").value) ||
+Number(document.getElementById("caudal").value) ||
+0;
+
+const minimo =
+volumen * 4;
+
+const maximo =
+volumen * 6;
+
+const renovacion =
+volumen > 0
+? caudalReal / volumen
+: 0;
+
+let clase;
+let mensaje;
+
+if(!caudalReal){
+
+clase="warn";
+
+mensaje=
+"Introduce el caudal del filtro para comprobarlo.";
+
+}else if(caudalReal < minimo){
+
+clase="bad";
+
+mensaje=
+"🔴 El caudal es bajo para este volumen de agua.";
+
+}else if(caudalReal > maximo){
+
+clase="warn";
+
+mensaje=
+"🟡 El caudal está por encima del rango configurado.";
+
+}else{
+
+clase="ok";
+
+mensaje=
+"🟢 El caudal está dentro del rango configurado.";
+
+}
+
+document.getElementById("filtroResultado").innerHTML=
+
+`
+<div class="result ${clase}">
+
+<b>Volumen del sistema:</b>
+${volumen.toLocaleString("es-ES")} L
+
+<br><br>
+
+<b>Caudal recomendado:</b>
+${Math.round(minimo).toLocaleString("es-ES")}
+–
+${Math.round(maximo).toLocaleString("es-ES")} L/h
+
+<br><br>
+
+<b>Caudal introducido:</b>
+${caudalReal.toLocaleString("es-ES")} L/h
+
+<br><br>
+
+<b>Renovación:</b>
+${renovacion.toFixed(1)} ×/hora
+
+<br><br>
+
+${mensaje}
+
+</div>
+`;
+
+}
+
+
+/* =========================
+   MATERIAL BIOLÓGICO
+========================= */
+
+function calcularBio(){
+
+const volumen =
+volumenSistema();
+
+const dosis =
+Number(document.getElementById("bioDosis").value) || 0;
+
+const instalado =
+Number(document.getElementById("bioLitros").value) || 0;
+
+const recomendado =
+volumen * dosis / 200;
+
+const porcentaje =
+recomendado > 0
+? instalado / recomendado * 100
+: 0;
+
+const clase =
+instalado >= recomendado
+? "ok"
+: "warn";
+
+const mensaje =
+instalado >= recomendado
+?
+"🟢 El material instalado alcanza la dosis configurada."
+:
+"🟡 El material instalado está por debajo de la dosis configurada.";
+
+document.getElementById("bioResultado").innerHTML=
+
+`
+<div class="result ${clase}">
+
+<b>Volumen considerado:</b>
+${volumen.toLocaleString("es-ES")} L
+
+<br><br>
+
+<b>Material biológico recomendado:</b>
+${recomendado.toFixed(2)} L
+
+<br><br>
+
+<b>Material instalado:</b>
+${instalado.toFixed(2)} L
+
+<br><br>
+
+<b>Relación instalado/recomendado:</b>
+${porcentaje.toFixed(0)} %
+
+<br><br>
+
+${mensaje}
+
+</div>
+`;
+
+}
+
+
+/* =========================
+   BUSCADOR DE PECES
+========================= */
+
+function renderFish(){
+
+const texto =
+(document.getElementById("buscarPez").value || "")
+.toLowerCase();
+
+const resultados =
+peces.filter(pez =>
+
+Object
+.values(pez)
+.join(" ")
+.toLowerCase()
+.includes(texto)
+
+);
+
+document.getElementById("fishList").innerHTML =
+
+resultados.length
+
+?
+
+resultados.map(pez => `
 
 <div class="item">
 
-<strong>${acuario ? acuario.nombre : "Acuario eliminado"}</strong>
+<b>${pez.common}</b>
 
-<div class="small">${r.fecha}</div>
+<span class="muted">
+${pez.scientific}
+</span>
 
-<p>
+<br>
 
-pH: <strong>${r.ph || "-"}</strong> ·
-KH: <strong>${r.kh || "-"}</strong> ·
-GH: <strong>${r.gh || "-"}</strong><br>
+<span class="pill">
+📏 ${pez.size} cm
+</span>
 
-🌡️ ${r.temp || "-"} °C ·
-NO₂ ${r.no2 || "-"} ·
-NO₃ ${r.no3 || "-"}
+<span class="pill">
+🌡 ${pez.tmin}–${pez.tmax} °C
+</span>
 
-</p>
+<span class="pill">
+pH ${pez.phmin}–${pez.phmax}
+</span>
+
+<span class="pill">
+📍 ${pez.zone}
+</span>
+
+<span class="pill">
+⭐ ${pez.difficulty}
+</span>
 
 </div>
 
-`;
+`).join("")
 
-}).join("");
+:
 
-document.getElementById("historial").innerHTML =
-html || "<p class='small'>Todavía no hay mediciones.</p>";
-
-}
-
-
-/* =========================
-   ACTUALIZAR SELECTORES
-========================= */
-
-function actualizarSelectores(){
-
-const opciones =
-acuarios.map(a=>
-`<option value="${a.id}">
-${a.nombre} · ${a.litros} L
-</option>`
-).join("");
-
-document.getElementById("pezAcuario").innerHTML =
-opciones || "<option value=''>Crea primero un acuario</option>";
-
-document.getElementById("registroAcuario").innerHTML =
-opciones || "<option value=''>Crea primero un acuario</option>";
-
-document.getElementById("pezEspecie").innerHTML =
-peces.map(p=>
-`<option value="${p.nombre}">${p.nombre}</option>`
-).join("");
+`<div class="result warn">
+No se encontraron peces.
+</div>`;
 
 }
 
 
 /* =========================
-   MOSTRAR ACUARIOS
+   BUSCADOR DE PLANTAS
 ========================= */
 
-function mostrarAcuarios(){
+function renderPlants(){
 
-const cont =
-document.getElementById("listaAcuarios");
+const texto =
+(document.getElementById("buscarPlanta").value || "")
+.toLowerCase();
 
-if(!acuarios.length){
+const resultados =
+plantas.filter(planta =>
 
-cont.innerHTML =
-"<p class='small'>Todavía no has creado ningún acuario.</p>";
+Object
+.values(planta)
+.join(" ")
+.toLowerCase()
+.includes(texto)
 
-return;
+);
 
-}
+document.getElementById("plantList").innerHTML =
 
-cont.innerHTML =
-acuarios.map(a=>{
+resultados.length
 
-const pecesAcuario =
-habitantes.filter(h=>h.acuario===a.id);
+?
 
-const totalPeces =
-pecesAcuario.reduce((s,h)=>s+h.cantidad,0);
-
-return `
+resultados.map(planta => `
 
 <div class="item">
 
-<div class="item-title">
+<b>${planta.common}</b>
 
-<strong>🐠 ${a.nombre}</strong>
+<span class="muted">
+${planta.scientific}
+</span>
 
-<button class="danger"
-onclick="eliminarAcuario(${a.id})">
-Eliminar
-</button>
+<br>
 
-</div>
+<span class="pill">
+💡 ${planta.light}
+</span>
 
-<p>
+<span class="pill">
+CO₂: ${planta.co2}
+</span>
 
-💧 <strong>${a.litros} L</strong><br>
+<span class="pill">
+📍 ${planta.position}
+</span>
 
-📏 ${a.dimensiones || "Dimensiones no indicadas"}<br>
-
-🐟 ${totalPeces} peces
-
-</p>
-
-${pecesAcuario.map(h=>`
-
-<div class="small">
-${h.especie}: ${h.cantidad}
-</div>
-
-`).join("")}
+<span class="pill">
+📈 ${planta.growth}
+</span>
 
 </div>
 
-`;
+`).join("")
 
-}).join("");
+:
 
-}
-
-
-/* =========================
-   ACTUALIZACIÓN GENERAL
-========================= */
-
-function actualizar(){
-
-mostrarAcuarios();
-mostrarPeces();
-mostrarPlantas();
-mostrarHistorial();
-actualizarSelectores();
-
-document.getElementById("totalAcuarios").textContent =
-acuarios.length;
-
-document.getElementById("totalPeces").textContent =
-habitantes.reduce((s,h)=>s+h.cantidad,0);
-
-document.getElementById("totalPlantas").textContent =
-plantas.length;
-
-document.getElementById("totalRegistros").textContent =
-registros.length;
-
-}
-
-
-/* =========================
-   GUARDAR
-========================= */
-
-function guardar(){
-
-localStorage.setItem(
-"acuarios",
-JSON.stringify(acuarios)
-);
-
-localStorage.setItem(
-"registros",
-JSON.stringify(registros)
-);
-
-localStorage.setItem(
-"habitantes",
-JSON.stringify(habitantes)
-);
+`<div class="result warn">
+No se encontraron plantas.
+</div>`;
 
 }
 
@@ -943,7 +1361,11 @@ JSON.stringify(habitantes)
    INICIO
 ========================= */
 
-actualizar();
+actualizarResumen();
+
+renderFish();
+
+renderPlants();
 
 </script>
 
