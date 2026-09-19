@@ -1,1102 +1,1437 @@
 <!doctype html>
-
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b6e99">
 <title>AquaControl</title>
+
 <style>
 :root{
---bg:#08121c;
---card:#102333;
---card2:#142c3e;
---txt:#edf7ff;
---muted:#9fb5c6;
---accent:#35c6d9;
---ok:#41d392;
---warn:#f5c451;
---bad:#ff6b6b
+--blue:#0b6e99;
+--blue2:#0d91b8;
+--light:#eef8fc;
+--dark:#12313f;
+--green:#238b57;
+--red:#c74b4b;
+--orange:#e58a24;
+--border:#d7e2e7;
 }
+
 *{box-sizing:border-box}
+
 body{
 margin:0;
-font-family:system-ui,-apple-system,Segoe UI,sans-serif;
-background:linear-gradient(145deg,#061019,#0b1e2c);
-color:var(--txt)
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#f5f8fa;
+color:var(--dark);
 }
+
 header{
-padding:22px 18px;
-position:sticky;
-top:0;
-background:#08121ceb;
-backdrop-filter:blur(12px);
-z-index:5;
-border-bottom:1px solid #ffffff12
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+color:white;
+padding:28px 18px 22px;
+border-radius:0 0 24px 24px;
 }
-h1{margin:0;font-size:27px}
-h2{margin-top:0}
+
+h1{margin:0 0 6px;font-size:30px}
+h2{margin-top:6px}
+h3{margin-top:0}
+
 header p{
-margin:5px 0 0;
-color:var(--muted)
+margin:0;
+opacity:.9;
 }
-main{
-max-width:1100px;
-margin:auto;
-padding:18px
-}
-.tabs{
+
+nav{
 display:flex;
 gap:8px;
+padding:12px;
 overflow:auto;
-margin-bottom:16px
+background:white;
+position:sticky;
+top:0;
+z-index:5;
+box-shadow:0 2px 8px #0001;
 }
-button,.tab{
+
+nav button{
 border:0;
-border-radius:12px;
-padding:11px 14px;
-background:var(--card2);
-color:var(--txt);
-font-weight:700;
-cursor:pointer
+background:#edf4f7;
+color:#31505d;
+padding:11px 15px;
+border-radius:20px;
+white-space:nowrap;
+font-weight:600;
 }
-button.active,.tab.active{
-background:var(--accent);
-color:#03202a
+
+nav button.active{
+background:var(--blue);
+color:white;
 }
-button.danger{
-background:#ff6b6b22;
-color:#ff8b8b
+
+main{
+padding:16px;
+max-width:950px;
+margin:auto;
 }
-button.small{
-padding:8px 10px;
-font-size:13px
+
+.section{display:none}
+.section.active{display:block}
+
+.card{
+background:white;
+border-radius:18px;
+padding:16px;
+margin:12px 0;
+box-shadow:0 3px 14px #0000000d;
 }
-section{display:none}
-section.active{display:block}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:12px
+gap:12px;
 }
-.card{
-background:#ffffff08;
-border:1px solid #ffffff12;
-border-radius:18px;
-padding:16px;
-margin-bottom:14px
-}
-.subcard{
-background:#07141e99;
-border:1px solid #ffffff12;
-border-radius:15px;
-padding:14px;
-margin-top:12px
-}
-label{
-display:block;
-color:var(--muted);
-font-size:13px;
-margin-bottom:5px
-}
+
 input,select{
 width:100%;
-padding:11px;
-border-radius:10px;
-border:1px solid #ffffff1b;
-background:#07141e;
-color:var(--txt);
-font-size:15px
-}
-.big{
-font-size:28px;
-font-weight:800
-}
-.result{
-padding:14px;
-border-radius:14px;
-margin-top:12px;
-background:#ffffff08
-}
-.ok{border:1px solid #41d39266}
-.warn{border:1px solid #f5c45166}
-.bad{border:1px solid #ff6b6b66}
-.muted{color:var(--muted)}
-.search{margin-bottom:12px}
-.item{
-padding:13px;
-border-bottom:1px solid #ffffff0e
-}
-.item:last-child{border-bottom:0}
-.pill{
-display:inline-block;
-padding:4px 8px;
-border-radius:99px;
-background:#ffffff10;
-margin:3px;
-font-size:12px
-}
-.notice{
-font-size:13px;
-color:var(--muted);
-line-height:1.5
-}
-.footer{
-color:var(--muted);
-font-size:12px;
-padding:25px 0
-}
-.section-title{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-flex-wrap:wrap
-}
-.material{
-background:#ffffff06;
-border:1px solid #ffffff10;
-border-radius:13px;
 padding:12px;
-margin-top:10px
-}
-.material-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px
-}
-.camera-result{
-margin-top:10px;
-font-size:13px;
-color:var(--muted)
-}
-.empty{
-padding:15px;
-text-align:center;
-color:var(--muted);
-border:1px dashed #ffffff20;
+border:1px solid var(--border);
 border-radius:12px;
-margin-top:10px
+font-size:16px;
+background:white;
 }
+
+label{
+display:block;
+font-weight:600;
+margin-bottom:5px;
+}
+
+.btn{
+border:0;
+border-radius:12px;
+padding:11px 14px;
+background:var(--blue);
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.btn.orange{background:var(--orange)}
+
+.row{
+display:flex;
+gap:8px;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.stat{
+font-size:24px;
+font-weight:800;
+}
+
+.small{
+font-size:13px;
+color:#607782;
+}
+
+.badge{
+display:inline-block;
+padding:5px 9px;
+border-radius:10px;
+background:var(--light);
+color:var(--blue);
+font-size:12px;
+margin:3px;
+}
+
+.item{
+border:1px solid #e2eaee;
+border-radius:15px;
+padding:14px;
+background:#fff;
+}
+
+.item h3{
+margin:0 0 5px;
+}
+
+.latin{
+font-style:italic;
+color:#607782;
+font-size:14px;
+}
+
+.empty{
+text-align:center;
+color:#70838c;
+padding:30px;
+}
+
+.good{
+background:#e8f7ee;
+color:#17663d;
+padding:12px;
+border-radius:12px;
+font-weight:600;
+}
+
+.warning{
+background:#fff4df;
+color:#8a5a08;
+padding:12px;
+border-radius:12px;
+font-weight:600;
+}
+
+.danger{
+background:#fdeaea;
+color:#8c2929;
+padding:12px;
+border-radius:12px;
+font-weight:600;
+}
+
+.material{
+border:1px solid #dfe8ec;
+border-radius:14px;
+padding:14px;
+margin-top:10px;
+background:#fafcfd;
+}
+
+hr{
+border:0;
+border-top:1px solid #e5ecef;
+margin:18px 0;
+}
+
+.delete{
+float:right;
+}
+
+.hidden{display:none}
 </style>
 </head>
+
 <body>
+
 <header>
 <h1>🐠 AquaControl</h1>
-<p>Gestión de acuarios · filtración · peces · plantas</p>
+<p>Gestión completa de acuarios, filtración, peces y plantas</p>
 </header>
-<main>
-<nav class="tabs">
-<button class="tab active" data-tab="acuario">Acuario</button>
-<button class="tab" data-tab="filtracion">Filtración</button>
-<button class="tab" data-tab="peces">🐟 Peces</button>
-<button class="tab" data-tab="plantas">🌿 Plantas</button>
+
+<nav>
+<button class="active" onclick="showSection('inicio',this)">Inicio</button>
+<button onclick="showSection('peces',this)">🐟 Peces</button>
+<button onclick="showSection('plantas',this)">🌿 Plantas</button>
+<button onclick="showSection('acuarios',this)">🏠 Acuarios</button>
 </nav>
-<!-- =========================
-     ACUARIO
-========================= -->
-<section id="acuario" class="active">
+
+<main>
+
+<!-- INICIO -->
+<section id="inicio" class="section active">
+
 <div class="card">
-<h2>🐠 Mi acuario</h2>
+<h2>Mi AquaControl</h2>
+
 <div class="grid">
+
 <div>
-<label>Litros del acuario</label>
-<input id="litros" type="number" min="1" value="550">
+<div class="stat" id="tankCount">0</div>
+<div class="small">acuarios</div>
 </div>
+
 <div>
-<label>Litros del sump manuales</label>
-<input id="sumpLitros" type="number" min="0" value="0">
+<div class="stat" id="fishCount">0</div>
+<div class="small">peces disponibles</div>
 </div>
+
 <div>
-<label>Litros totales del sistema (opcional)</label>
-<input id="totalLitros" type="number" min="0" placeholder="Automático">
+<div class="stat" id="plantCount">0</div>
+<div class="small">plantas disponibles</div>
 </div>
-</div>
-<p class="notice">
-Si configuras las medidas del sump, AquaControl calculará automáticamente sus litros de agua. El campo de litros manuales se utilizará si no has configurado el sump.
-</p>
-</div>
-<div class="card">
-<h2>📊 Resumen</h2>
-<div class="grid">
-<div>
-<span class="muted">Acuario</span>
-<div class="big" id="resLitros">550 L</div>
-</div>
-<div>
-<span class="muted">Sump</span>
-<div class="big" id="resSump">0 L</div>
-</div>
-<div>
-<span class="muted">Sistema</span>
-<div class="big" id="resSistema">550 L</div>
-</div>
-<div>
-<span class="muted">Caudal objetivo</span>
-<div class="big" id="resCaudal">2.200–3.300 L/h</div>
-</div>
-</div>
-</div>
-</section>
-<!-- =========================
-     FILTRACION
-========================= -->
-<section id="filtracion">
-<!-- SUMP -->
-<div class="card">
-<div class="section-title">
-<h2>💧 Sump</h2>
-<button class="small" onclick="toggleSump()">Activar / ocultar sump</button>
-</div>
-<div id="sumpConfiguracion">
-<div class="grid">
-<div>
-<label>Largo del sump (cm)</label>
-<input id="sumpLargo" type="number" min="0" step="0.1" placeholder="130">
-</div>
-<div>
-<label>Ancho del sump (cm)</label>
-<input id="sumpAncho" type="number" min="0" step="0.1" placeholder="40">
-</div>
-<div>
-<label>Altura total del sump (cm)</label>
-<input id="sumpAlto" type="number" min="0" step="0.1" placeholder="40">
-</div>
-<div>
-<label>Altura real del agua (cm)</label>
-<input id="sumpAgua" type="number" min="0" step="0.1" placeholder="30">
-</div>
-</div>
-<div id="sumpResultado"></div>
-<div class="section-title" style="margin-top:18px">
-<h3>🧩 Cámaras del sump</h3>
-<button class="small" onclick="agregarCamara()">＋ Añadir cámara</button>
-</div>
-<div id="camaraList"></div>
-</div>
-</div>
-<!-- FILTRO -->
-<div class="card">
-<h2>🔧 Configuración de filtros</h2>
-<div class="grid">
-<div>
-<label>Tipo de filtro</label>
-<select id="tipo">
-<option>Sump</option>
-<option>Filtro externo</option>
-<option>Filtro de cascada</option>
-<option>Filtro de mochila</option>
-<option>Filtro interno</option>
-<option>Filtro de esponja</option>
-<option>Filtro de fondo</option>
-<option>Reactor / filtro adicional</option>
-</select>
-</div>
-<div>
-<label>Marca / modelo</label>
-<input id="modelo" placeholder="Ej. Eheim / Sicce / Oase">
-</div>
-<div>
-<label>Caudal nominal (L/h)</label>
-<input id="caudal" type="number" min="0" placeholder="3000">
-</div>
-<div>
-<label>Caudal real medido (L/h)</label>
-<input id="real" type="number" min="0" placeholder="Si lo conoces">
-</div>
-<div>
-<label>Altura de subida (m), para sump</label>
-<input id="altura" type="number" min="0" step="0.1" value="0">
+
 </div>
 </div>
 
-Calcular filtración
-
-<div id="filtroResultado"></div>
-</div>
-<!-- RESUMEN DE MATERIALES -->
 <div class="card">
-<h2>🧫 Resumen de materiales filtrantes</h2>
-<div id="materialResumen"></div>
-</div>
-<!-- MATERIAL BIOLOGICO GENERAL -->
-<div class="card">
-<h2>🦠 Cálculo de material biológico</h2>
-<div class="grid">
-<div>
-<label>Litros recomendados por 200 L</label>
-<input id="bioDosis" type="number" min="0" step="0.01" value="0.25">
-</div>
-</div>
-<p class="notice">
-La recomendación es orientativa. Los fabricantes pueden indicar dosis diferentes según el producto.
+<h2>💾 Guardado automático</h2>
+<p>
+Los datos de tus acuarios, filtros y materiales filtrantes se guardan
+automáticamente en este dispositivo.
 </p>
-<div id="bioResultado"></div>
 </div>
+
+<div id="homeTanks"></div>
+
 </section>
-<!-- =========================
-     PECES
-========================= -->
-<section id="peces">
-<div class="card">
+
+
+<!-- PECES -->
+<section id="peces" class="section">
+
 <h2>🐟 Base de datos de peces</h2>
-<p class="notice">
-Busca por nombre común, nombre científico, zona o dificultad.
-</p>
 
-<input
-class=“search”
-id=“buscarPez”
-placeholder=“Buscar pez…”
-oninput=“renderFish()”
-
-<div id="fishList"></div>
-</div>
-</section>
-<!-- =========================
-     PLANTAS
-========================= -->
-<section id="plantas">
 <div class="card">
-<h2>🌿 Base de datos de plantas</h2>
-<p class="notice">
-Busca por planta, especie, posición, luz o CO₂.
-</p>
-
 <input
-class=“search”
-id=“buscarPlanta”
-placeholder=“Buscar planta…”
-oninput=“renderPlants()”
-
-<div id="plantList"></div>
+id="fishSearch"
+placeholder="🔍 Buscar pez..."
+oninput="renderFish()">
 </div>
+
+<div id="fishList" class="grid"></div>
+
 </section>
-<div class="footer">
-AquaControl · Las recomendaciones son orientativas. Comprueba siempre las especificaciones del fabricante.
-</div>
-</main>
-<script>
-/* =========================================================
-   BASE DE DATOS DE PECES
-========================================================= */
-const peces = [
-{common:"Neón",scientific:"Paracheirodon innesi",size:4,tmin:22,tmax:26,phmin:5,phmax:7,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Neón cardenal",scientific:"Paracheirodon axelrodi",size:5,tmin:23,tmax:28,phmin:4,phmax:7,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra borrachito",scientific:"Hemigrammus rhodostomus",size:5,tmin:24,tmax:28,phmin:5,phmax:7,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra nariz de borracho",scientific:"Petitella bleheri",size:5,tmin:24,tmax:28,phmin:5,phmax:7,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra limón",scientific:"Hyphessobrycon pulchripinnis",size:5,tmin:23,tmax:28,phmin:5,phmax:7.5,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra ámbar",scientific:"Hyphessobrycon amandae",size:2,tmin:23,tmax:28,phmin:5,phmax:7,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra negro",scientific:"Gymnocorymbus ternetzi",size:6,tmin:22,tmax:27,phmin:6,phmax:7.5,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra serpae",scientific:"Hyphessobrycon eques",size:5,tmin:22,tmax:27,phmin:5.5,phmax:7.5,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra emperador",scientific:"Nematobrycon palmeri",size:5,tmin:23,tmax:28,phmin:5,phmax:7.5,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Tetra Congo",scientific:"Phenacogrammus interruptus",size:8,tmin:23,tmax:28,phmin:6,phmax:7.5,zone:"Cardumen",difficulty:"Intermedio"},
-{common:"Rasbora arlequín",scientific:"Trigonostigma heteromorpha",size:5,tmin:23,tmax:28,phmin:5,phmax:7.5,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Rasbora espei",scientific:"Trigonostigma espei",size:4,tmin:23,tmax:28,phmin:5,phmax:7.5,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Rasbora galaxy",scientific:"Danio margaritatus",size:2,tmin:20,tmax:26,phmin:6.5,phmax:8,zone:"Cardumen",difficulty:"Intermedio"},
-{common:"Danio cebra",scientific:"Danio rerio",size:5,tmin:18,tmax:26,phmin:6.5,phmax:8,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Barbo cereza",scientific:"Puntius titteya",size:5,tmin:22,tmax:28,phmin:6,phmax:8,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Barbo tigre",scientific:"Puntigrus tetrazona",size:7,tmin:22,tmax:28,phmin:6,phmax:8,zone:"Cardumen",difficulty:"Fácil"},
-{common:"Corydora panda",scientific:"Corydoras panda",size:5,tmin:20,tmax:26,phmin:6,phmax:7.5,zone:"Fondo",difficulty:"Fácil"},
-{common:"Corydora sterbai",scientific:"Corydoras sterbai",size:6,tmin:24,tmax:28,phmin:6,phmax:7.5,zone:"Fondo",difficulty:"Fácil"},
-{common:"Corydora aeneus",scientific:"Corydoras aeneus",size:7,tmin:22,tmax:28,phmin:6,phmax:8,zone:"Fondo",difficulty:"Fácil"},
-{common:"Corydora paleatus",scientific:"Corydoras paleatus",size:6,tmin:20,tmax:26,phmin:6,phmax:8,zone:"Fondo",difficulty:"Fácil"},
-{common:"Corydora pygmaeus",scientific:"Corydoras pygmaeus",size:3,tmin:22,tmax:27,phmin:5.5,phmax:7.5,zone:"Fondo",difficulty:"Intermedio"},
-{common:"Corydora habrosus",scientific:"Corydoras habrosus",size:3,tmin:22,tmax:27,phmin:5.5,phmax:7.5,zone:"Fondo",difficulty:"Intermedio"},
-{common:"Otocinclus",scientific:"Otocinclus vittatus",size:4,tmin:22,tmax:27,phmin:6,phmax:7.5,zone:"Fondo",difficulty:"Intermedio"},
-{common:"Ancistrus",scientific:"Ancistrus cf. cirrhosus",size:12,tmin:22,tmax:28,phmin:6,phmax:8,zone:"Fondo",difficulty:"Fácil"},
-{common:"Pleco payaso",scientific:"Panaqolus maccus",size:10,tmin:23,tmax:28,phmin:6,phmax:7.5,zone:"Fondo",difficulty:"Intermedio"},
-{common:"Escalar",scientific:"Pterophyllum scalare",size:15,tmin:24,tmax:30,phmin:6,phmax:7.5,zone:"Media",difficulty:"Intermedio"},
-{common:"Ramirezi",scientific:"Mikrogeophagus ramirezi",size:6,tmin:26,tmax:30,phmin:5,phmax:7,zone:"Fondo/Media",difficulty:"Avanzado"},
-{common:"Apistogramma cacatuoides",scientific:"Apistogramma cacatuoides",size:8,tmin:24,tmax:29,phmin:5.5,phmax:7.5,zone:"Fondo",difficulty:"Intermedio"},
-{common:"Gurami perla",scientific:"Trichopodus leerii",size:12,tmin:24,tmax:30,phmin:6,phmax:7.5,zone:"Media/Superior",difficulty:"Intermedio"},
-{common:"Molly",scientific:"Poecilia sphenops",size:10,tmin:24,tmax:28,phmin:7,phmax:8.5,zone:"Media",difficulty:"Fácil"},
-{common:"Platy",scientific:"Xiphophorus maculatus",size:6,tmin:22,tmax:28,phmin:7,phmax:8.2,zone:"Media",difficulty:"Fácil"},
-{common:"Guppy",scientific:"Poecilia reticulata",size:5,tmin:22,tmax:28,phmin:7,phmax:8.2,zone:"Media/Superior",difficulty:"Fácil"}
-];
-/* =========================================================
-   BASE DE DATOS DE PLANTAS
-========================================================= */
-const plantas = [
-{common:"Anubias nana",scientific:"Anubias barteri var. nana",light:"Baja",co2:"No necesario",position:"Frontal/Media",growth:"Lenta"},
-{common:"Anubias barteri",scientific:"Anubias barteri",light:"Baja",co2:"No necesario",position:"Media",growth:"Lenta"},
-{common:"Bucephalandra",scientific:"Bucephalandra sp.",light:"Baja",co2:"Opcional",position:"Frontal/Media",growth:"Lenta"},
-{common:"Microsorum pteropus",scientific:"Microsorum pteropus",light:"Baja",co2:"Opcional",position:"Media/Fondo",growth:"Lenta"},
-{common:"Java Moss",scientific:"Taxiphyllum barbieri",light:"Baja",co2:"Opcional",position:"Frontal/Decoración",growth:"Media"},
-{common:"Vallisneria",scientific:"Vallisneria spiralis",light:"Media",co2:"Opcional",position:"Fondo",growth:"Rápida"},
-{common:"Echinodorus amazonicus",scientific:"Echinodorus grisebachii",light:"Media-Alta",co2:"Recomendado",position:"Fondo",growth:"Media"},
-{common:"Cryptocoryne wendtii",scientific:"Cryptocoryne wendtii",light:"Baja",co2:"Opcional",position:"Frontal/Media",growth:"Media"},
-{common:"Cryptocoryne parva",scientific:"Cryptocoryne parva",light:"Media",co2:"Opcional",position:"Frontal",growth:"Lenta"},
-{common:"Hygrophila polysperma",scientific:"Hygrophila polysperma",light:"Media",co2:"Opcional",position:"Fondo",growth:"Rápida"},
-{common:"Hygrophila corymbosa",scientific:"Hygrophila corymbosa",light:"Baja-Media",co2:"Opcional",position:"Fondo",growth:"Rápida"},
-{common:"Rotala rotundifolia",scientific:"Rotala rotundifolia",light:"Media-Alta",co2:"Recomendado",position:"Fondo",growth:"Rápida"},
-{common:"Ludwigia repens",scientific:"Ludwigia repens",light:"Media-Alta",co2:"Recomendado",position:"Fondo",growth:"Media"},
-{common:"Bacopa caroliniana",scientific:"Bacopa caroliniana",light:"Media",co2:"Opcional",position:"Fondo",growth:"Media"},
-{common:"Limnophila sessiliflora",scientific:"Limnophila sessiliflora",light:"Media",co2:"Opcional",position:"Fondo",growth:"Rápida"},
-{common:"Limnophila aquatica",scientific:"Limnophila aquatica",light:"Media-Alta",co2:"Recomendado",position:"Fondo",growth:"Rápida"},
-{common:"Cabomba",scientific:"Cabomba caroliniana",light:"Media-Alta",co2:"Recomendado",position:"Fondo",growth:"Rápida"},
-{common:"Sagittaria subulata",scientific:"Sagittaria subulata",light:"Baja-Media",co2:"Opcional",position:"Frontal",growth:"Media"},
-{common:"Eleocharis acicularis",scientific:"Eleocharis acicularis",light:"Media-Alta",co2:"Recomendado",position:"Frontal",growth:"Media"},
-{common:"Monte Carlo",scientific:"Micranthemum tweediei",light:"Media-Alta",co2:"Recomendado",position:"Frontal",growth:"Media"},
-{common:"HC Cuba",scientific:"Hemianthus callitrichoides",light:"Alta",co2:"Recomendado",position:"Frontal",growth:"Media"},
-{common:"Lilaeopsis brasiliensis",scientific:"Lilaeopsis brasiliensis",light:"Media",co2:"Recomendado",position:"Frontal",growth:"Media"},
-{common:"Nymphaea lotus red",scientific:"Nymphaea lotus",light:"Media",co2:"Opcional",position:"Media",growth:"Media"},
-{common:"Pistia",scientific:"Pistia stratiotes",light:"Media",co2:"No necesario",position:"Flotante",growth:"Rápida"},
-{common:"Salvinia",scientific:"Salvinia natans",light:"Baja-Media",co2:"No necesario",position:"Flotante",growth:"Rápida"},
-{common:"Limnobium",scientific:"Limnobium laevigatum",light:"Media",co2:"No necesario",position:"Flotante",growth:"Rápida"},
-{common:"Riccia",scientific:"Riccia fluitans",light:"Media",co2:"Opcional",position:"Flotante",growth:"Rápida"}
-];
-/* =========================================================
-   VARIABLES DEL SUMP
-========================================================= */
-let sumpActivo=true;
-let camaras=[
-{
-nombre:"Cámara 1",
-largo:"",
-ancho:"",
-alto:"",
-materiales:[]
-}
-];
-/* =========================================================
-   CAMBIO DE PESTAÑAS
-========================================================= */
-document.querySelectorAll(".tab").forEach(b=>{
-b.onclick=()=>{
-document.querySelectorAll(".tab")
-.forEach(x=>x.classList.remove("active"));
-document.querySelectorAll("section")
-.forEach(x=>x.classList.remove("active"));
-b.classList.add("active");
-document
-.getElementById(b.dataset.tab)
-.classList.add("active");
-};
-});
-/* =========================================================
-   CAMPOS DEL SUM P
-========================================================= */
-[
-"litros",
-"sumpLitros",
-"totalLitros",
-"sumpLargo",
-"sumpAncho",
-"sumpAlto",
-"sumpAgua",
-"bioDosis"
-].forEach(id=>{
-const elemento=document.getElementById(id);
-if(elemento){
-elemento.addEventListener("input",()=>{
-actualizarResumen();
-actualizarSump();
-actualizarMaterialResumen();
-});
-}
-});
-/* =========================================================
-   VOLUMEN DEL SUM P
-========================================================= */
-function volumenSump(){
-const largo=Number(document.getElementById("sumpLargo").value)||0;
-const ancho=Number(document.getElementById("sumpAncho").value)||0;
-const altoAgua=Number(document.getElementById("sumpAgua").value)||0;
-if(largo>0 && ancho>0 && altoAgua>0){
-return largo*ancho*altoAgua/1000;
-}
-return Number(document.getElementById("sumpLitros").value)||0;
-}
-/* =========================================================
-   VOLUMEN BRUTO DEL SUM P
-========================================================= */
-function volumenSumpBruto(){
-const largo=Number(document.getElementById("sumpLargo").value)||0;
-const ancho=Number(document.getElementById("sumpAncho").value)||0;
-const alto=Number(document.getElementById("sumpAlto").value)||0;
-if(largo>0 && ancho>0 && alto>0){
-return largo*ancho*alto/1000;
-}
-return 0;
-}
-/* =========================================================
-   VOLUMEN TOTAL DEL SISTEMA
-========================================================= */
-function volumenSistema(){
-const acuario=
-Number(document.getElementById("litros").value)||0;
-const sump=
-sumpActivo ? volumenSump() : 0;
-const total=
-Number(document.getElementById("totalLitros").value)||0;
-return total>0 ? total : acuario+sump;
-}
-/* =========================================================
-   ACTUALIZAR RESUMEN
-========================================================= */
-function actualizarResumen(){
-const acuario=
-Number(document.getElementById("litros").value)||0;
-const sump=
-sumpActivo ? volumenSump() : 0;
-const sistema=
-volumenSistema();
-const minimo=
-Math.round(sistema*4);
-const maximo=
-Math.round(sistema*6);
-document.getElementById("resLitros").textContent=
-acuario.toLocaleString("es-ES")+" L";
-document.getElementById("resSump").textContent=
-sump.toLocaleString("es-ES",{
-maximumFractionDigits:1
-})+" L";
-document.getElementById("resSistema").textContent=
-sistema.toLocaleString("es-ES",{
-maximumFractionDigits:1
-})+" L";
-document.getElementById("resCaudal").textContent=
-minimo.toLocaleString("es-ES")+
-"–"+
-maximo.toLocaleString("es-ES")+
-" L/h";
-actualizarSump();
-}
-/* =========================================================
-   MOSTRAR INFORMACIÓN DEL SUM P
-========================================================= */
-function actualizarSump(){
-const bruto=volumenSumpBruto();
-const agua=volumenSump();
-const resultado=
-document.getElementById("sumpResultado");
-if(bruto>0){
-const diferencia=Math.max(bruto-agua,0);
-resultado.innerHTML=`
-<div class="result ok">
-<b>📐 Volumen bruto del sump:</b>
-${bruto.toFixed(1)} L
-<br><br>
-<b>💧 Agua real calculada:</b>
-${agua.toFixed(1)} L
-<br><br>
-<b>📦 Volumen sin agua:</b>
-${diferencia.toFixed(1)} L
-</div>
-`;
-}else{
-resultado.innerHTML=`
-<div class="result warn">
-Introduce largo, ancho, altura total y altura del agua para calcular automáticamente el volumen del sump.
-</div>
-`;
-}
-}
-/* =========================================================
-   ACTIVAR / DESACTIVAR SUM P
-========================================================= */
-function toggleSump(){
-sumpActivo=!sumpActivo;
-document.getElementById("sumpConfiguracion").style.display=
-sumpActivo ? "block" : "none";
-actualizarResumen();
-}
-/* =========================================================
-   CREAR CÁMARA
-========================================================= */
-function agregarCamara(){
-camaras.push({
-nombre:"Cámara "+(camaras.length+1),
-largo:"",
-ancho:"",
-alto:"",
-materiales:[]
-});
-renderCamaras();
-}
-/* =========================================================
-   ELIMINAR CÁMARA
-========================================================= */
-function eliminarCamara(index){
-if(camaras.length===1){
-camaras[0].materiales=[];
-renderCamaras();
-return;
-}
-camaras.splice(index,1);
-renderCamaras();
-}
-/* =========================================================
-   RENDER CÁMARAS
-========================================================= */
-function renderCamaras(){
-const contenedor=
-document.getElementById("camaraList");
-contenedor.innerHTML="";
-camaras.forEach((camara,index)=>{
-const div=document.createElement("div");
-div.className="subcard";
-div.innerHTML=`
-<div class="section-title">
-<h3>🧩 ${camara.nombre}</h3>
-<button
-class="small danger"
-onclick="eliminarCamara(${index})">
-Eliminar
-</button>
-</div>
-<div class="grid">
-<div>
-<label>Nombre de la cámara</label>
+
+
+<!-- PLANTAS -->
+<section id="plantas" class="section">
+
+<h2>🌿 Base de datos de plantas</h2>
+
+<div class="card">
 <input
-value="${camara.nombre}"
-oninput="cambiarCamara(${index},'nombre',this.value)">
+id="plantSearch"
+placeholder="🔍 Buscar planta..."
+oninput="renderPlants()">
 </div>
+
+<div id="plantList" class="grid"></div>
+
+</section>
+
+
+<!-- ACUARIOS -->
+<section id="acuarios" class="section">
+
+<h2>🏠 Mis acuarios</h2>
+
+<div class="card">
+
+<h3>➕ Crear acuario</h3>
+
+<div class="grid">
+
+<div>
+<label>Nombre</label>
+<input id="tankName" placeholder="Ej: Acuario salón">
+</div>
+
+<div>
+<label>Litros</label>
+<input id="tankLiters" type="number" min="1" placeholder="Ej: 450">
+</div>
+
 <div>
 <label>Largo (cm)</label>
-<input
-type="number"
-min="0"
-value="${camara.largo}"
-oninput="cambiarCamara(${index},'largo',this.value)">
+<input id="tankLength" type="number" min="1">
 </div>
+
 <div>
 <label>Ancho (cm)</label>
-<input
-type="number"
-min="0"
-value="${camara.ancho}"
-oninput="cambiarCamara(${index},'ancho',this.value)">
+<input id="tankWidth" type="number" min="1">
 </div>
+
 <div>
-<label>Altura (cm)</label>
-<input
-type="number"
-min="0"
-value="${camara.alto}"
-oninput="cambiarCamara(${index},'alto',this.value)">
+<label>Alto (cm)</label>
+<input id="tankHeight" type="number" min="1">
 </div>
+
 </div>
-<div id="materiales-${index}"></div>
-<div style="margin-top:10px">
-<button
-class="small"
-onclick="agregarMaterial(${index})">
-＋ Añadir material filtrante
+
+<br>
+
+<button class="btn green" onclick="addTank()">
+＋ Guardar acuario
 </button>
+
 </div>
-<div
-id="camaraResultado-${index}"
-class="camera-result">
+
+<div id="tankList"></div>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =========================
+   BASE DE DATOS PECES
+========================= */
+
+const fish=[
+
+{
+name:"Neón",
+latin:"Paracheirodon innesi",
+temp:"20–26 °C",
+ph:"5,0–7,5",
+size:"4 cm",
+min:"80 L",
+group:"8+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Borrachito",
+latin:"Hemigrammus rhodostomus",
+temp:"24–28 °C",
+ph:"5,0–7,0",
+size:"5 cm",
+min:"100 L",
+group:"8+",
+zone:"Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Corydoras panda",
+latin:"Corydoras panda",
+temp:"22–26 °C",
+ph:"6,0–7,5",
+size:"5 cm",
+min:"80 L",
+group:"6+",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Escalar",
+latin:"Pterophyllum scalare",
+temp:"24–30 °C",
+ph:"6,0–7,5",
+size:"15 cm",
+min:"250 L",
+group:"4+",
+zone:"Media/Superior",
+difficulty:"Media"
+},
+
+{
+name:"Ramirezi",
+latin:"Mikrogeophagus ramirezi",
+temp:"26–30 °C",
+ph:"5,0–7,0",
+size:"6 cm",
+min:"60 L",
+group:"Pareja",
+zone:"Fondo/Media",
+difficulty:"Media"
+},
+
+{
+name:"Ramirezi boliviano",
+latin:"Mikrogeophagus altispinosus",
+temp:"24–28 °C",
+ph:"6,0–7,5",
+size:"8 cm",
+min:"100 L",
+group:"Pareja",
+zone:"Fondo/Media",
+difficulty:"Fácil"
+},
+
+{
+name:"Ancistrus",
+latin:"Ancistrus sp.",
+temp:"23–28 °C",
+ph:"6,0–7,5",
+size:"12–15 cm",
+min:"100 L",
+group:"1–2",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Otocinclus",
+latin:"Otocinclus sp.",
+temp:"22–27 °C",
+ph:"5,5–7,5",
+size:"4–5 cm",
+min:"60 L",
+group:"6+",
+zone:"Fondo",
+difficulty:"Media"
+},
+
+{
+name:"Neritina",
+latin:"Neritina sp.",
+temp:"22–28 °C",
+ph:"7,0–8,5",
+size:"2–3 cm",
+min:"20 L",
+group:"1+",
+zone:"Superficial",
+difficulty:"Fácil"
+}
+
+];
+
+
+/* =========================
+   BASE DE DATOS PLANTAS
+========================= */
+
+const plants=[
+
+{
+name:"Anubias nana",
+latin:"Anubias barteri var. nana",
+light:"Baja–media",
+co2:"No necesario",
+size:"5–15 cm",
+zone:"Primer plano/medio",
+difficulty:"Fácil"
+},
+
+{
+name:"Microsorum pteropus",
+latin:"Microsorum pteropus",
+light:"Baja–media",
+co2:"No necesario",
+size:"15–30 cm",
+zone:"Medio/fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Vallisneria",
+latin:"Vallisneria spiralis",
+light:"Media",
+co2:"Opcional",
+size:"30–60 cm",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Echinodorus amazonicus",
+latin:"Echinodorus grisebachii",
+light:"Media–alta",
+co2:"Recomendado",
+size:"30–50 cm",
+zone:"Fondo",
+difficulty:"Media"
+},
+
+{
+name:"Cryptocoryne wendtii",
+latin:"Cryptocoryne wendtii",
+light:"Baja–media",
+co2:"Opcional",
+size:"10–25 cm",
+zone:"Primer plano/medio",
+difficulty:"Fácil"
+},
+
+{
+name:"Hygrophila polysperma",
+latin:"Hygrophila polysperma",
+light:"Media",
+co2:"Opcional",
+size:"20–50 cm",
+zone:"Fondo",
+difficulty:"Fácil"
+},
+
+{
+name:"Limnobium laevigatum",
+latin:"Limnobium laevigatum",
+light:"Media",
+co2:"No necesario",
+size:"Flotante",
+zone:"Superficie",
+difficulty:"Fácil"
+}
+
+];
+
+
+/* =========================
+   DATOS GUARDADOS
+========================= */
+
+let tanks=loadTanks();
+
+
+function loadTanks(){
+
+try{
+
+return JSON.parse(
+localStorage.getItem("aquacontrol_tanks") || "[]"
+);
+
+}catch(e){
+
+return [];
+
+}
+
+}
+
+
+function saveTanks(){
+
+localStorage.setItem(
+"aquacontrol_tanks",
+JSON.stringify(tanks)
+);
+
+}
+
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+function showSection(id,btn){
+
+document
+.querySelectorAll(".section")
+.forEach(x=>x.classList.remove("active"));
+
+document
+.getElementById(id)
+.classList.add("active");
+
+document
+.querySelectorAll("nav button")
+.forEach(x=>x.classList.remove("active"));
+
+btn.classList.add("active");
+
+}
+
+
+/* =========================
+   PECES
+========================= */
+
+function renderFish(){
+
+const input=document.getElementById("fishSearch");
+
+const q=(input.value || "").toLowerCase();
+
+const results=fish.filter(x=>
+(x.name+" "+x.latin)
+.toLowerCase()
+.includes(q)
+);
+
+document.getElementById("fishList").innerHTML=
+
+results.map(x=>`
+
+<div class="item">
+
+<h3>🐟 ${x.name}</h3>
+
+<div class="latin">${x.latin}</div>
+
+<p>
+
+<span class="badge">🌡 ${x.temp}</span>
+
+<span class="badge">pH ${x.ph}</span>
+
+<span class="badge">📏 ${x.size}</span>
+
+</p>
+
+<div class="small">
+
+Mínimo: ${x.min}<br>
+Grupo: ${x.group}<br>
+Zona: ${x.zone}<br>
+Dificultad: ${x.difficulty}
+
 </div>
-`;
-contenedor.appendChild(div);
-renderMateriales(index);
-actualizarVolumenCamara(index);
-});
-actualizarMaterialResumen();
-}
-/* =========================================================
-   CAMBIAR DATOS DE CÁMARA
-========================================================= */
-function cambiarCamara(index,campo,valor){
-camaras[index][campo]=valor;
-actualizarVolumenCamara(index);
-actualizarMaterialResumen();
-}
-/* =========================================================
-   VOLUMEN DE CÁMARA
-========================================================= */
-function volumenCamara(index){
-const c=camaras[index];
-const largo=Number(c.largo)||0;
-const ancho=Number(c.ancho)||0;
-const alto=Number(c.alto)||0;
-if(!largo||!ancho||!alto)return 0;
-return largo*ancho*alto/1000;
-}
-/* =========================================================
-   ACTUALIZAR VOLUMEN CÁMARA
-========================================================= */
-function actualizarVolumenCamara(index){
-const volumen=volumenCamara(index);
-const elemento=
-document.getElementById("camaraResultado-"+index);
-if(elemento){
-elemento.innerHTML=volumen>0
-?
-"Volumen de la cámara: <b>"+volumen.toFixed(1)+" L</b>"
-:
-"Introduce las medidas para calcular el volumen.";
-}
-}
-/* =========================================================
-   AÑADIR MATERIAL
-========================================================= */
-function agregarMaterial(camaraIndex){
-camaras[camaraIndex].materiales.push({
-marca:"",
-producto:"",
-tipo:"Biológico",
-litros:0
-});
-renderCamaras();
-}
-/* =========================================================
-   ELIMINAR MATERIAL
-========================================================= */
-function eliminarMaterial(camaraIndex,materialIndex){
-camaras[camaraIndex].materiales.splice(materialIndex,1);
-renderCamaras();
-}
-/* =========================================================
-   CAMBIAR MATERIAL
-========================================================= */
-function cambiarMaterial(camaraIndex,materialIndex,campo,valor){
-camaras[camaraIndex].materiales[materialIndex][campo]=valor;
-actualizarMaterialResumen();
-}
-/* =========================================================
-   RENDER MATERIALES
-========================================================= */
-function renderMateriales(camaraIndex){
-const contenedor=
-document.getElementById("materiales-"+camaraIndex);
-const materiales=
-camaras[camaraIndex].materiales;
-if(!materiales.length){
-contenedor.innerHTML=`
-<div class="empty">
-No hay materiales añadidos a esta cámara.
+
 </div>
-`;
+
+`).join("")
+
+||
+
+'<div class="empty">No se encontraron peces.</div>';
+
+}
+
+
+/* =========================
+   PLANTAS
+========================= */
+
+function renderPlants(){
+
+const input=document.getElementById("plantSearch");
+
+const q=(input.value || "").toLowerCase();
+
+const results=plants.filter(x=>
+(x.name+" "+x.latin)
+.toLowerCase()
+.includes(q)
+);
+
+document.getElementById("plantList").innerHTML=
+
+results.map(x=>`
+
+<div class="item">
+
+<h3>🌿 ${x.name}</h3>
+
+<div class="latin">${x.latin}</div>
+
+<p>
+
+<span class="badge">
+💡 ${x.light}
+</span>
+
+<span class="badge">
+CO₂: ${x.co2}
+</span>
+
+</p>
+
+<div class="small">
+
+Altura: ${x.size}<br>
+Posición: ${x.zone}<br>
+Dificultad: ${x.difficulty}
+
+</div>
+
+</div>
+
+`).join("")
+
+||
+
+'<div class="empty">No se encontraron plantas.</div>';
+
+}
+
+
+/* =========================
+   CREAR ACUARIO
+========================= */
+
+function addTank(){
+
+const name=document
+.getElementById("tankName")
+.value
+.trim();
+
+const liters=Number(
+document.getElementById("tankLiters").value
+);
+
+const length=Number(
+document.getElementById("tankLength").value
+);
+
+const width=Number(
+document.getElementById("tankWidth").value
+);
+
+const height=Number(
+document.getElementById("tankHeight").value
+);
+
+
+if(!name || !liters){
+
+alert("Introduce al menos el nombre y los litros.");
+
 return;
+
 }
-contenedor.innerHTML="";
-materiales.forEach((material,index)=>{
-const div=document.createElement("div");
-div.className="material";
-div.innerHTML=`
-<div class="material-header">
-<b>Material ${index+1}</b>
+
+
+const tank={
+
+id:Date.now(),
+
+name:name,
+
+liters:liters,
+
+length:length,
+
+width:width,
+
+height:height,
+
+filter:{
+
+type:"",
+
+brand:"",
+
+model:"",
+
+flow:0,
+
+materials:[]
+
+},
+
+created:new Date().toISOString()
+
+};
+
+
+tanks.push(tank);
+
+saveTanks();
+
+document.getElementById("tankName").value="";
+document.getElementById("tankLiters").value="";
+document.getElementById("tankLength").value="";
+document.getElementById("tankWidth").value="";
+document.getElementById("tankHeight").value="";
+
+renderAll();
+
+}
+
+
+/* =========================
+   ELIMINAR ACUARIO
+========================= */
+
+function deleteTank(id){
+
+if(!confirm("¿Eliminar este acuario?")) return;
+
+tanks=tanks.filter(x=>x.id!==id);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================
+   FILTRACIÓN
+========================= */
+
+function saveFilter(id){
+
+const tank=tanks.find(x=>x.id===id);
+
+if(!tank) return;
+
+
+tank.filter.type=
+document.getElementById("filterType_"+id).value;
+
+tank.filter.brand=
+document.getElementById("filterBrand_"+id).value;
+
+tank.filter.model=
+document.getElementById("filterModel_"+id).value;
+
+tank.filter.flow=
+Number(document.getElementById("filterFlow_"+id).value) || 0;
+
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================
+   RECOMENDACIÓN CAUDAL
+========================= */
+
+function recommendedFlow(liters){
+
+if(!liters) return 0;
+
+return Math.round(liters*5);
+
+}
+
+
+function flowMessage(tank){
+
+const recommended=recommendedFlow(tank.liters);
+
+const installed=Number(tank.filter.flow)||0;
+
+
+if(!installed){
+
+return `
+<div class="warning">
+⚠️ Introduce el caudal de tu filtro para comprobarlo.
+<br>
+Caudal recomendado aproximado:
+<strong>${recommended} L/h</strong>
+</div>
+`;
+
+}
+
+
+if(installed<recommended){
+
+return `
+<div class="danger">
+❌ El caudal indicado es inferior al recomendado.
+<br>
+Instalado: <strong>${installed} L/h</strong>
+<br>
+Recomendado: <strong>${recommended} L/h</strong>
+</div>
+`;
+
+}
+
+
+return `
+<div class="good">
+✅ El caudal indicado alcanza el mínimo recomendado.
+<br>
+Instalado: <strong>${installed} L/h</strong>
+<br>
+Recomendado: <strong>${recommended} L/h</strong>
+</div>
+`;
+
+}
+
+
+/* =========================
+   AÑADIR MATERIAL
+========================= */
+
+function addMaterial(id){
+
+const tank=tanks.find(x=>x.id===id);
+
+if(!tank) return;
+
+
+const type=document
+.getElementById("matType_"+id)
+.value
+.trim();
+
+const brand=document
+.getElementById("matBrand_"+id)
+.value
+.trim();
+
+const liters=Number(
+document.getElementById("matLiters_"+id).value
+);
+
+
+if(!type || !liters){
+
+alert("Introduce el tipo de material y los litros.");
+
+return;
+
+}
+
+
+tank.filter.materials.push({
+
+id:Date.now(),
+
+type:type,
+
+brand:brand,
+
+liters:liters
+
+});
+
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================
+   ELIMINAR MATERIAL
+========================= */
+
+function deleteMaterial(tankId,materialId){
+
+const tank=tanks.find(x=>x.id===tankId);
+
+if(!tank) return;
+
+
+tank.filter.materials=
+tank.filter.materials.filter(
+x=>x.id!==materialId
+);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================
+   MATERIAL RECOMENDADO
+========================= */
+
+function recommendedBio(liters){
+
+if(!liters) return 0;
+
+return Math.max(1,Math.round(liters*0.02*10)/10);
+
+}
+
+
+/* =========================
+   RENDER ACUARIOS
+========================= */
+
+function renderTanks(){
+
+const container=
+document.getElementById("tankList");
+
+const home=
+document.getElementById("homeTanks");
+
+
+if(!tanks.length){
+
+container.innerHTML=
+'<div class="empty">Todavía no tienes acuarios guardados.</div>';
+
+home.innerHTML="";
+
+return;
+
+}
+
+
+container.innerHTML=tanks.map(tank=>{
+
+const filter=tank.filter || {
+
+type:"",
+brand:"",
+model:"",
+flow:0,
+materials:[]
+};
+
+
+if(!Array.isArray(filter.materials)){
+
+filter.materials=[];
+
+}
+
+
+const materialTotal=
+filter.materials.reduce(
+(sum,m)=>sum+(Number(m.liters)||0),
+0
+);
+
+
+const recommended=
+recommendedBio(tank.liters);
+
+
+const materialsHtml=
+filter.materials.length
+
+?
+
+filter.materials.map(m=>`
+
+<div class="material">
+
 <button
-class="small danger"
-onclick="eliminarMaterial(${camaraIndex},${index})">
+class="btn red delete"
+onclick="deleteMaterial(${tank.id},${m.id})">
+
 Eliminar
+
 </button>
+
+<strong>${m.type}</strong>
+
+${m.brand ? " · "+m.brand : ""}
+
+<br>
+
+<span class="small">
+${m.liters} litros
+</span>
+
 </div>
-<div class="grid" style="margin-top:10px">
+
+`).join("")
+
+:
+
+'<div class="small">No hay materiales añadidos.</div>';
+
+
+return `
+
+<div class="card">
+
+<div class="row">
+
+<div style="flex:1">
+
+<h3>🏠 ${tank.name}</h3>
+
+<div class="small">
+
+${tank.liters} litros
+
+${tank.length && tank.width && tank.height
+
+? ` · ${tank.length} × ${tank.width} × ${tank.height} cm`
+
+: ""}
+
+</div>
+
+</div>
+
+<button
+class="btn red"
+onclick="deleteTank(${tank.id})">
+
+Eliminar
+
+</button>
+
+</div>
+
+
+<hr>
+
+
+<h3>🔧 Filtración</h3>
+
+
+<div class="grid">
+
 <div>
-<label>Tipo</label>
-<select
-onchange="cambiarMaterial(${camaraIndex},${index},'tipo',this.value)">
-<option ${material.tipo==="Mecánico"?"selected":""}>
-Mecánico
+
+<label>Tipo de filtro</label>
+
+<select id="filterType_${tank.id}">
+
+<option value="">Seleccionar</option>
+
+<option ${filter.type==="Sump"?"selected":""}>
+Sump
 </option>
-<option ${material.tipo==="Biológico"?"selected":""}>
-Biológico
+
+<option ${filter.type==="Externo"?"selected":""}>
+Externo
 </option>
-<option ${material.tipo==="Químico"?"selected":""}>
-Químico
+
+<option ${filter.type==="Mochila"?"selected":""}>
+Mochila
 </option>
+
+<option ${filter.type==="Cascada"?"selected":""}>
+Cascada
+</option>
+
+<option ${filter.type==="Interno"?"selected":""}>
+Interno
+</option>
+
+<option ${filter.type==="Esponja"?"selected":""}>
+Esponja
+</option>
+
+<option ${filter.type==="Otro"?"selected":""}>
+Otro
+</option>
+
 </select>
+
 </div>
+
+
 <div>
+
 <label>Marca</label>
+
 <input
-value="${material.marca}"
-placeholder="Seachem, Eheim, Sera..."
-oninput="cambiarMaterial(${camaraIndex},${index},'marca',this.value)">
+id="filterBrand_${tank.id}"
+value="${escapeHtml(filter.brand)}"
+placeholder="Ej: Eheim">
+
 </div>
+
+
 <div>
-<label>Producto</label>
+
+<label>Modelo</label>
+
 <input
-value="${material.producto}"
-placeholder="Matrix, Siporax..."
-oninput="cambiarMaterial(${camaraIndex},${index},'producto',this.value)">
+id="filterModel_${tank.id}"
+value="${escapeHtml(filter.model)}"
+placeholder="Ej: 1200XL">
+
 </div>
+
+
 <div>
-<label>Cantidad (L)</label>
+
+<label>Caudal del filtro (L/h)</label>
+
 <input
+id="filterFlow_${tank.id}"
+type="number"
+min="0"
+value="${filter.flow || ""}"
+placeholder="Ej: 2000">
+
+</div>
+
+</div>
+
+
+<br>
+
+<button
+class="btn"
+onclick="saveFilter(${tank.id})">
+
+💾 Guardar filtración
+
+</button>
+
+
+<div style="margin-top:14px">
+
+${flowMessage(tank)}
+
+</div>
+
+
+<hr>
+
+
+<h3>🧱 Material filtrante biológico</h3>
+
+<p class="small">
+
+Para ${tank.liters} litros, como referencia inicial,
+AquaControl calcula aproximadamente
+<strong>${recommended} L</strong> de material biológico.
+La cantidad real depende del material y de la carga biológica.
+
+</p>
+
+
+<div class="grid">
+
+<div>
+
+<label>Tipo de material</label>
+
+<input
+id="matType_${tank.id}"
+placeholder="Ej: Canutillos, Matrix, Siporax">
+
+</div>
+
+
+<div>
+
+<label>Marca</label>
+
+<input
+id="matBrand_${tank.id}"
+placeholder="Ej: Seachem">
+
+</div>
+
+
+<div>
+
+<label>Cantidad (litros)</label>
+
+<input
+id="matLiters_${tank.id}"
 type="number"
 min="0"
 step="0.1"
-value="${material.litros}"
-oninput="cambiarMaterial(${camaraIndex},${index},'litros',this.value)">
+placeholder="Ej: 5">
+
 </div>
+
 </div>
-`;
-contenedor.appendChild(div);
-});
-}
-/* =========================================================
-   RESUMEN DE MATERIALES
-========================================================= */
-function obtenerMateriales(){
-let todos=[];
-camaras.forEach(camara=>{
-camara.materiales.forEach(material=>{
-todos.push(material);
-});
-});
-return todos;
-}
-function actualizarMaterialResumen(){
-const materiales=
-obtenerMateriales();
-let mecanico=0;
-let biologico=0;
-let quimico=0;
-materiales.forEach(m=>{
-const litros=
-Number(m.litros)||0;
-if(m.tipo==="Mecánico")mecanico+=litros;
-if(m.tipo==="Biológico")biologico+=litros;
-if(m.tipo==="Químico")quimico+=litros;
-});
-const total=mecanico+biologico+quimico;
-document.getElementById("materialResumen").innerHTML=`
-<div class="grid">
-<div>
-<span class="muted">🧽 Mecánico</span>
-<div class="big">${mecanico.toFixed(1)} L</div>
-</div>
-<div>
-<span class="muted">🦠 Biológico</span>
-<div class="big">${biologico.toFixed(1)} L</div>
-</div>
-<div>
-<span class="muted">🧪 Químico</span>
-<div class="big">${quimico.toFixed(1)} L</div>
-</div>
-<div>
-<span class="muted">📦 Total</span>
-<div class="big">${total.toFixed(1)} L</div>
-</div>
-</div>
-`;
-calcularBio();
-}
-/* =========================================================
-   CALCULAR FILTRACIÓN
-========================================================= */
-function calcular(){
-const volumen=
-volumenSistema();
-const caudalReal=
-Number(document.getElementById("real").value)||
-Number(document.getElementById("caudal").value)||
-0;
-const minimo=
-volumen*4;
-const maximo=
-volumen*6;
-const renovacion=
-volumen>0
-?
-caudalReal/volumen
-:
-0;
-let clase;
-let mensaje;
-if(!caudalReal){
-clase="warn";
-mensaje=
-"Introduce el caudal del filtro para comprobarlo.";
-}else if(caudalReal<minimo){
-clase="bad";
-mensaje=
-"🔴 El caudal es bajo para este volumen de agua.";
-}else if(caudalReal>maximo){
-clase="warn";
-mensaje=
-"🟡 El caudal está por encima del rango configurado.";
-}else{
-clase="ok";
-mensaje=
-"🟢 El caudal está dentro del rango configurado.";
-}
-document.getElementById("filtroResultado").innerHTML=
-`
-<div class="result ${clase}">
-<b>Volumen total del sistema:</b>
-${volumen.toLocaleString("es-ES")} L
-<br><br>
-<b>Caudal recomendado:</b>
-${Math.round(minimo).toLocaleString("es-ES")}
-–
-${Math.round(maximo).toLocaleString("es-ES")} L/h
-<br><br>
-<b>Caudal introducido:</b>
-${caudalReal.toLocaleString("es-ES")} L/h
-<br><br>
-<b>Renovación:</b>
-${renovacion.toFixed(1)} ×/hora
-<br><br>
-${mensaje}
-</div>
-`;
-}
-/* =========================================================
-   MATERIAL BIOLOGICO
-========================================================= */
-function calcularBio(){
-const resultado=
-document.getElementById("bioResultado");
-if(!resultado)return;
-const volumen=
-volumenSistema();
-const dosis=
-Number(document.getElementById("bioDosis").value)||0;
-const materiales=
-obtenerMateriales();
-let instalado=
-0;
-materiales.forEach(m=>{
-if(m.tipo==="Biológico"){
-instalado+=Number(m.litros)||0;
-}
-});
-const recomendado=
-volumen*dosis/200;
-const porcentaje=
-recomendado>0
-?
-instalado/recomendado*100
-:
-0;
-let clase="warn";
-let mensaje="🟡 Añade material biológico o aumenta la cantidad.";
-if(instalado>=recomendado){
-clase="ok";
-mensaje=
-"🟢 El material biológico instalado alcanza la dosis configurada.";
-}
-resultado.innerHTML=
-`
-<div class="result ${clase}">
-<b>Volumen considerado:</b>
-${volumen.toLocaleString("es-ES")} L
-<br><br>
-<b>Material biológico recomendado:</b>
-${recomendado.toFixed(2)} L
-<br><br>
-<b>Material biológico instalado:</b>
-${instalado.toFixed(2)} L
-<br><br>
-<b>Relación instalado/recomendado:</b>
-${porcentaje.toFixed(0)} %
-<br><br>
-${mensaje}
-</div>
-`;
-}
-/* =========================================================
-   BUSCADOR DE PECES
-========================================================= */
-function renderFish(){
-const texto=
-(document.getElementById("buscarPez").value||"")
-.toLowerCase();
-const resultados=
-peces.filter(pez=>
-Object
-.values(pez)
-.join(" ")
-.toLowerCase()
-.includes(texto)
-);
-document.getElementById("fishList").innerHTML=
-resultados.length
-?
-resultados.map(pez=>`
-<div class="item">
-<b>${pez.common}</b>
-<span class="muted">
-${pez.scientific}
-</span>
+
+
 <br>
-<span class="pill">
-📏 ${pez.size} cm
-</span>
-<span class="pill">
-🌡 ${pez.tmin}–${pez.tmax} °C
-</span>
-<span class="pill">
-pH ${pez.phmin}–${pez.phmax}
-</span>
-<span class="pill">
-📍 ${pez.zone}
-</span>
-<span class="pill">
-⭐ ${pez.difficulty}
-</span>
+
+<button
+class="btn green"
+onclick="addMaterial(${tank.id})">
+
+＋ Añadir material filtrante
+
+</button>
+
+
+<div style="margin-top:12px">
+
+<strong>
+Total material biológico:
+${materialTotal.toFixed(1)} L
+</strong>
+
 </div>
-`).join("")
-:
-`
-<div class="result warn">
-No se encontraron peces.
+
+
+${materialsHtml}
+
 </div>
+
 `;
-}
-/* =========================================================
-   BUSCADOR DE PLANTAS
-========================================================= */
-function renderPlants(){
-const texto=
-(document.getElementById("buscarPlanta").value||"")
-.toLowerCase();
-const resultados=
-plantas.filter(planta=>
-Object
-.values(planta)
-.join(" ")
-.toLowerCase()
-.includes(texto)
-);
-document.getElementById("plantList").innerHTML=
-resultados.length
-?
-resultados.map(planta=>`
-<div class="item">
-<b>${planta.common}</b>
-<span class="muted">
-${planta.scientific}
-</span>
+
+}).join("");
+
+
+/* INICIO */
+
+home.innerHTML=tanks.map(t=>`
+
+<div class="card">
+
+<h3>🏠 ${t.name}</h3>
+
+<div class="small">
+${t.liters} litros
+</div>
+
 <br>
-<span class="pill">
-💡 ${planta.light}
-</span>
-<span class="pill">
-CO₂: ${planta.co2}
-</span>
-<span class="pill">
-📍 ${planta.position}
-</span>
-<span class="pill">
-📈 ${planta.growth}
-</span>
+
+${t.filter.type
+
+? `<span class="badge">🔧 ${t.filter.type}</span>`
+
+: ""}
+
+${t.filter.flow
+
+? `<span class="badge">💧 ${t.filter.flow} L/h</span>`
+
+: ""}
+
+${t.filter.materials &&
+t.filter.materials.length
+
+? `<span class="badge">
+🧱 ${t.filter.materials.length} materiales
+</span>`
+
+: ""}
+
 </div>
-`).join("")
-:
-`
-<div class="result warn">
-No se encontraron plantas.
-</div>
-`;
+
+`).join("");
+
 }
-/* =========================================================
-   INICIO
-========================================================= */
-renderCamaras();
-actualizarResumen();
-actualizarSump();
-actualizarMaterialResumen();
+
+
+/* =========================
+   ESCAPAR TEXTO
+========================= */
+
+function escapeHtml(value){
+
+return String(value || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   ACTUALIZAR CONTADORES
+========================= */
+
+function updateCounters(){
+
+document.getElementById("tankCount")
+.textContent=tanks.length;
+
+document.getElementById("fishCount")
+.textContent=fish.length;
+
+document.getElementById("plantCount")
+.textContent=plants.length;
+
+}
+
+
+/* =========================
+   RENDER GENERAL
+========================= */
+
+function renderAll(){
+
+updateCounters();
+
 renderFish();
+
 renderPlants();
+
+renderTanks();
+
+}
+
+
+/* =========================
+   INICIO
+========================= */
+
+renderAll();
+
 </script>
+
 </body>
 </html>
-<!-- AquaControl actualización -->
