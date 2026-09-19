@@ -17,19 +17,23 @@
 --orange:#e58a24;
 --border:#d7e2e7
 }
+
 *{box-sizing:border-box}
+
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 background:#f5f8fa;
 color:var(--dark)
 }
+
 header{
 background:linear-gradient(135deg,var(--blue),var(--blue2));
 color:white;
 padding:28px 18px 22px;
 border-radius:0 0 24px 24px
 }
+
 h1{margin:0 0 6px;font-size:30px}
 h2{margin-top:6px}
 header p{margin:0;opacity:.9}
@@ -45,6 +49,7 @@ top:0;
 z-index:5;
 box-shadow:0 2px 8px #0001
 }
+
 nav button{
 border:0;
 background:#edf4f7;
@@ -54,6 +59,7 @@ border-radius:20px;
 white-space:nowrap;
 font-weight:600
 }
+
 nav button.active{
 background:var(--blue);
 color:white
@@ -64,6 +70,7 @@ padding:16px;
 max-width:950px;
 margin:auto
 }
+
 .section{display:none}
 .section.active{display:block}
 
@@ -90,12 +97,6 @@ font-size:16px;
 background:white
 }
 
-input[readonly]{
-background:#f4f8fa;
-font-weight:700;
-color:#17663d
-}
-
 label{
 display:block;
 font-weight:600;
@@ -111,8 +112,10 @@ color:white;
 font-weight:700;
 cursor:pointer
 }
+
 .btn.green{background:var(--green)}
 .btn.red{background:var(--red)}
+.btn.orange{background:var(--orange)}
 
 .row{
 display:flex;
@@ -202,13 +205,26 @@ padding:14px;
 margin-top:12px
 }
 
-.sump-result{
-margin-top:12px;
-background:#e8f7ee;
-color:#17663d;
+.measurement{
+border:1px solid #dfe8ec;
+border-radius:14px;
 padding:12px;
-border-radius:12px;
-font-weight:700
+margin-top:8px;
+background:#fafcfd
+}
+
+.home-tank{
+cursor:pointer;
+transition:.2s
+}
+
+.home-tank:active{
+transform:scale(.98)
+}
+
+.tank-open{
+outline:3px solid var(--blue);
+background:#f1fbff
 }
 
 hr{
@@ -227,10 +243,10 @@ margin:18px 0
 </header>
 
 <nav>
-<button class="active" onclick="showSection('inicio',this)">Inicio</button>
-<button onclick="showSection('peces',this)">🐟 Peces</button>
-<button onclick="showSection('plantas',this)">🌿 Plantas</button>
-<button onclick="showSection('acuarios',this)">🏠 Nuevo acuario</button>
+<button id="navInicio" class="active" onclick="showSection('inicio',this)">Inicio</button>
+<button id="navPeces" onclick="showSection('peces',this)">🐟 Peces</button>
+<button id="navPlantas" onclick="showSection('plantas',this)">🌿 Plantas</button>
+<button id="navAcuarios" onclick="showSection('acuarios',this)">🏠 Nuevo acuario</button>
 </nav>
 
 <main>
@@ -262,7 +278,10 @@ margin:18px 0
 
 <div class="card">
 <h2>💾 Guardado automático</h2>
-<p>Los acuarios y sus datos se guardan automáticamente en este dispositivo.</p>
+<p>
+Los acuarios, peces, plantas, filtración, SUMP y mediciones
+se guardan automáticamente en este dispositivo.
+</p>
 </div>
 
 <div id="homeTanks"></div>
@@ -314,12 +333,12 @@ oninput="renderPlants()">
 
 <div>
 <label>Nombre</label>
-<input id="tankName" placeholder="Ej: Acuario salón">
+<input id="tankName" placeholder="Ej: Amazónico">
 </div>
 
 <div>
 <label>Litros</label>
-<input id="tankLiters" type="number" min="1" placeholder="Ej: 450">
+<input id="tankLiters" type="number" min="1" placeholder="Ej: 540">
 </div>
 
 <div>
@@ -355,268 +374,68 @@ oninput="renderPlants()">
 
 
 <script>
-
 "use strict";
 
 
-/* =========================
+/* =========================================================
    BASE DE DATOS DE PECES
-========================= */
+   ========================================================= */
 
 const fish=[
 
-{
-name:"Neón",
-latin:"Paracheirodon innesi",
-temp:"20–26 °C",
-ph:"5,0–7,5",
-size:"4 cm",
-min:"80 L",
-group:"8+",
-zone:"Media",
-difficulty:"Fácil"
-},
+{name:"Neón",latin:"Paracheirodon innesi",temp:"20–26 °C",ph:"5,0–7,5",size:"4 cm",min:"80 L",group:"8+",zone:"Media",difficulty:"Fácil"},
 
-{
-name:"Tetra cardenal",
-latin:"Paracheirodon axelrodi",
-temp:"23–28 °C",
-ph:"4,5–7,0",
-size:"4–5 cm",
-min:"100 L",
-group:"10+",
-zone:"Media",
-difficulty:"Media"
-},
+{name:"Tetra cardenal",latin:"Paracheirodon axelrodi",temp:"23–28 °C",ph:"4,5–7,0",size:"4–5 cm",min:"100 L",group:"10+",zone:"Media",difficulty:"Media"},
 
-{
-name:"Borrachito",
-latin:"Hemigrammus rhodostomus",
-temp:"24–28 °C",
-ph:"5,0–7,0",
-size:"5 cm",
-min:"100 L",
-group:"8+",
-zone:"Media",
-difficulty:"Fácil"
-},
+{name:"Borrachito",latin:"Hemigrammus rhodostomus",temp:"24–28 °C",ph:"5,0–7,0",size:"5 cm",min:"100 L",group:"8+",zone:"Media",difficulty:"Fácil"},
 
-{
-name:"Corydoras panda",
-latin:"Corydoras panda",
-temp:"22–26 °C",
-ph:"6,0–7,5",
-size:"5 cm",
-min:"80 L",
-group:"6+",
-zone:"Fondo",
-difficulty:"Fácil"
-},
+{name:"Corydoras panda",latin:"Corydoras panda",temp:"22–26 °C",ph:"6,0–7,5",size:"5 cm",min:"80 L",group:"6+",zone:"Fondo",difficulty:"Fácil"},
 
-{
-name:"Corydoras sterbai",
-latin:"Corydoras sterbai",
-temp:"24–28 °C",
-ph:"6,0–7,5",
-size:"6–7 cm",
-min:"100 L",
-group:"6+",
-zone:"Fondo",
-difficulty:"Fácil"
-},
+{name:"Corydoras sterbai",latin:"Corydoras sterbai",temp:"24–28 °C",ph:"6,0–7,5",size:"6–7 cm",min:"100 L",group:"6+",zone:"Fondo",difficulty:"Fácil"},
 
-{
-name:"Escalar",
-latin:"Pterophyllum scalare",
-temp:"24–30 °C",
-ph:"6,0–7,5",
-size:"15 cm",
-min:"250 L",
-group:"4+",
-zone:"Media/Superior",
-difficulty:"Media"
-},
+{name:"Ancistrus",latin:"Ancistrus sp.",temp:"23–28 °C",ph:"6,0–7,5",size:"12–15 cm",min:"100 L",group:"1–2",zone:"Fondo",difficulty:"Fácil"},
 
-{
-name:"Ramirezi",
-latin:"Mikrogeophagus ramirezi",
-temp:"26–30 °C",
-ph:"5,0–7,0",
-size:"6 cm",
-min:"60 L",
-group:"Pareja",
-zone:"Fondo/Media",
-difficulty:"Media"
-},
+{name:"Otocinclus",latin:"Otocinclus sp.",temp:"22–27 °C",ph:"5,5–7,5",size:"4–5 cm",min:"60 L",group:"6+",zone:"Fondo",difficulty:"Media"},
 
-{
-name:"Ramirezi boliviano",
-latin:"Mikrogeophagus altispinosus",
-temp:"24–28 °C",
-ph:"6,0–7,5",
-size:"8 cm",
-min:"100 L",
-group:"Pareja",
-zone:"Fondo/Media",
-difficulty:"Fácil"
-},
+{name:"Escalar",latin:"Pterophyllum scalare",temp:"24–30 °C",ph:"6,0–7,5",size:"15 cm",min:"250 L",group:"4+",zone:"Media/Superior",difficulty:"Media"},
 
-{
-name:"Ancistrus",
-latin:"Ancistrus sp.",
-temp:"23–28 °C",
-ph:"6,0–7,5",
-size:"12–15 cm",
-min:"100 L",
-group:"1–2",
-zone:"Fondo",
-difficulty:"Fácil"
-},
+{name:"Disco",latin:"Symphysodon spp.",temp:"27–30 °C",ph:"5,5–7,0",size:"15–20 cm",min:"300 L",group:"5+",zone:"Media",difficulty:"Alta"},
 
-{
-name:"Otocinclus",
-latin:"Otocinclus sp.",
-temp:"22–27 °C",
-ph:"5,5–7,5",
-size:"4–5 cm",
-min:"60 L",
-group:"6+",
-zone:"Fondo",
-difficulty:"Media"
-},
+{name:"Ramirezi",latin:"Mikrogeophagus ramirezi",temp:"26–30 °C",ph:"5,0–7,0",size:"6 cm",min:"60 L",group:"Pareja",zone:"Fondo/Media",difficulty:"Media"},
 
-{
-name:"Guppy",
-latin:"Poecilia reticulata",
-temp:"22–28 °C",
-ph:"6,8–7,8",
-size:"4–6 cm",
-min:"60 L",
-group:"6+",
-zone:"Media/Superior",
-difficulty:"Fácil"
-},
+{name:"Ramirezi boliviano",latin:"Mikrogeophagus altispinosus",temp:"24–28 °C",ph:"6,0–7,5",size:"8 cm",min:"100 L",group:"Pareja",zone:"Fondo/Media",difficulty:"Fácil"},
 
-{
-name:"Platy",
-latin:"Xiphophorus maculatus",
-temp:"22–28 °C",
-ph:"7,0–8,2",
-size:"5–7 cm",
-min:"60 L",
-group:"6+",
-zone:"Media",
-difficulty:"Fácil"
-},
+{name:"Guppy",latin:"Poecilia reticulata",temp:"22–28 °C",ph:"6,8–7,8",size:"4–6 cm",min:"60 L",group:"6+",zone:"Media/Superior",difficulty:"Fácil"},
 
-{
-name:"Molly",
-latin:"Poecilia sphenops",
-temp:"24–28 °C",
-ph:"7,0–8,5",
-size:"8–12 cm",
-min:"100 L",
-group:"6+",
-zone:"Media",
-difficulty:"Fácil"
-},
+{name:"Platy",latin:"Xiphophorus maculatus",temp:"22–28 °C",ph:"7,0–8,2",size:"5–7 cm",min:"60 L",group:"6+",zone:"Media",difficulty:"Fácil"},
 
-{
-name:"Betta",
-latin:"Betta splendens",
-temp:"24–30 °C",
-ph:"6,0–8,0",
-size:"6–7 cm",
-min:"20 L",
-group:"1",
-zone:"Superior",
-difficulty:"Fácil"
-},
+{name:"Molly",latin:"Poecilia sphenops",temp:"24–28 °C",ph:"7,0–8,5",size:"8–12 cm",min:"100 L",group:"6+",zone:"Media",difficulty:"Fácil"},
 
-{
-name:"Rasbora arlequín",
-latin:"Trigonostigma heteromorpha",
-temp:"23–28 °C",
-ph:"5,0–7,0",
-size:"4–5 cm",
-min:"60 L",
-group:"8+",
-zone:"Media",
-difficulty:"Fácil"
-},
+{name:"Betta",latin:"Betta splendens",temp:"24–30 °C",ph:"6,0–8,0",size:"6–7 cm",min:"20 L",group:"1",zone:"Superior",difficulty:"Fácil"},
 
-{
-name:"Cebra danio",
-latin:"Danio rerio",
-temp:"18–26 °C",
-ph:"6,5–8,0",
-size:"4–5 cm",
-min:"60 L",
-group:"8+",
-zone:"Superior",
-difficulty:"Fácil"
-},
+{name:"Rasbora arlequín",latin:"Trigonostigma heteromorpha",temp:"23–28 °C",ph:"5,0–7,0",size:"4–5 cm",min:"60 L",group:"8+",zone:"Media",difficulty:"Fácil"},
 
-{
-name:"Barbo cereza",
-latin:"Puntius titteya",
-temp:"23–27 °C",
-ph:"6,0–8,0",
-size:"5 cm",
-min:"60 L",
-group:"6+",
-zone:"Media",
-difficulty:"Fácil"
-},
+{name:"Cebra danio",latin:"Danio rerio",temp:"18–26 °C",ph:"6,5–8,0",size:"4–5 cm",min:"60 L",group:"8+",zone:"Superior",difficulty:"Fácil"},
 
-{
-name:"Colisa miel",
-latin:"Trichogaster chuna",
-temp:"24–30 °C",
-ph:"6,0–7,5",
-size:"5 cm",
-min:"60 L",
-group:"1–3",
-zone:"Superior",
-difficulty:"Media"
-},
+{name:"Barbo cereza",latin:"Puntius titteya",temp:"23–27 °C",ph:"6,0–8,0",size:"5 cm",min:"60 L",group:"6+",zone:"Media",difficulty:"Fácil"},
 
-{
-name:"Disco",
-latin:"Symphysodon spp.",
-temp:"27–30 °C",
-ph:"5,5–7,0",
-size:"15–20 cm",
-min:"300 L",
-group:"5+",
-zone:"Media",
-difficulty:"Alta"
-},
+{name:"Colisa miel",latin:"Trichogaster chuna",temp:"24–30 °C",ph:"6,0–7,5",size:"5 cm",min:"60 L",group:"1–3",zone:"Superior",difficulty:"Media"},
 
-{
-name:"Arcoíris enano",
-latin:"Melanotaenia praecox",
-temp:"23–28 °C",
-ph:"6,5–8,0",
-size:"6 cm",
-min:"100 L",
-group:"6+",
-zone:"Media",
-difficulty:"Fácil"
-}
+{name:"Arcoíris enano",latin:"Melanotaenia praecox",temp:"23–28 °C",ph:"6,5–8,0",size:"6 cm",min:"100 L",group:"6+",zone:"Media",difficulty:"Fácil"},
+
+{name:"Neritina",latin:"Neritina sp.",temp:"22–28 °C",ph:"7,0–8,5",size:"2–3 cm",min:"20 L",group:"1+",zone:"Superficial",difficulty:"Fácil"},
+
+{name:"Killifish",latin:"Aphyosemion spp.",temp:"20–25 °C",ph:"5,5–7,0",size:"4–6 cm",min:"40 L",group:"1+",zone:"Superior",difficulty:"Media"}
 
 ];
 
 
-/* Completar hasta 200 peces */
+/* Completa hasta 200 peces */
 
-while(fish.length<200){
-
-let n=fish.length+1;
-
+for(let i=fish.length+1;i<=200;i++){
 fish.push({
-name:"Pez de acuario "+n,
-latin:"Aquarium species "+n,
+name:"Pez de acuario "+i,
+latin:"Aquarium species "+i,
 temp:"22–28 °C",
 ph:"6,0–8,0",
 size:"5–10 cm",
@@ -625,161 +444,76 @@ group:"6+",
 zone:"Media",
 difficulty:"Fácil"
 });
-
 }
 
 
-/* =========================
+/* =========================================================
    BASE DE DATOS DE PLANTAS
-========================= */
+   ========================================================= */
 
 const plants=[
 
-{
-name:"Anubias nana",
-latin:"Anubias barteri var. nana",
-light:"Baja–media",
-co2:"No necesario",
-size:"5–15 cm",
-zone:"Primer plano/medio",
-difficulty:"Fácil"
-},
+{name:"Anubias nana",latin:"Anubias barteri var. nana",light:"Baja–media",co2:"No necesario",size:"5–15 cm",zone:"Primer plano/medio",difficulty:"Fácil"},
 
-{
-name:"Microsorum pteropus",
-latin:"Microsorum pteropus",
-light:"Baja–media",
-co2:"No necesario",
-size:"15–30 cm",
-zone:"Medio/fondo",
-difficulty:"Fácil"
-},
+{name:"Anubias barteri",latin:"Anubias barteri",light:"Baja–media",co2:"No necesario",size:"20–40 cm",zone:"Medio/fondo",difficulty:"Fácil"},
 
-{
-name:"Vallisneria",
-latin:"Vallisneria spiralis",
-light:"Media",
-co2:"Opcional",
-size:"30–60 cm",
-zone:"Fondo",
-difficulty:"Fácil"
-},
+{name:"Microsorum pteropus",latin:"Microsorum pteropus",light:"Baja–media",co2:"No necesario",size:"15–30 cm",zone:"Medio/fondo",difficulty:"Fácil"},
 
-{
-name:"Echinodorus amazonicus",
-latin:"Echinodorus grisebachii",
-light:"Media–alta",
-co2:"Recomendado",
-size:"30–50 cm",
-zone:"Fondo",
-difficulty:"Media"
-},
+{name:"Vallisneria",latin:"Vallisneria spiralis",light:"Media",co2:"Opcional",size:"30–60 cm",zone:"Fondo",difficulty:"Fácil"},
 
-{
-name:"Cryptocoryne wendtii",
-latin:"Cryptocoryne wendtii",
-light:"Baja–media",
-co2:"Opcional",
-size:"10–25 cm",
-zone:"Primer plano/medio",
-difficulty:"Fácil"
-},
+{name:"Echinodorus amazonicus",latin:"Echinodorus grisebachii",light:"Media–alta",co2:"Recomendado",size:"30–50 cm",zone:"Fondo",difficulty:"Media"},
 
-{
-name:"Hygrophila polysperma",
-latin:"Hygrophila polysperma",
-light:"Media",
-co2:"Opcional",
-size:"20–50 cm",
-zone:"Fondo",
-difficulty:"Fácil"
-},
+{name:"Cryptocoryne wendtii",latin:"Cryptocoryne wendtii",light:"Baja–media",co2:"Opcional",size:"10–25 cm",zone:"Primer plano/medio",difficulty:"Fácil"},
 
-{
-name:"Limnobium laevigatum",
-latin:"Limnobium laevigatum",
-light:"Media",
-co2:"No necesario",
-size:"Flotante",
-zone:"Superficie",
-difficulty:"Fácil"
-},
+{name:"Hygrophila polysperma",latin:"Hygrophila polysperma",light:"Media",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Fácil"},
 
-{
-name:"Bucephalandra",
-latin:"Bucephalandra sp.",
-light:"Baja–media",
-co2:"Opcional",
-size:"5–15 cm",
-zone:"Troncos/rocas",
-difficulty:"Fácil"
-},
+{name:"Limnobium laevigatum",latin:"Limnobium laevigatum",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"},
 
-{
-name:"Musgo de Java",
-latin:"Taxiphyllum barbieri",
-light:"Baja–media",
-co2:"Opcional",
-size:"Variable",
-zone:"Troncos/rocas",
-difficulty:"Fácil"
-},
+{name:"Bucephalandra",latin:"Bucephalandra sp.",light:"Baja–media",co2:"Opcional",size:"5–15 cm",zone:"Troncos/rocas",difficulty:"Fácil"},
 
-{
-name:"Monte Carlo",
-latin:"Micranthemum tweediei",
-light:"Media–alta",
-co2:"Recomendado",
-size:"3–5 cm",
-zone:"Primer plano",
-difficulty:"Media"
-},
+{name:"Java moss",latin:"Taxiphyllum barbieri",light:"Baja–media",co2:"Opcional",size:"Variable",zone:"Troncos/rocas",difficulty:"Fácil"},
 
-{
-name:"Rotala rotundifolia",
-latin:"Rotala rotundifolia",
-light:"Media–alta",
-co2:"Recomendado",
-size:"20–40 cm",
-zone:"Fondo",
-difficulty:"Media"
-},
+{name:"Christmas moss",latin:"Vesicularia montagnei",light:"Baja–media",co2:"Opcional",size:"Variable",zone:"Troncos/rocas",difficulty:"Fácil"},
 
-{
-name:"Limnophila sessiliflora",
-latin:"Limnophila sessiliflora",
-light:"Media",
-co2:"Opcional",
-size:"20–40 cm",
-zone:"Fondo",
-difficulty:"Fácil"
-}
+{name:"Monte Carlo",latin:"Micranthemum tweediei",light:"Media–alta",co2:"Recomendado",size:"3–5 cm",zone:"Primer plano",difficulty:"Media"},
+
+{name:"Eleocharis parvula",latin:"Eleocharis parvula",light:"Media–alta",co2:"Recomendado",size:"5–10 cm",zone:"Primer plano",difficulty:"Media"},
+
+{name:"Rotala rotundifolia",latin:"Rotala rotundifolia",light:"Media–alta",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Media"},
+
+{name:"Ludwigia repens",latin:"Ludwigia repens",light:"Media–alta",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Fácil"},
+
+{name:"Cabomba caroliniana",latin:"Cabomba caroliniana",light:"Media–alta",co2:"Opcional",size:"30–60 cm",zone:"Fondo",difficulty:"Media"},
+
+{name:"Limnophila sessiliflora",latin:"Limnophila sessiliflora",light:"Media",co2:"Opcional",size:"20–50 cm",zone:"Fondo",difficulty:"Fácil"},
+
+{name:"Sagittaria subulata",latin:"Sagittaria subulata",light:"Media",co2:"Opcional",size:"10–30 cm",zone:"Primer plano/fondo",difficulty:"Fácil"},
+
+{name:"Amazon frogbit",latin:"Limnobium laevigatum",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"},
+
+{name:"Salvinia natans",latin:"Salvinia natans",light:"Media",co2:"No necesario",size:"Flotante",zone:"Superficie",difficulty:"Fácil"}
 
 ];
 
 
-/* Completar hasta 200 plantas */
+/* Completa hasta 200 plantas */
 
-while(plants.length<200){
-
-let n=plants.length+1;
-
+for(let i=plants.length+1;i<=200;i++){
 plants.push({
-name:"Planta acuática "+n,
-latin:"Aquatic plant species "+n,
+name:"Planta acuática "+i,
+latin:"Aquatic plant species "+i,
 light:"Media",
 co2:"Opcional",
 size:"10–40 cm",
 zone:"Medio/fondo",
 difficulty:"Fácil"
 });
-
 }
 
 
-/* =========================
-   ACUARIOS
-========================= */
+/* =========================================================
+   DATOS DE LOS ACUARIOS
+   ========================================================= */
 
 let tanks=loadTanks();
 
@@ -787,15 +521,9 @@ let tanks=loadTanks();
 function loadTanks(){
 
 try{
-
-return JSON.parse(
-localStorage.getItem("aquacontrol_tanks")||"[]"
-);
-
+return JSON.parse(localStorage.getItem("aquacontrol_tanks")||"[]");
 }catch(e){
-
 return[];
-
 }
 
 }
@@ -811,32 +539,26 @@ JSON.stringify(tanks)
 }
 
 
-/* =========================
+/* =========================================================
    NAVEGACIÓN
-========================= */
+   ========================================================= */
 
 function showSection(id,btn){
 
-document
-.querySelectorAll(".section")
+document.querySelectorAll(".section")
 .forEach(x=>x.classList.remove("active"));
 
-let section=document.getElementById(id);
+const section=document.getElementById(id);
 
 if(section){
-
 section.classList.add("active");
-
 }
 
-document
-.querySelectorAll("nav button")
+document.querySelectorAll("nav button")
 .forEach(x=>x.classList.remove("active"));
 
 if(btn){
-
 btn.classList.add("active");
-
 }
 
 window.scrollTo({
@@ -845,37 +567,36 @@ behavior:"smooth"
 });
 
 if(id==="peces")renderFish();
-
 if(id==="plantas")renderPlants();
-
 if(id==="acuarios")renderTanks();
 
 }
 
 
-/* =========================
-   PECES
-========================= */
+/* =========================================================
+   BUSCADOR DE PECES
+   ========================================================= */
 
 function renderFish(){
 
-let box=document.getElementById("fishList");
+const box=document.getElementById("fishList");
 
 if(!box)return;
 
-let search=document
-.getElementById("fishSearch")
-.value
+const q=
+(document.getElementById("fishSearch").value||"")
 .toLowerCase()
 .trim();
 
-let results=fish.filter(x=>
+const results=fish.filter(x=>
 (x.name+" "+x.latin)
 .toLowerCase()
-.includes(search)
+.includes(q)
 );
 
-box.innerHTML=results.map(x=>`
+box.innerHTML=
+
+results.map(x=>`
 
 <div class="item">
 
@@ -918,36 +639,39 @@ Dificultad: ${escapeHtml(x.difficulty)}
 
 </div>
 
-`).join("") ||
+`).join("")
+
+||
 
 '<div class="empty">No se encontraron peces.</div>';
 
 }
 
 
-/* =========================
-   PLANTAS
-========================= */
+/* =========================================================
+   BUSCADOR DE PLANTAS
+   ========================================================= */
 
 function renderPlants(){
 
-let box=document.getElementById("plantList");
+const box=document.getElementById("plantList");
 
 if(!box)return;
 
-let search=document
-.getElementById("plantSearch")
-.value
+const q=
+(document.getElementById("plantSearch").value||"")
 .toLowerCase()
 .trim();
 
-let results=plants.filter(x=>
+const results=plants.filter(x=>
 (x.name+" "+x.latin)
 .toLowerCase()
-.includes(search)
+.includes(q)
 );
 
-box.innerHTML=results.map(x=>`
+box.innerHTML=
+
+results.map(x=>`
 
 <div class="item">
 
@@ -983,26 +707,82 @@ Dificultad: ${escapeHtml(x.difficulty)}
 
 </div>
 
-`).join("") ||
+`).join("")
+
+||
 
 '<div class="empty">No se encontraron plantas.</div>';
 
 }
 
 
-/* =========================
+/* =========================================================
+   DATOS INTERNOS DE CADA ACUARIO
+   ========================================================= */
+
+function ensureTankData(t){
+
+if(!Array.isArray(t.fish))
+t.fish=[];
+
+if(!Array.isArray(t.plants))
+t.plants=[];
+
+if(!Array.isArray(t.measurements))
+t.measurements=[];
+
+if(!t.filter){
+
+t.filter={
+type:"",
+brand:"",
+model:"",
+flow:0,
+materials:[],
+sump:{
+length:0,
+width:0,
+height:0,
+liters:0
+}
+};
+
+}
+
+if(!Array.isArray(t.filter.materials))
+t.filter.materials=[];
+
+if(!t.filter.sump){
+
+t.filter.sump={
+length:0,
+width:0,
+height:0,
+liters:0
+};
+
+}
+
+return t;
+
+}
+
+
+/* =========================================================
    CREAR ACUARIO
-========================= */
+   ========================================================= */
 
 function addTank(){
 
-let name=document
-.getElementById("tankName")
+const name=
+document.getElementById("tankName")
 .value
 .trim();
 
-let liters=Number(
-document.getElementById("tankLiters").value
+const liters=
+Number(
+document.getElementById("tankLiters")
+.value
 );
 
 if(!name||!liters){
@@ -1015,7 +795,7 @@ return;
 
 }
 
-let tank={
+const tank={
 
 id:Date.now(),
 
@@ -1023,37 +803,38 @@ name:name,
 
 liters:liters,
 
-length:Number(
+length:
+Number(
 document.getElementById("tankLength").value
 )||0,
 
-width:Number(
+width:
+Number(
 document.getElementById("tankWidth").value
 )||0,
 
-height:Number(
+height:
+Number(
 document.getElementById("tankHeight").value
 )||0,
 
 filter:{
-
 type:"",
 brand:"",
 model:"",
 flow:0,
-
 materials:[],
-
 sump:{
-
 length:0,
 width:0,
 height:0,
 liters:0
-
 }
+},
 
-}
+fish:[],
+plants:[],
+measurements:[]
 
 };
 
@@ -1067,26 +848,65 @@ saveTanks();
 "tankLength",
 "tankWidth",
 "tankHeight"
-].forEach(id=>{
-
-document.getElementById(id).value="";
-
-});
+].forEach(id=>
+document.getElementById(id).value=""
+);
 
 renderAll();
 
 }
 
 
-/* =========================
-   BORRAR ACUARIO
-========================= */
+/* =========================================================
+   ABRIR ACUARIO DESDE INICIO
+   ========================================================= */
+
+function openTank(id){
+
+showSection(
+"acuarios",
+document.getElementById("navAcuarios")
+);
+
+setTimeout(()=>{
+
+const el=
+document.getElementById("tankCard_"+id);
+
+if(el){
+
+el.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+el.classList.add("tank-open");
+
+setTimeout(()=>{
+el.classList.remove("tank-open");
+},1200);
+
+}
+
+},50);
+
+}
+
+
+/* =========================================================
+   ELIMINAR ACUARIO
+   ========================================================= */
 
 function deleteTank(id){
 
-if(!confirm("¿Eliminar este acuario?"))return;
+if(
+!confirm(
+"¿Eliminar este acuario?"
+)
+)return;
 
-tanks=tanks.filter(x=>x.id!==id);
+tanks=
+tanks.filter(x=>x.id!==id);
 
 saveTanks();
 
@@ -1095,98 +915,533 @@ renderAll();
 }
 
 
-/* =========================
+/* =========================================================
+   PECES DEL ACUARIO
+   ========================================================= */
+
+function fishOptions(tank){
+
+const selected=
+new Set(
+(tank.fish||[])
+.map(x=>x.name)
+);
+
+return fish.map(x=>`
+
+<option value="${escapeHtml(x.name)}">
+
+${escapeHtml(x.name)}
+${selected.has(x.name)?" ✓":""}
+
+</option>
+
+`).join("");
+
+}
+
+
+function plantOptions(tank){
+
+const selected=
+new Set(
+(tank.plants||[])
+.map(x=>x.name)
+);
+
+return plants.map(x=>`
+
+<option value="${escapeHtml(x.name)}">
+
+${escapeHtml(x.name)}
+${selected.has(x.name)?" ✓":""}
+
+</option>
+
+`).join("");
+
+}
+
+
+function filterTankSelect(id,type){
+
+const input=
+document.getElementById(
+type+"Search_"+id
+);
+
+const select=
+document.getElementById(
+type+"Select_"+id
+);
+
+if(!input||!select)return;
+
+const q=
+(input.value||"")
+.toLowerCase()
+.trim();
+
+const source=
+type==="fish"
+?fish
+:plants;
+
+const current=select.value;
+
+const results=
+source.filter(x=>
+(x.name+" "+x.latin)
+.toLowerCase()
+.includes(q)
+);
+
+select.innerHTML=
+
+'<option value="">Selecciona una especie...</option>'+
+
+results.map(x=>`
+
+<option value="${escapeHtml(x.name)}">
+
+${escapeHtml(x.name)}
+—
+${escapeHtml(x.latin)}
+
+</option>
+
+`).join("");
+
+if(
+results.some(x=>x.name===current)
+){
+select.value=current;
+}
+
+}
+
+
+/* =========================================================
+   AÑADIR PEZ
+   ========================================================= */
+
+function addTankFish(id){
+
+const tank=
+tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+ensureTankData(tank);
+
+const name=
+document.getElementById(
+"fishSelect_"+id
+).value;
+
+const qty=
+Math.max(
+1,
+Number(
+document.getElementById(
+"fishQty_"+id
+).value
+)||1
+);
+
+const item=
+fish.find(x=>x.name===name);
+
+if(!item){
+
+alert("Selecciona un pez.");
+
+return;
+
+}
+
+const existing=
+tank.fish.find(
+x=>x.name===item.name
+);
+
+if(existing){
+
+existing.quantity+=qty;
+
+}else{
+
+tank.fish.push({
+name:item.name,
+latin:item.latin,
+quantity:qty
+});
+
+}
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   ELIMINAR PEZ
+   ========================================================= */
+
+function removeTankFish(id,name){
+
+const tank=
+tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+ensureTankData(tank);
+
+tank.fish=
+tank.fish.filter(
+x=>x.name!==name
+);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   AÑADIR PLANTA
+   ========================================================= */
+
+function addTankPlant(id){
+
+const tank=
+tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+ensureTankData(tank);
+
+const name=
+document.getElementById(
+"plantSelect_"+id
+).value;
+
+const qty=
+Math.max(
+1,
+Number(
+document.getElementById(
+"plantQty_"+id
+).value
+)||1
+);
+
+const item=
+plants.find(x=>x.name===name);
+
+if(!item){
+
+alert("Selecciona una planta.");
+
+return;
+
+}
+
+const existing=
+tank.plants.find(
+x=>x.name===item.name
+);
+
+if(existing){
+
+existing.quantity+=qty;
+
+}else{
+
+tank.plants.push({
+name:item.name,
+latin:item.latin,
+quantity:qty
+});
+
+}
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   ELIMINAR PLANTA
+   ========================================================= */
+
+function removeTankPlant(id,name){
+
+const tank=
+tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+ensureTankData(tank);
+
+tank.plants=
+tank.plants.filter(
+x=>x.name!==name
+);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   MEDICIONES pH / GH / KH / TEMPERATURA
+   ========================================================= */
+
+function saveMeasurement(id){
+
+const tank=
+tanks.find(x=>x.id===id);
+
+if(!tank)return;
+
+ensureTankData(tank);
+
+const ph=
+document.getElementById(
+"ph_"+id
+).value.trim();
+
+const gh=
+document.getElementById(
+"gh_"+id
+).value.trim();
+
+const kh=
+document.getElementById(
+"kh_"+id
+).value.trim();
+
+const temp=
+document.getElementById(
+"temp_"+id
+).value.trim();
+
+if(
+ph==="" &&
+gh==="" &&
+kh==="" &&
+temp===""
+){
+
+alert(
+"Introduce al menos una medición."
+);
+
+return;
+
+}
+
+tank.measurements.unshift({
+
+id:Date.now(),
+
+date:
+new Date().toLocaleString(
+"es-ES",
+{
+dateStyle:"short",
+timeStyle:"short"
+}
+),
+
+ph:ph,
+gh:gh,
+kh:kh,
+temp:temp
+
+});
+
+tank.measurements=
+tank.measurements.slice(0,30);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   BORRAR MEDICIÓN
+   ========================================================= */
+
+function deleteMeasurement(
+tankId,
+measurementId
+){
+
+const tank=
+tanks.find(x=>x.id===tankId);
+
+if(!tank)return;
+
+ensureTankData(tank);
+
+tank.measurements=
+tank.measurements.filter(
+x=>x.id!==measurementId
+);
+
+saveTanks();
+
+renderAll();
+
+}
+
+
+/* =========================================================
+   HISTORIAL DE MEDICIONES
+   ========================================================= */
+
+function measurementHistory(tank){
+
+if(!tank.measurements.length)
+
+return `
+<div class="small">
+Todavía no hay mediciones guardadas.
+</div>
+`;
+
+return tank.measurements
+.slice(0,10)
+.map(m=>`
+
+<div class="measurement">
+
+<button
+class="btn red"
+style="float:right;padding:7px 10px"
+onclick="deleteMeasurement(${tank.id},${m.id})">
+
+Eliminar
+
+</button>
+
+<strong>
+📅 ${escapeHtml(m.date)}
+</strong>
+
+<div>
+
+<span class="badge">
+pH: ${escapeHtml(m.ph||"—")}
+</span>
+
+<span class="badge">
+GH: ${escapeHtml(m.gh||"—")} °dGH
+</span>
+
+<span class="badge">
+KH: ${escapeHtml(m.kh||"—")} °dKH
+</span>
+
+<span class="badge">
+🌡 ${escapeHtml(m.temp||"—")} °C
+</span>
+
+</div>
+
+</div>
+
+`)
+.join("");
+
+}
+
+
+/* =========================================================
    FILTRACIÓN
-========================= */
+   ========================================================= */
 
 function ensureFilter(t){
 
-if(!t.filter)t.filter={};
-
-if(!Array.isArray(t.filter.materials))
-t.filter.materials=[];
-
-if(!t.filter.sump)
-t.filter.sump={
-length:0,
-width:0,
-height:0,
-liters:0
-};
+ensureTankData(t);
 
 return t.filter;
 
 }
 
 
-/* =========================
-   GUARDAR FILTRACIÓN
-========================= */
-
 function saveFilter(id){
 
-let tank=tanks.find(x=>x.id===id);
+const tank=
+tanks.find(x=>x.id===id);
 
 if(!tank)return;
 
-let f=ensureFilter(tank);
+const f=
+ensureFilter(tank);
 
+f.type=
+document.getElementById(
+"filterType_"+id
+).value;
 
-/* FILTRO */
+f.brand=
+document.getElementById(
+"filterBrand_"+id
+).value
+.trim();
 
-let type=document.getElementById("filterType_"+id);
-let brand=document.getElementById("filterBrand_"+id);
-let model=document.getElementById("filterModel_"+id);
-let flow=document.getElementById("filterFlow_"+id);
+f.model=
+document.getElementById(
+"filterModel_"+id
+).value
+.trim();
 
-if(type)f.type=type.value;
+f.flow=
+Number(
+document.getElementById(
+"filterFlow_"+id
+).value
+)||0;
 
-if(brand)f.brand=brand.value.trim();
+f.sump.length=
+Number(
+document.getElementById(
+"sumpLength_"+id
+)?.value
+)||0;
 
-if(model)f.model=model.value.trim();
+f.sump.width=
+Number(
+document.getElementById(
+"sumpWidth_"+id
+)?.value
+)||0;
 
-if(flow)f.flow=Number(flow.value)||0;
-
-
-/* SUMP */
-
-let sl=document.getElementById("sumpLength_"+id);
-let sw=document.getElementById("sumpWidth_"+id);
-let sh=document.getElementById("sumpHeight_"+id);
-let su=document.getElementById("sumpLiters_"+id);
-
-if(sl)f.sump.length=Number(sl.value)||0;
-
-if(sw)f.sump.width=Number(sw.value)||0;
-
-if(sh)f.sump.height=Number(sh.value)||0;
-
-
-/* CALCULAR LITROS DEL SUMP */
-
-let litros=
-(
-f.sump.length*
-f.sump.width*
-f.sump.height
-)/1000;
-
-if(litros>0){
+f.sump.height=
+Number(
+document.getElementById(
+"sumpHeight_"+id
+)?.value
+)||0;
 
 f.sump.liters=
-Math.round(litros*10)/10;
-
-}else{
-
-f.sump.liters=0;
-
-}
-
-if(su){
-
-su.value=f.sump.liters||"";
-
-}
+Number(
+document.getElementById(
+"sumpLiters_"+id
+)?.value
+)||0;
 
 saveTanks();
 
@@ -1195,80 +1450,9 @@ renderAll();
 }
 
 
-/* =========================
-   ACTUALIZAR SUMP
-   GUARDADO AUTOMÁTICO
-========================= */
-
-function updateSump(id){
-
-let tank=tanks.find(x=>x.id===id);
-
-if(!tank)return;
-
-let f=ensureFilter(tank);
-
-let sl=document.getElementById("sumpLength_"+id);
-let sw=document.getElementById("sumpWidth_"+id);
-let sh=document.getElementById("sumpHeight_"+id);
-let su=document.getElementById("sumpLiters_"+id);
-
-if(!sl||!sw||!sh||!su)return;
-
-
-let largo=Number(sl.value)||0;
-let ancho=Number(sw.value)||0;
-let alto=Number(sh.value)||0;
-
-
-/* GUARDAR MEDIDAS INMEDIATAMENTE */
-
-f.sump.length=largo;
-f.sump.width=ancho;
-f.sump.height=alto;
-
-
-/* CALCULAR LITROS */
-
-let litros=
-(largo*ancho*alto)/1000;
-
-if(litros>0){
-
-litros=Math.round(litros*10)/10;
-
-}else{
-
-litros=0;
-
-}
-
-
-/* GUARDAR LITROS */
-
-f.sump.liters=litros;
-
-
-/* MOSTRAR RESULTADO */
-
-su.value=litros||"";
-
-
-/* GUARDAR EN LOCALSTORAGE */
-
-saveTanks();
-
-}
-
-
-/* =========================
-   CAUDAL RECOMENDADO
-========================= */
-
 function recommendedFlow(liters,type){
 
-let multipliers={
-
+const multipliers={
 Sump:5,
 Externo:6,
 Mochila:6,
@@ -1276,7 +1460,6 @@ Cascada:6,
 Interno:5,
 Esponja:4,
 Otro:5
-
 };
 
 return Math.round(
@@ -1287,26 +1470,23 @@ return Math.round(
 }
 
 
-/* =========================
-   MENSAJE CAUDAL
-========================= */
-
 function flowMessage(tank){
 
-let f=ensureFilter(tank);
+const f=
+ensureFilter(tank);
 
-let installed=Number(f.flow)||0;
+const installed=
+Number(f.flow)||0;
 
-let recommended=
+const recommended=
 recommendedFlow(
 tank.liters,
 f.type
 );
 
-if(!installed){
+if(!installed)
 
 return `
-
 <div class="warning">
 
 ⚠️ Introduce el caudal real del filtro.
@@ -1314,21 +1494,19 @@ return `
 <br>
 
 Referencia:
-<strong>${recommended} L/h</strong>
+<strong>
+${recommended} L/h
+</strong>
 
 </div>
-
 `;
 
-}
-
-let turnover=
+const turnover=
 installed/tank.liters;
 
-if(turnover<4){
+if(turnover<4)
 
 return `
-
 <div class="danger">
 
 ❌ Caudal bajo.
@@ -1338,44 +1516,31 @@ return `
 Instalado:
 <strong>${installed} L/h</strong>
 
-<br>
-
-Circulación:
+· Circulación:
 <strong>${turnover.toFixed(1)}×/h</strong>
 
 </div>
-
 `;
 
-}
-
-if(installed<recommended){
+if(installed<recommended)
 
 return `
-
 <div class="warning">
 
-⚠️ El caudal supera 4×/h,
-pero está por debajo de la referencia.
+⚠️ Caudal aceptable, pero por debajo de la referencia.
 
 <br>
 
 Instalado:
 <strong>${installed} L/h</strong>
 
-<br>
-
-Referencia:
+· Referencia:
 <strong>${recommended} L/h</strong>
 
 </div>
-
 `;
 
-}
-
 return `
-
 <div class="good">
 
 ✅ Caudal dentro de la referencia.
@@ -1385,48 +1550,50 @@ return `
 Instalado:
 <strong>${installed} L/h</strong>
 
-<br>
-
-Circulación:
+· Circulación:
 <strong>${turnover.toFixed(1)}×/h</strong>
 
 </div>
-
 `;
 
 }
 
 
-/* =========================
+/* =========================================================
    MATERIAL FILTRANTE
-========================= */
+   ========================================================= */
 
 function addMaterial(id){
 
-let tank=tanks.find(x=>x.id===id);
+const tank=
+tanks.find(x=>x.id===id);
 
 if(!tank)return;
 
-let f=ensureFilter(tank);
+const f=
+ensureFilter(tank);
 
-let type=document
-.getElementById("matType_"+id)
-.value
-.trim();
+const type=
+document.getElementById(
+"matType_"+id
+).value.trim();
 
-let brand=document
-.getElementById("matBrand_"+id)
-.value
-.trim();
+const brand=
+document.getElementById(
+"matBrand_"+id
+).value.trim();
 
-let liters=Number(
-document.getElementById("matLiters_"+id)
-.value
+const liters=
+Number(
+document.getElementById(
+"matLiters_"+id
+).value
 );
 
-let kind=document
-.getElementById("matKind_"+id)
-.value;
+const kind=
+document.getElementById(
+"matKind_"+id
+).value;
 
 if(!type||!liters){
 
@@ -1459,15 +1626,21 @@ renderAll();
 }
 
 
-function deleteMaterial(tankId,materialId){
+function deleteMaterial(
+tankId,
+materialId
+){
 
-let tank=tanks.find(x=>x.id===tankId);
+const tank=
+tanks.find(x=>x.id===tankId);
 
 if(!tank)return;
 
-let f=ensureFilter(tank);
+const f=
+ensureFilter(tank);
 
-f.materials=f.materials.filter(
+f.materials=
+f.materials.filter(
 x=>x.id!==materialId
 );
 
@@ -1478,17 +1651,25 @@ renderAll();
 }
 
 
-/* =========================
-   MOSTRAR ACUARIOS
-========================= */
+/* =========================================================
+   MOSTRAR TODOS LOS ACUARIOS
+   ========================================================= */
 
 function renderTanks(){
 
-let container=
-document.getElementById("tankList");
+const container=
+document.getElementById(
+"tankList"
+);
 
-let home=
-document.getElementById("homeTanks");
+const home=
+document.getElementById(
+"homeTanks"
+);
+
+tanks.forEach(
+ensureTankData
+);
 
 if(!tanks.length){
 
@@ -1502,20 +1683,30 @@ return;
 }
 
 
-container.innerHTML=tanks.map(tank=>{
+container.innerHTML=
 
-let f=ensureFilter(tank);
+tanks.map(tank=>{
 
-let total=f.materials.reduce(
-(s,m)=>s+(Number(m.liters)||0),
+const f=
+ensureFilter(tank);
+
+const total=
+f.materials.reduce(
+(s,m)=>
+s+(Number(m.liters)||0),
 0
 );
 
-let materialsHtml;
+const last=
+tank.measurements[0];
 
-if(f.materials.length){
 
-materialsHtml=f.materials.map(m=>`
+const materials=
+f.materials.length
+
+?
+
+f.materials.map(m=>`
 
 <div class="material">
 
@@ -1533,8 +1724,8 @@ ${escapeHtml(m.type)}
 </strong>
 
 ${m.brand?
-" · "+escapeHtml(m.brand):
-""}
+" · "+escapeHtml(m.brand)
+:""}
 
 <br>
 
@@ -1547,33 +1738,106 @@ ${escapeHtml(m.kind)}
 
 </div>
 
-`).join("");
+`).join("")
 
-}else{
+:
 
-materialsHtml=
 '<div class="small">No hay materiales añadidos.</div>';
 
-}
+
+const fishList=
+
+tank.fish.length
+
+?
+
+tank.fish.map(x=>`
+
+<div class="item">
+
+<button
+class="btn red"
+style="float:right;padding:7px 10px"
+onclick="removeTankFish(${tank.id},'${escapeHtml(x.name)}')">
+
+Eliminar
+
+</button>
+
+<h3>
+🐟 ${escapeHtml(x.name)}
+</h3>
+
+<div class="latin">
+${escapeHtml(x.latin)}
+</div>
+
+<div class="badge">
+Cantidad: ${x.quantity}
+</div>
+
+</div>
+
+`).join("")
+
+:
+
+'<div class="small">No has añadido peces a este acuario.</div>';
 
 
-/* =========================
-   SUMP
-========================= */
+const plantList=
 
-let sump="";
+tank.plants.length
 
-if(f.type==="Sump"){
+?
 
-sump=`
+tank.plants.map(x=>`
+
+<div class="item">
+
+<button
+class="btn red"
+style="float:right;padding:7px 10px"
+onclick="removeTankPlant(${tank.id},'${escapeHtml(x.name)}')">
+
+Eliminar
+
+</button>
+
+<h3>
+🌿 ${escapeHtml(x.name)}
+</h3>
+
+<div class="latin">
+${escapeHtml(x.latin)}
+</div>
+
+<div class="badge">
+Cantidad: ${x.quantity}
+</div>
+
+</div>
+
+`).join("")
+
+:
+
+'<div class="small">No has añadido plantas a este acuario.</div>';
+
+
+const sump=
+
+f.type==="Sump"
+
+?
+
+`
 
 <div class="sump">
 
-<h3>📐 Medidas del SUMP</h3>
-
-<p class="small">
-Introduce las medidas interiores del SUMP. Los litros se calculan automáticamente.
-</p>
+<h3>
+📐 Medidas del SUMP
+</h3>
 
 <div class="grid">
 
@@ -1584,10 +1848,8 @@ Introduce las medidas interiores del SUMP. Los litros se calculan automáticamen
 <input
 id="sumpLength_${tank.id}"
 type="number"
-min="0"
-step="0.1"
 value="${f.sump.length||""}"
-oninput="updateSump(${tank.id})">
+>
 
 </div>
 
@@ -1598,10 +1860,8 @@ oninput="updateSump(${tank.id})">
 <input
 id="sumpWidth_${tank.id}"
 type="number"
-min="0"
-step="0.1"
 value="${f.sump.width||""}"
-oninput="updateSump(${tank.id})">
+>
 
 </div>
 
@@ -1612,10 +1872,8 @@ oninput="updateSump(${tank.id})">
 <input
 id="sumpHeight_${tank.id}"
 type="number"
-min="0"
-step="0.1"
 value="${f.sump.height||""}"
-oninput="updateSump(${tank.id})">
+>
 
 </div>
 
@@ -1628,39 +1886,27 @@ id="sumpLiters_${tank.id}"
 type="number"
 step="0.1"
 value="${f.sump.liters||""}"
-readonly>
+>
 
 </div>
 
 </div>
 
-${f.sump.liters>0?`
-
-<div class="sump-result">
-
-💧 Capacidad calculada del SUMP:
-<strong>${f.sump.liters.toFixed(1)} litros</strong>
-
-<br>
-
-<span class="small">
-${f.sump.length} × ${f.sump.width} × ${f.sump.height} cm
-</span>
-
 </div>
 
-`:""}
+`
 
-</div>
+:
 
-`;
-
-}
+"";
 
 
 return `
 
-<div class="card">
+<div
+class="card tank-card"
+id="tankCard_${tank.id}"
+>
 
 <div class="row">
 
@@ -1674,15 +1920,18 @@ return `
 
 ${tank.liters} litros
 
-${tank.length&&tank.width&&tank.height?
+${
+tank.length &&
+tank.width &&
+tank.height
 
-" · "+
-tank.length+
-" × "+
-tank.width+
-" × "+
-tank.height+
-" cm":""
+?
+
+` · ${tank.length}×${tank.width}×${tank.height} cm`
+
+:
+
+""
 }
 
 </div>
@@ -1699,19 +1948,307 @@ Eliminar
 
 </div>
 
+<hr>
+
+
+<!-- PECES -->
+
+<h3>
+🐟 Peces que tienes
+</h3>
+
+<div class="grid">
+
+<div>
+
+<label>
+Buscar pez
+</label>
+
+<input
+id="fishSearch_${tank.id}"
+placeholder="Escribe para buscar..."
+oninput="filterTankSelect(${tank.id},'fish')"
+>
+
+</div>
+
+<div>
+
+<label>
+Especie
+</label>
+
+<select id="fishSelect_${tank.id}">
+
+<option value="">
+Selecciona una especie...
+</option>
+
+${fishOptions(tank)}
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Cantidad
+</label>
+
+<input
+id="fishQty_${tank.id}"
+type="number"
+min="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="btn green"
+onclick="addTankFish(${tank.id})">
+
+＋ Añadir pez
+
+</button>
+
+<div
+class="grid"
+style="margin-top:12px"
+>
+
+${fishList}
+
+</div>
+
 
 <hr>
 
 
-<h3>🔧 Filtración</h3>
+<!-- PLANTAS -->
 
+<h3>
+🌿 Plantas que tienes
+</h3>
 
 <div class="grid">
 
+<div>
+
+<label>
+Buscar planta
+</label>
+
+<input
+id="plantSearch_${tank.id}"
+placeholder="Escribe para buscar..."
+oninput="filterTankSelect(${tank.id},'plant')"
+>
+
+</div>
 
 <div>
 
-<label>Tipo de filtro</label>
+<label>
+Especie
+</label>
+
+<select id="plantSelect_${tank.id}">
+
+<option value="">
+Selecciona una planta...
+</option>
+
+${plantOptions(tank)}
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Cantidad
+</label>
+
+<input
+id="plantQty_${tank.id}"
+type="number"
+min="1"
+value="1"
+>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="btn green"
+onclick="addTankPlant(${tank.id})">
+
+＋ Añadir planta
+
+</button>
+
+<div
+class="grid"
+style="margin-top:12px"
+>
+
+${plantList}
+
+</div>
+
+
+<hr>
+
+
+<!-- MEDICIONES -->
+
+<h3>
+🧪 Mediciones del agua
+</h3>
+
+<div class="grid">
+
+<div>
+
+<label>
+pH
+</label>
+
+<input
+id="ph_${tank.id}"
+type="number"
+step="0.01"
+placeholder="Ej: 7,0"
+>
+
+</div>
+
+<div>
+
+<label>
+GH (°dGH)
+</label>
+
+<input
+id="gh_${tank.id}"
+type="number"
+step="0.1"
+placeholder="Ej: 8"
+>
+
+</div>
+
+<div>
+
+<label>
+KH (°dKH)
+</label>
+
+<input
+id="kh_${tank.id}"
+type="number"
+step="0.1"
+placeholder="Ej: 4"
+>
+
+</div>
+
+<div>
+
+<label>
+Temperatura (°C)
+</label>
+
+<input
+id="temp_${tank.id}"
+type="number"
+step="0.1"
+placeholder="Ej: 25"
+>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="btn green"
+onclick="saveMeasurement(${tank.id})">
+
+💾 Guardar medición
+
+</button>
+
+${
+last
+
+?
+
+`
+
+<div
+class="good"
+style="margin-top:12px"
+>
+
+📊 Última medición:
+
+pH
+<strong>${escapeHtml(last.ph||"—")}</strong>
+
+· GH
+<strong>${escapeHtml(last.gh||"—")}</strong>
+
+· KH
+<strong>${escapeHtml(last.kh||"—")}</strong>
+
+· 🌡
+<strong>${escapeHtml(last.temp||"—")} °C</strong>
+
+</div>
+
+`
+
+:
+
+""
+}
+
+<div style="margin-top:12px">
+
+${measurementHistory(tank)}
+
+</div>
+
+
+<hr>
+
+
+<!-- FILTRACIÓN -->
+
+<h3>
+🔧 Filtración
+</h3>
+
+<div class="grid">
+
+<div>
+
+<label>
+Tipo
+</label>
 
 <select id="filterType_${tank.id}">
 
@@ -1719,7 +2256,8 @@ Eliminar
 Seleccionar
 </option>
 
-${[
+${
+[
 "Sump",
 "Externo",
 "Mochila",
@@ -1727,74 +2265,74 @@ ${[
 "Interno",
 "Esponja",
 "Otro"
-].map(v=>`
+]
+.map(v=>
 
-<option
-value="${v}"
-${f.type===v?"selected":""}>
-
+`<option
+${f.type===v?"selected":""}
+>
 ${v}
+</option>`
 
-</option>
-
-`).join("")}
+).join("")
+}
 
 </select>
 
 </div>
 
-
 <div>
 
-<label>Marca</label>
+<label>
+Marca
+</label>
 
 <input
 id="filterBrand_${tank.id}"
-value="${escapeHtml(f.brand||"")}"
-placeholder="Ej: Eheim">
+value="${escapeHtml(f.brand)}"
+>
 
 </div>
 
-
 <div>
 
-<label>Modelo</label>
+<label>
+Modelo
+</label>
 
 <input
 id="filterModel_${tank.id}"
-value="${escapeHtml(f.model||"")}"
-placeholder="Ej: 1200XL">
+value="${escapeHtml(f.model)}"
+>
 
 </div>
 
-
 <div>
 
-<label>Caudal real L/h</label>
+<label>
+Caudal real L/h
+</label>
 
 <input
 id="filterFlow_${tank.id}"
 type="number"
 value="${f.flow||""}"
-placeholder="Ej: 2000">
+>
 
 </div>
 
-
 </div>
-
 
 <br>
 
-
 <button
 class="btn"
-onclick="saveFilter(${tank.id})">
+onclick="saveFilter(${tank.id})"
+>
 
 💾 Guardar filtración
 
 </button>
-
 
 <div style="margin-top:14px">
 
@@ -1802,69 +2340,87 @@ ${flowMessage(tank)}
 
 </div>
 
-
 ${sump}
 
 
 <hr>
 
 
-<h3>🧱 Material filtrante</h3>
+<!-- MATERIAL FILTRANTE -->
+
+<h3>
+🧱 Material filtrante
+</h3>
 
 <p class="small">
-
-Puedes añadir todos los materiales que quieras.
-
+Añade tantos materiales como quieras.
 </p>
-
 
 <div class="grid">
 
-
 <div>
 
-<label>Tipo</label>
+<label>
+Tipo
+</label>
 
 <input
 id="matType_${tank.id}"
-placeholder="Canutillos, Matrix, Siporax...">
+placeholder="Canutillos, Matrix, Siporax..."
+>
 
 </div>
 
-
 <div>
 
-<label>Marca</label>
+<label>
+Marca
+</label>
 
 <input
 id="matBrand_${tank.id}"
-placeholder="Ej: Seachem">
+placeholder="Ej: Seachem"
+>
 
 </div>
 
-
 <div>
 
-<label>Cantidad L</label>
+<label>
+Cantidad L
+</label>
 
 <input
 id="matLiters_${tank.id}"
 type="number"
-step="0.1">
+step="0.1"
+>
 
 </div>
 
-
 <div>
 
-<label>Uso</label>
+<label>
+Uso
+</label>
 
 <select id="matKind_${tank.id}">
 
-<option>Biológico</option>
-<option>Mecánico</option>
-<option>Químico</option>
-<option>Otro</option>
+<option>
+Biológico
+</option>
+
+<option>
+Mecánico
+</option>
+
+<option>
+Químico
+</option>
+
+<option>
+Otro
+</option>
 
 </select>
 
@@ -1872,18 +2428,16 @@ step="0.1">
 
 </div>
 
-
 <br>
-
 
 <button
 class="btn green"
-onclick="addMaterial(${tank.id})">
+onclick="addMaterial(${tank.id})"
+>
 
-＋ Añadir material filtrante
+＋ Añadir material
 
 </button>
-
 
 <div style="margin-top:12px">
 
@@ -1894,8 +2448,7 @@ ${total.toFixed(1)} L
 
 </div>
 
-
-${materialsHtml}
+${materials}
 
 </div>
 
@@ -1904,32 +2457,113 @@ ${materialsHtml}
 }).join("");
 
 
-home.innerHTML=tanks.map(t=>`
+/* TARJETAS DE INICIO */
 
-<div class="card">
+home.innerHTML=
 
-<h3>
+tanks.map(t=>{
+
+ensureTankData(t);
+
+const last=
+t.measurements[0];
+
+const fishQty=
+t.fish.reduce(
+(s,x)=>
+s+(Number(x.quantity)||0),
+0
+);
+
+return `
+
+<div
+class="card home-tank"
+onclick="openTank(${t.id})"
+>
+
+<div class="row">
+
+<div style="flex:1">
+
+<h2>
 🏠 ${escapeHtml(t.name)}
-</h3>
+</h2>
 
 <div class="small">
+
 ${t.liters} litros
-</div>
+
+${
+t.length&&
+t.width&&
+t.height
+
+?
+
+` · ${t.length}×${t.width}×${t.height} cm`
+
+:
+
+""
+}
 
 </div>
 
-`).join("");
+</div>
+
+<button
+class="btn"
+onclick="event.stopPropagation();openTank(${t.id})"
+>
+
+Abrir acuario
+
+</button>
+
+</div>
+
+<div style="margin-top:10px">
+
+<span class="badge">
+🐟 ${fishQty} peces
+</span>
+
+<span class="badge">
+🌿 ${t.plants.length} plantas
+</span>
+
+<span class="badge">
+
+🧪 ${
+last
+?"Última medición guardada"
+:"Sin mediciones"
+}
+
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
 
 }
 
 
-/* =========================
+/* =========================================================
    SEGURIDAD HTML
-========================= */
+   ========================================================= */
 
 function escapeHtml(value){
 
-return String(value??"")
+return String(
+value??""
+)
+
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
@@ -1939,27 +2573,30 @@ return String(value??"")
 }
 
 
-/* =========================
+/* =========================================================
    CONTADORES
-========================= */
+   ========================================================= */
 
 function updateCounters(){
 
-document.getElementById("tankCount")
-.textContent=tanks.length;
+document.getElementById(
+"tankCount"
+).textContent=tanks.length;
 
-document.getElementById("fishCount")
-.textContent=fish.length;
+document.getElementById(
+"fishCount"
+).textContent=fish.length;
 
-document.getElementById("plantCount")
-.textContent=plants.length;
+document.getElementById(
+"plantCount"
+).textContent=plants.length;
 
 }
 
 
-/* =========================
-   INICIO
-========================= */
+/* =========================================================
+   ACTUALIZAR TODO
+   ========================================================= */
 
 function renderAll(){
 
@@ -1974,9 +2611,9 @@ renderTanks();
 }
 
 
-/* =========================
-   ARRANCAR APP
-========================= */
+/* =========================================================
+   INICIO
+   ========================================================= */
 
 renderAll();
 
