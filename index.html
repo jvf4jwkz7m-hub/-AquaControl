@@ -1,106 +1,201 @@
 function visualTank(tank){
-  ensureTankData(tank); const f=ensureFilter(tank); const last=tank.measurements[0];
+  ensureTankData(tank);
+  const f=ensureFilter(tank);
+  const last=tank.measurements[0];
+
   const fishQty=tank.fish.reduce((s,x)=>s+(Number(x.quantity)||0),0);
+
   const materials=f.materials||[];
   const materialTotal=materials.reduce((s,m)=>s+(Number(m.liters)||0),0);
 
   const fishHtml=tank.fish.length
-    ? tank.fish.map(x=>'<span class="visual-chip">🐟 '+escapeHtml(x.name)+' × '+escapeHtml(x.quantity)+'</span>').join("")
+    ? tank.fish.map(x=>
+      '<span class="visual-chip">🐟 '+escapeHtml(x.name)+' × '+escapeHtml(x.quantity)+'</span>'
+    ).join("")
     : '<span class="small">No hay peces añadidos.</span>';
 
   const plantHtml=tank.plants.length
-    ? tank.plants.map(x=>'<span class="visual-chip">🌿 '+escapeHtml(x.name)+' × '+escapeHtml(x.quantity)+'</span>').join("")
+    ? tank.plants.map(x=>
+      '<span class="visual-chip">🌿 '+escapeHtml(x.name)+' × '+escapeHtml(x.quantity)+'</span>'
+    ).join("")
     : '<span class="small">No hay plantas añadidas.</span>';
 
-  const materialHtml=materials.length?materials.map(x=>
-    '<div class="item" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px">'+
-      '<div><strong>🧱 '+escapeHtml(x.brand?x.brand+' ':'')+
-      escapeHtml(x.type||'Material')+'</strong>'+
-      ((x.kind||'')?'<div class="small">'+escapeHtml(x.kind)+'</div>':'')+
-      '</div>'+
-      '<strong>'+Number(x.liters||0).toFixed(1)+' L</strong>'+
-    '</div>'
-  ).join("")
-  : '<span class="small">No hay materiales filtrantes añadidos.</span>';
+  /* Cada material aparece individualmente con sus litros */
+  const materialHtml=materials.length
+    ? materials.map(x=>
+      '<div class="item" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px">'+
+        '<div>'+
+          '<strong>🧱 '+
+          escapeHtml(x.brand?x.brand+' ':'')+
+          escapeHtml(x.type||'Material')+
+          '</strong>'+
+          '<div class="small">'+escapeHtml(x.kind||'Otro')+'</div>'+
+        '</div>'+
+        '<strong>'+escapeHtml(Number(x.liters||0).toFixed(1))+' L</strong>'+
+      '</div>'
+    ).join("")
+    : '<span class="small">No hay materiales filtrantes añadidos.</span>';
 
   const photoHtml=tank.photo
     ? '<div class="photo-box"><img src="'+tank.photo+'" alt="Foto del acuario"></div>'+
       '<div class="photo-actions"><span class="small">Foto guardada en este dispositivo.</span></div>'
     : '<div class="photo-box"><div class="photo-placeholder">📷<br>'+
       '<strong>Aún no hay una foto del acuario</strong><br>'+
-      '<span class="small">Puedes añadirla desde «✏️ Editar».</span></div></div>';
+      '<span class="small">Puedes añadirla desde «✏️ Editar».</span>'+
+      '</div></div>';
 
-  return '<div class="visual-hero"><h2>📊 '+escapeHtml(tank.name)+
-  '</h2><p>Resumen visual · Solo lectura</p><div class="visual-stats">'+
-  '<div class="visual-stat"><strong>'+escapeHtml(tank.liters)+
-  ' L</strong><span>Volumen</span></div>'+
-  '<div class="visual-stat"><strong>'+fishQty+
-  '</strong><span>Peces</span></div>'+
-  '<div class="visual-stat"><strong>'+tank.plants.length+
-  '</strong><span>Plantas</span></div></div></div>'+
+  return (
 
-  '<div class="readonly-note">👁️ Esta pestaña es solo de consulta. Para modificar datos usa «✏️ Editar».</div>'+
+    '<div class="visual-hero">'+
+      '<h2>📊 '+escapeHtml(tank.name)+'</h2>'+
+      '<p>Resumen visual · Solo lectura</p>'+
+      '<div class="visual-stats">'+
+        '<div class="visual-stat"><strong>'+escapeHtml(tank.liters)+' L</strong><span>Volumen</span></div>'+
+        '<div class="visual-stat"><strong>'+fishQty+'</strong><span>Peces</span></div>'+
+        '<div class="visual-stat"><strong>'+tank.plants.length+'</strong><span>Plantas</span></div>'+
+      '</div>'+
+    '</div>'+
 
-  '<div class="photo-card"><h3>📷 Foto del acuario</h3>'+
-  photoHtml+'</div>'+
+    '<div class="readonly-note">'+
+      '👁️ Esta pestaña es solo de consulta. Para modificar datos usa «✏️ Editar».'+
+    '</div>'+
 
-  '<div class="visual-card"><h3>📐 Datos del acuario</h3><div class="grid">'+
-    '<div class="item"><strong>'+escapeHtml(tank.liters)+
-    ' L</strong><div class="small">Volumen</div></div>'+
-    '<div class="item"><strong>'+
-    (tank.length&&tank.width&&tank.height
-      ? escapeHtml(tank.length+' × '+tank.width+' × '+tank.height+' cm')
-      : '—')+
-    '</strong><div class="small">Medidas</div></div>'+
-  '</div></div>'+
+    '<div class="photo-card">'+
+      '<h3>📷 Foto del acuario</h3>'+
+      photoHtml+
+    '</div>'+
 
-  '<div class="visual-card"><h3>🔧 Filtración</h3><div class="grid">'+
-    '<div class="item"><strong>'+escapeHtml(f.type||'—')+
-    '</strong><div class="small">Tipo</div></div>'+
-    '<div class="item"><strong>'+
-    escapeHtml(f.sump?.liters
-      ? Number(f.sump.liters).toFixed(1)+' L'
-      : f.flow
-        ? f.flow+' L/h'
-        : '—')+
-    '</strong><div class="small">'+
-    (f.type==='Sump'?'Volumen SUMP':'Caudal')+
-    '</div></div>'+
-    '<div class="item"><strong>'+escapeHtml(f.brand||'—')+
-    '</strong><div class="small">Marca</div></div>'+
-  '</div>'+
+    /* DATOS DEL ACUARIO: sin SUMP */
+    '<div class="visual-card">'+
+      '<h3>📐 Datos del acuario</h3>'+
+      '<div class="grid">'+
 
-  '<div class="small" style="margin-top:12px">Bomba/modelo: '+
-  escapeHtml(f.model||'—')+'</div>'+
+        '<div class="item">'+
+          '<strong>'+escapeHtml(tank.liters)+' L</strong>'+
+          '<div class="small">Volumen</div>'+
+        '</div>'+
 
-  '<div class="category-title" style="margin-top:14px">'+
-  '🧱 Material filtrante '+
-  '<span class="category-total">Total: '+
-  materialTotal.toFixed(1)+' L</span></div>'+
+        '<div class="item">'+
+          '<strong>'+
+          (tank.length&&tank.width&&tank.height
+            ? escapeHtml(
+                tank.length+' × '+
+                tank.width+' × '+
+                tank.height+' cm'
+              )
+            : '—')+
+          '</strong>'+
+          '<div class="small">Medidas</div>'+
+        '</div>'+
 
-  '<div class="visual-list" style="margin-top:10px">'+
-  materialHtml+'</div></div>'+
+      '</div>'+
+    '</div>'+
 
-  '<div class="visual-card"><h3>🧪 Mediciones</h3>'+
-  '<div class="metric-grid">'+
-    '<div class="metric"><strong>'+escapeHtml(last?.ph||'—')+
-    '</strong><span>pH</span></div>'+
-    '<div class="metric gh"><strong>'+escapeHtml(last?.gh||'—')+
-    '</strong><span>GH °dGH</span></div>'+
-    '<div class="metric kh"><strong>'+escapeHtml(last?.kh||'—')+
-    '</strong><span>KH °dKH</span></div>'+
-    '<div class="metric temp"><strong>'+escapeHtml(last?.temp||'—')+
-    '°</strong><span>Temperatura</span></div>'+
-  '</div>'+
+    /* FILTRACIÓN INMEDIATAMENTE DESPUÉS DE DATOS */
+    '<div class="visual-card">'+
+      '<h3>🔧 Filtración</h3>'+
 
-  '<div style="margin-top:14px"><strong>📈 Evolución de parámetros</strong>'+
-  '<div class="chart-wrap" style="margin-top:10px">'+
-  buildMeasurementChart(tank)+'</div></div></div>'+
+      '<div class="grid">'+
 
-  '<div class="visual-grid">'+
-    '<div class="visual-card"><h3>🐟 Peces ('+fishQty+
-    ')</h3><div class="visual-list">'+fishHtml+'</div></div>'+
-    '<div class="visual-card"><h3>🌿 Plantas ('+tank.plants.length+
-    ')</h3><div class="visual-list">'+plantHtml+'</div></div>'+
-  '</div>';
+        '<div class="item">'+
+          '<strong>'+escapeHtml(f.type||'—')+'</strong>'+
+          '<div class="small">Tipo</div>'+
+        '</div>'+
+
+        '<div class="item">'+
+          '<strong>'+
+          escapeHtml(
+            f.sump?.liters
+              ? Number(f.sump.liters).toFixed(1)+' L'
+              : f.flow
+                ? f.flow+' L/h'
+                : '—'
+          )+
+          '</strong>'+
+          '<div class="small">'+
+          (f.type==='Sump'?'Volumen SUMP':'Caudal')+
+          '</div>'+
+        '</div>'+
+
+        '<div class="item">'+
+          '<strong>'+escapeHtml(f.brand||'—')+'</strong>'+
+          '<div class="small">Marca</div>'+
+        '</div>'+
+
+      '</div>'+
+
+      '<div class="small" style="margin-top:12px">'+
+        'Bomba/modelo: '+escapeHtml(f.model||'—')+
+      '</div>'+
+
+      '<div class="category-title" style="margin-top:14px">'+
+        '🧱 Material filtrante '+
+        '<span class="category-total">'+
+          'Total: '+materialTotal.toFixed(1)+' L'+
+        '</span>'+
+      '</div>'+
+
+      '<div class="visual-list" style="margin-top:10px">'+
+        materialHtml+
+      '</div>'+
+
+    '</div>'+
+
+    /* MEDICIONES */
+    '<div class="visual-card">'+
+      '<h3>🧪 Mediciones</h3>'+
+
+      '<div class="metric-grid">'+
+
+        '<div class="metric">'+
+          '<strong>'+escapeHtml(last?.ph||'—')+'</strong>'+
+          '<span>pH</span>'+
+        '</div>'+
+
+        '<div class="metric gh">'+
+          '<strong>'+escapeHtml(last?.gh||'—')+'</strong>'+
+          '<span>GH °dGH</span>'+
+        '</div>'+
+
+        '<div class="metric kh">'+
+          '<strong>'+escapeHtml(last?.kh||'—')+'</strong>'+
+          '<span>KH °dKH</span>'+
+        '</div>'+
+
+        '<div class="metric temp">'+
+          '<strong>'+escapeHtml(last?.temp||'—')+'°</strong>'+
+          '<span>Temperatura</span>'+
+        '</div>'+
+
+      '</div>'+
+
+      '<div style="margin-top:14px">'+
+        '<strong>📈 Evolución de parámetros</strong>'+
+        '<div class="chart-wrap" style="margin-top:10px">'+
+          buildMeasurementChart(tank)+
+        '</div>'+
+      '</div>'+
+
+    '</div>'+
+
+    /* PECES Y PLANTAS */
+    '<div class="visual-grid">'+
+
+      '<div class="visual-card">'+
+        '<h3>🐟 Peces ('+fishQty+')</h3>'+
+        '<div class="visual-list">'+
+          fishHtml+
+        '</div>'+
+      '</div>'+
+
+      '<div class="visual-card">'+
+        '<h3>🌿 Plantas ('+tank.plants.length+')</h3>'+
+        '<div class="visual-list">'+
+          plantHtml+
+        '</div>'+
+      '</div>'+
+
+    '</div>'
+
+  );
 }
